@@ -67,6 +67,18 @@
       color: #66ccff;
     }
 
+    #markdown-container p img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    #markdown-container img {
+      width: 50% !important;
+      max-width: none;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+    }
+
     .navegador {
       background-color: #161616;
       padding-bottom: 30px;
@@ -84,28 +96,28 @@
       <div class="col-md-3">
         <label class="form-label">B-1</label>
         <select id="select1" class="form-select">
-            <option value="ninguno" selected>Selecciona o personaliza</option>
+          <option value="ninguno" selected>Organización del Estado y Administración electrónica</option>
 
         </select>
       </div>
       <div class="col-md-3">
         <label class="form-label">B-2</label>
         <select id="select2" class="form-select">
-            <option value="ninguno" selected>Selecciona o personaliza</option>
+          <option value="ninguno" selected>Selecciona o personaliza</option>
 
         </select>
       </div>
       <div class="col-md-3">
         <label class="form-label">B-3</label>
         <select id="select3" class="form-select">
-            <option value="ninguno" selected>Selecciona o personaliza</option>
+          <option value="ninguno" selected>Selecciona o personaliza</option>
 
         </select>
       </div>
       <div class="col-md-3">
         <label class="form-label">B-4</label>
         <select id="select4" class="form-select">
-            <option value="ninguno" selected>Selecciona o personaliza</option>
+          <option value="ninguno" selected>Selecciona o personaliza</option>
 
         </select>
       </div>
@@ -116,53 +128,56 @@
     </div>
   </div>
 
-<script>
-fetch('markdown_files.json')
-  .then(response => response.json())
-  .then(data => {
-    const carpetas = Object.keys(data);
+  <script>
+    fetch('markdown_files.json')
+      .then(response => response.json())
+      .then(data => {
+        const carpetas = Object.keys(data);
 
-    carpetas.forEach((carpeta, idx) => {
-      const selectId = `select${idx + 1}`;
-      const select = document.getElementById(selectId);
+        carpetas.forEach((carpeta, idx) => {
+          const selectId = `select${idx + 1}`;
+          const select = document.getElementById(selectId);
 
-      // Añade la opción inicial editable en HTML (no tocamos en JS)
-      // Las opciones dinámicas:
-      data[carpeta].forEach(archivo => {
-        const option = document.createElement('option');
-        option.value = archivo.ruta;
-        option.textContent = archivo.nombre;
-        select.appendChild(option);
-      });
+          // Añade la opción inicial editable en HTML (no tocamos en JS)
+          // Las opciones dinámicas:
+          data[carpeta].forEach(archivo => {
+            const option = document.createElement('option');
+            option.value = archivo.ruta;
+            option.textContent = archivo.nombre;
+            select.appendChild(option);
+          });
 
-      // Cuando cambie la selección
-      select.addEventListener('change', function () {
-        if (this.value === 'ninguno' || this.value === '') {
-          document.getElementById('markdown-container').innerHTML = '<p class="text-gray-500">No se ha seleccionado ningún archivo.</p>';
-          return;
-        }
-        cargarMarkdown(this.value);
-      });
-    });
-
-    function cargarMarkdown(ruta) {
-      fetch(ruta)
-        .then(r => r.text())
-        .then(md => {
-          const html = marked.parse(md);
-          document.getElementById('markdown-container').innerHTML = html;
-        })
-        .catch(err => {
-          document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar el archivo.</p>';
-          console.error(err);
+          // Cuando cambie la selección
+          select.addEventListener('change', function () {
+            if (this.value === 'ninguno' || this.value === '') {
+              document.getElementById('markdown-container').innerHTML = '<p class="text-gray-500">No se ha seleccionado ningún archivo.</p>';
+              return;
+            }
+            cargarMarkdown(this.value);
+          });
         });
-    }
-  })
-  .catch(err => {
-    console.error('Error al cargar el JSON:', err);
-    document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar la lista de archivos.</p>';
-  });
-</script>
+
+        function cargarMarkdown(ruta) {
+          fetch(ruta)
+            .then(r => r.text())
+            .then(md => {
+              const html = marked.parse(md);
+              document.getElementById('markdown-container').innerHTML = html;
+            })
+            .catch(err => {
+              document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar el archivo.</p>';
+              console.error(err);
+            });
+        }
+      })
+      .catch(err => {
+        console.error('Error al cargar el JSON:', err);
+        document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar la lista de archivos.</p>';
+      });
+
+
+
+  </script>
 
 </body>
 

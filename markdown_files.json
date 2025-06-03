@@ -119,6 +119,10 @@
   ],
   "B4": [
     {
+      "nombre": "1. Administración del Sistema operativo y software de base. Actualización, mantenimiento y reparación del sistema operativo.md",
+      "ruta": "B4\\1. Administración del Sistema operativo y software de base. Actualización, mantenimiento y reparación del sistema operativo.md"
+    },
+    {
       "nombre": "12_CODD.md",
       "ruta": "B4\\12_CODD.md"
     },
@@ -131,8 +135,8 @@
       "ruta": "B4\\IEEE_802.x.md"
     },
     {
-      "nombre": "Patrones de diseño.docx.md",
-      "ruta": "B4\\Patrones de diseño.docx.md"
+      "nombre": "Patrones de diseño.md",
+      "ruta": "B4\\Patrones de diseño.md"
     },
     {
       "nombre": "protocolos_puertos.md",
@@ -145,6 +149,10 @@
     {
       "nombre": "Sistema de Gestión de Incidencias.md",
       "ruta": "B4\\Sistema de Gestión de Incidencias.md"
+    },
+    {
+      "nombre": "Sistemas RAID.md",
+      "ruta": "B4\\Sistemas RAID.md"
     },
     {
       "nombre": "SMTP.md",
