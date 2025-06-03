@@ -1,0 +1,158 @@
+{
+  "B1": [
+    {
+      "nombre": "Agenda_2030_Objetivos.md",
+      "ruta": "B1\\Agenda_2030_Objetivos.md"
+    },
+    {
+      "nombre": "Constitucion_Española.md",
+      "ruta": "B1\\Constitucion_Española.md"
+    },
+    {
+      "nombre": "CONSTITUCIÓN ESPAÑOLA DE 1978.md",
+      "ruta": "B1\\CONSTITUCIÓN ESPAÑOLA DE 1978.md"
+    },
+    {
+      "nombre": "Contra qué se puede interponer el recurso de amparo.docx.md",
+      "ruta": "B1\\Contra qué se puede interponer el recurso de amparo.docx.md"
+    },
+    {
+      "nombre": "Decada_Digital_2030.md",
+      "ruta": "B1\\Decada_Digital_2030.md"
+    },
+    {
+      "nombre": "Normalización.docx.md",
+      "ruta": "B1\\Normalización.docx.md"
+    },
+    {
+      "nombre": "Resumen Constitución Española 1978.docx.md",
+      "ruta": "B1\\Resumen Constitución Española 1978.docx.md"
+    },
+    {
+      "nombre": "TEMA_2_CORTES_GENERALES.md",
+      "ruta": "B1\\TEMA_2_CORTES_GENERALES.md"
+    },
+    {
+      "nombre": "TEMA_3_EL_GOBIERNO.md",
+      "ruta": "B1\\TEMA_3_EL_GOBIERNO.md"
+    },
+    {
+      "nombre": "TEST TREBEP ENTERO.docx.md",
+      "ruta": "B1\\TEST TREBEP ENTERO.docx.md"
+    }
+  ],
+  "B2": [
+    {
+      "nombre": "archivos_formatos.md",
+      "ruta": "B2\\archivos_formatos.md"
+    },
+    {
+      "nombre": "BBDD_NoSQL.md",
+      "ruta": "B2\\BBDD_NoSQL.md"
+    },
+    {
+      "nombre": "CABLEDADO.md",
+      "ruta": "B2\\CABLEDADO.md"
+    },
+    {
+      "nombre": "SQL_Xuleta.md",
+      "ruta": "B2\\SQL_Xuleta.md"
+    },
+    {
+      "nombre": "WINDOWS_LINUX.md",
+      "ruta": "B2\\WINDOWS_LINUX.md"
+    }
+  ],
+  "B3": [
+    {
+      "nombre": "android.md",
+      "ruta": "B3\\android.md"
+    },
+    {
+      "nombre": "C#.md",
+      "ruta": "B3\\C#.md"
+    },
+    {
+      "nombre": "C++_basicos.md",
+      "ruta": "B3\\C++_basicos.md"
+    },
+    {
+      "nombre": "comandos_linux.md",
+      "ruta": "B3\\comandos_linux.md"
+    },
+    {
+      "nombre": "Comandos_VI.md",
+      "ruta": "B3\\Comandos_VI.md"
+    },
+    {
+      "nombre": "C_basicos.md",
+      "ruta": "B3\\C_basicos.md"
+    },
+    {
+      "nombre": "Diseño y programación orientada a objetos.docx.md",
+      "ruta": "B3\\Diseño y programación orientada a objetos.docx.md"
+    },
+    {
+      "nombre": "GOF.md",
+      "ruta": "B3\\GOF.md"
+    },
+    {
+      "nombre": "java.md",
+      "ruta": "B3\\java.md"
+    },
+    {
+      "nombre": "javax_json_stream.md",
+      "ruta": "B3\\javax_json_stream.md"
+    },
+    {
+      "nombre": "Modelo Entidad.md",
+      "ruta": "B3\\Modelo Entidad.md"
+    },
+    {
+      "nombre": "Modelo–vista–controlador.md",
+      "ruta": "B3\\Modelo–vista–controlador.md"
+    },
+    {
+      "nombre": "WCAG_2_1.md",
+      "ruta": "B3\\WCAG_2_1.md"
+    }
+  ],
+  "B4": [
+    {
+      "nombre": "12_CODD.md",
+      "ruta": "B4\\12_CODD.md"
+    },
+    {
+      "nombre": "CCN_CERT.md",
+      "ruta": "B4\\CCN_CERT.md"
+    },
+    {
+      "nombre": "IEEE_802.x.md",
+      "ruta": "B4\\IEEE_802.x.md"
+    },
+    {
+      "nombre": "Patrones de diseño.docx.md",
+      "ruta": "B4\\Patrones de diseño.docx.md"
+    },
+    {
+      "nombre": "protocolos_puertos.md",
+      "ruta": "B4\\protocolos_puertos.md"
+    },
+    {
+      "nombre": "REDES.md",
+      "ruta": "B4\\REDES.md"
+    },
+    {
+      "nombre": "Sistema de Gestión de Incidencias.md",
+      "ruta": "B4\\Sistema de Gestión de Incidencias.md"
+    },
+    {
+      "nombre": "SMTP.md",
+      "ruta": "B4\\SMTP.md"
+    },
+    {
+      "nombre": "SNMP.md",
+      "ruta": "B4\\SNMP.md"
+    }
+  ]
+}

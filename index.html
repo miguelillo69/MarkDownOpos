@@ -10,46 +10,35 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
         }
-        .folder-selectors {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .folder {
             margin-bottom: 30px;
-        }
-        .folder-selector {
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 5px;
-            background: #f5f5f5;
+            background: #f9f9f9;
         }
         select {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
         #markdown-container {
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             padding: 25px;
             border-radius: 5px;
             min-height: 400px;
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            margin-top: 20px;
         }
         h2 {
-            color: #444;
             margin-top: 0;
+            color: #333;
         }
         .loading {
             color: #666;
@@ -57,8 +46,8 @@
         }
         .error {
             color: #d32f2f;
-            padding: 10px;
             background: #ffebee;
+            padding: 10px;
             border-radius: 4px;
         }
     </style>
@@ -66,124 +55,88 @@
 <body>
 <h1>Visualizador de Markdown</h1>
 
-<div class="folder-selectors">
-    <div class="folder-selector">
-        <h2>Carpeta 1</h2>
-        <select id="folder1-select">
-            <option value="">Cargando archivos...</option>
-        </select>
-    </div>
-
-    <div class="folder-selector">
-        <h2>Carpeta 2</h2>
-        <select id="folder2-select">
-            <option value="">Cargando archivos...</option>
-        </select>
-    </div>
-
-    <div class="folder-selector">
-        <h2>Carpeta 3</h2>
-        <select id="folder3-select">
-            <option value="">Cargando archivos...</option>
-        </select>
-    </div>
-
-    <div class="folder-selector">
-        <h2>Carpeta 4</h2>
-        <select id="folder4-select">
-            <option value="">Cargando archivos...</option>
-        </select>
-    </div>
+<div id="folders-container">
+    <p class="loading">Cargando estructura de archivos...</p>
 </div>
 
 <div id="markdown-container">
-    <p class="loading">Selecciona un archivo Markdown para ver su contenido.</p>
+    <p>Selecciona un archivo para ver su contenido.</p>
 </div>
 
 <script>
-        // Configuración - ¡MODIFICA ESTO!
-        const repoConfig = {
-            username: 'tu-usuario-github',    // Cambia por tu usuario
-            repo: 'tu-repositorio',           // Cambia por tu repo
-            branch: 'main',                   // Rama principal
-            folders: ['carpeta1', 'carpeta2', 'carpeta3', 'carpeta4'] // Tus carpetas
-        };
-
-        // Proxy para evitar CORS (puedes usar tu propio proxy si lo prefieres)
-        const githubProxy = url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-
-        // Cargar archivos de una carpeta
-        async function loadFolderFiles(folderName) {
-            const apiUrl = `https://api.github.com/repos/${repoConfig.username}/${repoConfig.repo}/contents/${folderName}?ref=${repoConfig.branch}`;
-            const selectId = `${folderName}-select`;
-            const selectElement = document.getElementById(selectId);
-
-            selectElement.innerHTML = '<option value="">Cargando...</option>';
-
+        // Cargar el JSON y construir la interfaz
+        async function init() {
             try {
-                const response = await fetch(githubProxy(apiUrl));
+                const response = await fetch('markdown_files.json');
+                if (!response.ok) throw new Error("No se pudo cargar el JSON");
+
                 const data = await response.json();
-
-                // El proxy devuelve el contenido en .contents
-                const files = JSON.parse(data.contents).filter(file =>
-                    file.name.endsWith('.md') || file.name.endsWith('.markdown')
-                );
-
-                if (files.length === 0) {
-                    selectElement.innerHTML = '<option value="">No hay archivos Markdown</option>';
-                    return;
-                }
-
-                selectElement.innerHTML = '<option value="">Selecciona un archivo</option>';
-                files.forEach(file => {
-                    const option = document.createElement('option');
-                    option.value = file.path;
-                    option.textContent = file.name;
-                    selectElement.appendChild(option);
-                });
-
-                // Configurar el evento change
-                selectElement.addEventListener('change', async (e) => {
-                    if (e.target.value) {
-                        await loadMarkdownFile(e.target.value);
-                    }
-                });
-
+                buildInterface(data);
             } catch (error) {
-                console.error(`Error cargando ${folderName}:`, error);
-                selectElement.innerHTML = '<option value="">Error al cargar</option>';
-                document.getElementById('markdown-container').innerHTML =
-                    `<p class="error">Error al cargar los archivos: ${error.message}</p>`;
+                document.getElementById('folders-container').innerHTML =
+                    `<p class="error">Error al cargar la estructura: ${error.message}</p>`;
+                console.error(error);
             }
         }
 
-        // Cargar y mostrar un archivo Markdown
-        async function loadMarkdownFile(filePath) {
+        // Construir los selects a partir del JSON
+        function buildInterface(data) {
+            const container = document.getElementById('folders-container');
+            container.innerHTML = '';
+
+            for (const [folder, files] of Object.entries(data)) {
+                const folderDiv = document.createElement('div');
+                folderDiv.className = 'folder';
+
+                const title = document.createElement('h2');
+                title.textContent = `Carpeta ${folder}`;
+                folderDiv.appendChild(title);
+
+                const select = document.createElement('select');
+                select.id = `select-${folder}`;
+
+                // Opción por defecto
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Selecciona un archivo';
+                select.appendChild(defaultOption);
+
+                // Añadir archivos
+                files.forEach(file => {
+                    const option = document.createElement('option');
+                    option.value = file.ruta;
+                    option.textContent = file.nombre;
+                    select.appendChild(option);
+                });
+
+                // Evento change
+                select.addEventListener('change', function() {
+                    if (this.value) loadMarkdown(this.value);
+                });
+
+                folderDiv.appendChild(select);
+                container.appendChild(folderDiv);
+            }
+        }
+
+        // Cargar y mostrar el markdown
+        async function loadMarkdown(filePath) {
             const container = document.getElementById('markdown-container');
-            container.innerHTML = '<p class="loading">Cargando contenido...</p>';
+            container.innerHTML = '<p class="loading">Cargando archivo...</p>';
 
             try {
-                const rawUrl = `https://raw.githubusercontent.com/${repoConfig.username}/${repoConfig.repo}/${repoConfig.branch}/${filePath}`;
-                const response = await fetch(githubProxy(rawUrl));
-                const data = await response.json();
+                const response = await fetch(filePath);
+                if (!response.ok) throw new Error("Archivo no encontrado");
 
-                // El proxy devuelve el contenido en .contents
-                const markdownContent = data.contents;
-                const htmlContent = marked.parse(markdownContent);
-                container.innerHTML = htmlContent;
-
+                const markdown = await response.text();
+                container.innerHTML = marked.parse(markdown);
             } catch (error) {
-                console.error('Error cargando el archivo:', error);
                 container.innerHTML = `<p class="error">Error al cargar el archivo: ${error.message}</p>`;
             }
         }
 
-        // Inicializar - cargar todas las carpetas
-        document.addEventListener('DOMContentLoaded', () => {
-            repoConfig.folders.forEach(folder => {
-                loadFolderFiles(folder);
-            });
-        });
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
