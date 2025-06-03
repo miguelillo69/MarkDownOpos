@@ -64,11 +64,21 @@
 </div>
 
 <script>
+<<<<<<< HEAD
         // Cargar el JSON y construir la interfaz
         async function init() {
             try {
                 const response = await fetch('markdown_files.json');
                 if (!response.ok) throw new Error("No se pudo cargar el JSON");
+=======
+        // Configuración - ¡MODIFICA ESTO!
+        const repoConfig = {
+            username: 'tu-usuario-github',    // Cambia por tu usuario
+            repo: 'tu-repositorio',           // Cambia por tu repo
+            branch: 'main',                   // Rama principal
+            folders: ['B1', 'B2', 'B3', 'B4'] // Tus carpetas
+        };
+>>>>>>> e9e4acf44df5ede0148640b496eefa9f54ec4f7d
 
                 const data = await response.json();
                 buildInterface(data);
