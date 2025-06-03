@@ -4,8 +4,8 @@
 #include <stdio.h>  // Biblioteca estándar de entrada/salida
 
 int main() {
-printf("Hola, mundo!\n");  // Imprime en consola
-return 0;  // Indica que el programa terminó correctamente
+    printf("Hola, mundo!\n");  // Imprime en consola
+    return 0;  // Indica que el programa terminó correctamente
 }
 ````
 
@@ -30,11 +30,11 @@ Hola, mundo!
 #include <stdio.h>
 
 int main() {
-int numero;
-printf("Introduce un número: ");
-scanf("%d", &numero);  // Lee un número entero
-printf("El número introducido es: %d\n", numero);
-return 0;
+    int numero;
+    printf("Introduce un número: ");
+    scanf("%d", &numero);  // Lee un número entero
+    printf("El número introducido es: %d\n", numero);
+    return 0;
 }
 ````
 
@@ -46,9 +46,9 @@ El número introducido es: 5
 
 ## 4. Operadores Básicos
 ````yaml
-   Aritméticos: +, -, *, /, %
-   Relacionales: ==, !=, >, <, >=, <=
-   Lógicos: && (AND), || (OR), ! (NOT)
+Aritméticos: +, -, *, /, %
+Relacionales: ==, !=, >, <, >=, <=
+Lógicos: && (AND), || (OR), ! (NOT)
 ````
 
 ## 5. Estructuras de Control
@@ -57,13 +57,13 @@ El número introducido es: 5
 #include <stdio.h>
 
 int main() {
-int edad = 18;
-if (edad >= 18) {
-printf("Eres mayor de edad.\n");
-} else {
-printf("Eres menor de edad.\n");
-}
-return 0;
+    int edad = 18;
+    if (edad >= 18) {
+        printf("Eres mayor de edad.\n");
+    } else {
+        printf("Eres menor de edad.\n");
+    }
+    return 0;
 }
 ````
 
@@ -79,12 +79,12 @@ Eres mayor de edad.
 #include <stdio.h>
 
 int main() {
-int i = 1;
-while (i <= 5) {
-printf("%d\n", i);
-i++;
-}
-return 0;
+    int i = 1;
+    while (i <= 5) {
+        printf("%d\n", i);
+        i++;
+    }
+    return 0;
 }
 ````
 ### Salida de Consola:
@@ -103,10 +103,10 @@ return 0;
 #include <stdio.h>
 
 int main() {
-for (int i = 1; i <= 5; i++) {
-printf("%d\n", i);
-}
-return 0;
+    for (int i = 1; i <= 5; i++) {
+        printf("%d\n", i);
+    }
+    return 0;
 }
 ````
 
@@ -126,13 +126,13 @@ return 0;
 
 // Declaración de la función
 int suma(int a, int b) {
-return a + b;
+    return a + b;
 }
 
 int main() {
-int resultado = suma(5, 3);
-printf("La suma es: %d\n", resultado);
-return 0;
+    int resultado = suma(5, 3);
+    printf("La suma es: %d\n", resultado);
+    return 0;
 }
 `````
 
@@ -146,9 +146,9 @@ La suma es: 8
 #include <stdio.h>
 
 int main() {
-int numeros[3] = {1, 2, 3};
-printf("El primer número es: %d\n", numeros[0]);  // Accede al primer elemento
-return 0;
+    int numeros[3] = {1, 2, 3};
+    printf("El primer número es: %d\n", numeros[0]);  // Accede al primer elemento
+    return 0;
 }
 ````
 
@@ -161,10 +161,10 @@ El primer número es: 1
 #include <stdio.h>
 
 int main() {
-int x = 10;
-int *ptr = &x;  // Puntero que almacena la dirección de `x`
-printf("El valor de x es: %d\n", *ptr);  // Desreferenciación del puntero
-return 0;
+    int x = 10;
+    int *ptr = &x;  // Puntero que almacena la dirección de `x`
+    printf("El valor de x es: %d\n", *ptr);  // Desreferenciación del puntero
+    return 0;
 }
 ````
 
@@ -177,14 +177,14 @@ El valor de x es: 10
 #include <stdio.h>
 
 struct Persona {
-char nombre[50];
-int edad;
+    char nombre[50];
+    int edad;
 };
 
 int main() {
-struct Persona persona1 = {"Juan", 30};
-printf("Nombre: %s, Edad: %d\n", persona1.nombre, persona1.edad);
-return 0;
+    struct Persona persona1 = {"Juan", 30};
+    printf("Nombre: %s, Edad: %d\n", persona1.nombre, persona1.edad);
+    return 0;
 }
 ````
 
