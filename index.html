@@ -6,147 +6,132 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>MarkDown Opos</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .folder {
-            margin-bottom: 30px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-            background: #f9f9f9;
-        }
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #markdown-container {
-            border: 1px solid #ddd;
-            padding: 25px;
-            border-radius: 5px;
-            min-height: 400px;
-            background: white;
-            margin-top: 20px;
-        }
-        h2 {
-            margin-top: 0;
-            color: #333;
-        }
-        .loading {
-            color: #666;
-            font-style: italic;
-        }
-        .error {
-            color: #d32f2f;
-            background: #ffebee;
-            padding: 10px;
-            border-radius: 4px;
-        }
-    </style>
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  select.form-select, .form-label {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+  }
+  #markdown-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
+  /* Ajustes para Markdown */
+  #markdown-container h1,
+  #markdown-container h2,
+  #markdown-container h3,
+  #markdown-container h4 {
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.3em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  #markdown-container pre {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+  }
+  #markdown-container code {
+    background-color: #2d2d2d;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+  }
+  #markdown-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #markdown-container th, #markdown-container td {
+    border: 1px solid #555;
+    padding: 0.5rem;
+  }
+  #markdown-container a {
+    color: #66ccff;
+  }
+</style>
 </head>
-<body>
-<h1>Visualizador de Markdown</h1>
+<body class="p-4">
 
-<div id="folders-container">
-    <p class="loading">Cargando estructura de archivos...</p>
-</div>
+<div class="container">
+    <h1 class="mb-4">Visor de Markdown</h1>
 
-<div id="markdown-container">
-    <p>Selecciona un archivo para ver su contenido.</p>
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Carpeta 1</label>
+            <select id="select1" class="form-select"></select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Carpeta 2</label>
+            <select id="select2" class="form-select"></select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Carpeta 3</label>
+            <select id="select3" class="form-select"></select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Carpeta 4</label>
+            <select id="select4" class="form-select"></select>
+        </div>
+    </div>
+
+    <div id="markdown-container" class="mt-4">
+        <p>Aquí se mostrará el contenido del archivo seleccionado...</p>
+    </div>
 </div>
 
 <script>
-<<<<<<< HEAD
-        // Cargar el JSON y construir la interfaz
-        async function init() {
-            try {
-                const response = await fetch('markdown_files.json');
-                if (!response.ok) throw new Error("No se pudo cargar el JSON");
-=======
-        // Configuración - ¡MODIFICA ESTO!
-        const repoConfig = {
-            username: 'tu-usuario-github',    // Cambia por tu usuario
-            repo: 'tu-repositorio',           // Cambia por tu repo
-            branch: 'main',                   // Rama principal
-            folders: ['B1', 'B2', 'B3', 'B4'] // Tus carpetas
-        };
->>>>>>> e9e4acf44df5ede0148640b496eefa9f54ec4f7d
+fetch('markdown_files.json')
+  .then(response => response.json())
+  .then(data => {
+    const carpetas = Object.keys(data);
+    carpetas.forEach((carpeta, idx) => {
+      const selectId = `select${idx + 1}`;
+      const select = document.getElementById(selectId);
 
-                const data = await response.json();
-                buildInterface(data);
-            } catch (error) {
-                document.getElementById('folders-container').innerHTML =
-                    `<p class="error">Error al cargar la estructura: ${error.message}</p>`;
-                console.error(error);
-            }
+      data[carpeta].forEach(archivo => {
+        const option = document.createElement('option');
+        option.value = archivo.ruta;
+        option.textContent = archivo.nombre;
+        select.appendChild(option);
+      });
+
+      if (select.options.length > 0) {
+        select.selectedIndex = 0;
+        cargarMarkdown(select.value);
+      }
+
+      select.addEventListener('change', function() {
+        if (this.value) {
+          cargarMarkdown(this.value);
         }
+      });
+    });
 
-        // Construir los selects a partir del JSON
-        function buildInterface(data) {
-            const container = document.getElementById('folders-container');
-            container.innerHTML = '';
-
-            for (const [folder, files] of Object.entries(data)) {
-                const folderDiv = document.createElement('div');
-                folderDiv.className = 'folder';
-
-                const title = document.createElement('h2');
-                title.textContent = `Carpeta ${folder}`;
-                folderDiv.appendChild(title);
-
-                const select = document.createElement('select');
-                select.id = `select-${folder}`;
-
-                // Opción por defecto
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Selecciona un archivo';
-                select.appendChild(defaultOption);
-
-                // Añadir archivos
-                files.forEach(file => {
-                    const option = document.createElement('option');
-                    option.value = file.ruta;
-                    option.textContent = file.nombre;
-                    select.appendChild(option);
-                });
-
-                // Evento change
-                select.addEventListener('change', function() {
-                    if (this.value) loadMarkdown(this.value);
-                });
-
-                folderDiv.appendChild(select);
-                container.appendChild(folderDiv);
-            }
-        }
-
-        // Cargar y mostrar el markdown
-        async function loadMarkdown(filePath) {
-            const container = document.getElementById('markdown-container');
-            container.innerHTML = '<p class="loading">Cargando archivo...</p>';
-
-            try {
-                const response = await fetch(filePath);
-                if (!response.ok) throw new Error("Archivo no encontrado");
-
-                const markdown = await response.text();
-                container.innerHTML = marked.parse(markdown);
-            } catch (error) {
-                container.innerHTML = `<p class="error">Error al cargar el archivo: ${error.message}</p>`;
-            }
-        }
-
-        // Iniciar
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+    function cargarMarkdown(ruta) {
+      fetch(ruta)
+        .then(r => r.text())
+        .then(md => {
+          const html = marked.parse(md);
+          document.getElementById('markdown-container').innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar el archivo.</p>';
+          console.error(err);
+        });
+    }
+  })
+  .catch(err => {
+    console.error('Error al cargar el JSON:', err);
+    document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar la lista de archivos.</p>';
+  });
+</script>
 </body>
 </html>

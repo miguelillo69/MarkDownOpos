@@ -69,10 +69,6 @@
       "ruta": "B3\\android.md"
     },
     {
-      "nombre": "C#.md",
-      "ruta": "B3\\C#.md"
-    },
-    {
       "nombre": "C++_basicos.md",
       "ruta": "B3\\C++_basicos.md"
     },
@@ -87,6 +83,10 @@
     {
       "nombre": "C_basicos.md",
       "ruta": "B3\\C_basicos.md"
+    },
+    {
+      "nombre": "C_sark.md",
+      "ruta": "B3\\C_sark.md"
     },
     {
       "nombre": "Diseño y programación orientada a objetos.docx.md",
