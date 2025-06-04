@@ -1,26 +1,41 @@
 ## SMTP: Simple Mail Transfer Protocol
 
-El **SMTP (Simple Mail Transfer Protocol)** es un protocolo utilizado para el envío de correos electrónicos a través de la red. Funciona sobre el puerto **25 TCP**, aunque también se utiliza el puerto **587 TCP sobre TLS** y el puerto **465 TCP sobre SSL**.
-- **SMTP** es el protocolo utilizado para enviar mensajes de correo electrónico desde un cliente de correo a un servidor de correo, y desde un servidor de correo a otro servidor de correo hasta que llega al destinatario final.
-  * **Ventajas**: SMTP es esencial para entregar correos electrónicos, ya que establece las reglas y procedimientos para enviar y recibir mensajes entre servidores.
-  * **Uso**: SMTP se utiliza cada vez que envías un mensaje de correo electrónico desde tu cliente de correo hasta el servidor de correo del destinatario.
+### 1. ``SMTP``
 
-### 2. **IMAP**
+- El ``SMTP (Simple Mail Transfer Protocol)`` es el protocolo utilizado para enviar mensajes de correo electrónico desde
+un cliente a un servidor de correo, y desde un servidor de correo a otro servidor de correo hasta que llega al
+destinatario final. Funciona sobre el puerto ``25 TCP``, aunque también se utiliza el puerto ``587 TCP sobre TLS`` y el
+puerto ``465 TCP sobre SSL``.
 
-- **IMAP** es un protocolo de acceso a mensajes de correo electrónico que permite a los usuarios gestionar sus correos electrónicos directamente en el servidor de correo. Esto significa que los mensajes permanecen en el servidor incluso después de ser leídos o descargados a un cliente de correo.
+  * ``Ventajas``: SMTP es esencial para entregar correos electrónicos, ya que establece las reglas y procedimientos para
+    enviar y recibir mensajes entre servidores.
+  * ``Uso``: SMTP se utiliza cada vez que envías un mensaje de correo electrónico desde tu cliente de correo hasta el
+    servidor de correo del destinatario.
 
-  * **Ventajas**: Permite acceder al mismo buzón de correo desde múltiples dispositivos y clientes diferentes, manteniendo la sincronización entre ellos. Los mensajes permanecen en el servidor, lo que facilita el acceso desde cualquier lugar con conexión a Internet.
-  * **Uso**: IMAP es ideal para aquellos que acceden a su correo desde múltiples dispositivos y desean mantener una copia de los mensajes en el servidor.
+### 2. ``IMAP``
 
-### 3. **POP3**
+- ``IMAP`` es un protocolo de acceso a mensajes de correo electrónico que permite a los usuarios gestionar sus correos
+  electrónicos directamente en el servidor de correo. Esto significa que los mensajes permanecen en el servidor incluso
+  después de ser leídos o descargados a un cliente de correo.
 
-- **POP3** también es un protocolo de acceso a mensajes de correo electrónico, pero difiere de IMAP en la forma en que maneja los mensajes. Con POP3, los mensajes se descargan desde el servidor a un cliente de correo y se eliminan del servidor una vez descargados. Por defecto, los mensajes se eliminan del servidor, aunque algunos clientes de correo pueden configurarse para dejar una copia en el servidor después de la descarga.
+    * ``Ventajas``: Permite acceder al mismo buzón de correo desde múltiples dispositivos y clientes diferentes,
+      manteniendo la sincronización entre ellos. Los mensajes permanecen en el servidor, lo que facilita el acceso desde
+      cualquier lugar con conexión a Internet.
+    * ``Uso``: IMAP es ideal para aquellos que acceden a su correo desde múltiples dispositivos y desean mantener una
+      copia de los mensajes en el servidor.
 
-  * **Ventajas**: POP3 es útil si deseas liberar espacio en el servidor, ya que los mensajes se almacenan localmente en el cliente de correo.
-  * **Uso**: adecuado para descargar correos en un único dispositivo.
+### 3. ``POP3``
 
+- ``POP3`` también es un protocolo de acceso a mensajes de correo electrónico, pero difiere de IMAP en la forma en que
+  maneja los mensajes. Con POP3, los mensajes se descargan desde el servidor a un cliente de correo y se eliminan del
+  servidor una vez descargados. Por defecto, los mensajes se eliminan del servidor, aunque algunos clientes de correo
+  pueden configurarse para dejar una copia en el servidor después de la descarga.
 
-### 4. **Puertos**
+    * ``Ventajas``: POP3 es útil si deseas liberar espacio en el servidor, ya que los mensajes se almacenan localmente
+      en el cliente de correo.
+    * ``Uso``: adecuado para descargar correos en un único dispositivo.
+
+### 4. ``Puertos``
 
 | Protocolo | Puertos sin cifrado | Puertos con cifrado TLS/SSL |
 | ----- | ----- | ----- |
@@ -28,109 +43,121 @@ El **SMTP (Simple Mail Transfer Protocol)** es un protocolo utilizado para el en
 | POP3 | 110 | 995 |
 | SMTP | 25 | 465 (SMTPS) o 587 (submission) |
 
-
 ### Códigos SMTP
 
 Los códigos SMTP de respuesta se clasifican en función del primer dígito:
 
-- **2xx: Respuesta positiva**
+- ``2xx: Respuesta positiva``
     - El servidor ha aceptado el comando, se puede realizar una nueva petición.
-    - **250:** OK, finalizado.
-    - **211:** Estado del Sistema.
-    - **214:** Ayuda.
-    - **220:** Servidor preparado.
-    - **221:** Cierra canal.
-    - **251:** Redirección.
+    - ``250:`` OK, finalizado.
+    - ``211:`` Estado del Sistema.
+    - ``214:`` Ayuda.
+    - ``220:`` Servidor preparado.
+    - ``221:`` Cierra canal.
+    - ``251:`` Redirección.
 
-- **3xx: Respuesta positiva transitoria**
+- ``3xx: Respuesta positiva transitoria``
     - Pendiente de recibir más información.
-    - **354:** El servidor recibe direcciones de envío o recepción.
+    - ``354:`` El servidor recibe direcciones de envío o recepción.
 
-- **4xx: Respuesta de terminación negativa transitoria**
+- ``4xx: Respuesta de terminación negativa transitoria``
     - Error temporal, se puede volver a solicitar la acción.
-    - **421:** Servicio no disponible.
-    - **432:** Recepción detenida.
-    - **449:** Error de enrutado.
-    - **450:** Buzón no disponible.
-    - **451:** Error de procesamiento.
+    - ``421:`` Servicio no disponible.
+    - ``432:`` Recepción detenida.
+    - ``449:`` Error de enrutado.
+    - ``450:`` Buzón no disponible.
+    - ``451:`` Error de procesamiento.
 
-- **5xx: Respuesta negativa**
+- ``5xx: Respuesta negativa``
     - El comando no ha sido aceptado y la acción solicitada no ha podido realizarse.
-    - **500:** Error de sintaxis.
-    - **502:** Comando no implementado.
-    - **552:** Almacenamiento excedido.
-    - **553:** Dirección no autorizada.
+    - ``500:`` Error de sintaxis.
+    - ``502:`` Comando no implementado.
+    - ``552:`` Almacenamiento excedido.
+    - ``553:`` Dirección no autorizada.
 
 ### Estándares y RFCs del SMTP
 
-- **RFC 5321:** Define el estándar para el intercambio de correo entre dos PC's usando TCP/IP.
-- **RFC 5322:** Define la sintaxis de las cabeceras de los mensajes de correo y cómo deben interpretarse (en BNF).
-- **RFC 1049:** Describe formatos de texto plano en el cuerpo de un mensaje (ASCII 7 bits) y otros formatos como PostScript, SGML, TEX, etc.
-- **RFC 974:** Estándar para el procedimiento de enrutado de mensajes basado en DNS-MX.
+- ``RFC 5321:`` Define el estándar para el intercambio de correo entre dos PC's usando TCP/IP.
+- ``RFC 5322:`` Define la sintaxis de las cabeceras de los mensajes de correo y cómo deben interpretarse (en BNF).
+- ``RFC 1049:`` Describe formatos de texto plano en el cuerpo de un mensaje (ASCII 7 bits) y otros formatos como
+  PostScript, SGML, TEX, etc.
+- ``RFC 974:`` Estándar para el procedimiento de enrutado de mensajes basado en DNS-MX.
 
 ### Extensiones del SMTP
 
-- **MIME (Multipurpose Internet Mail Extensions):** Permite el intercambio de diferentes tipos de archivos (texto, audio, vídeo, etc.) superando las limitaciones de ASCII-7. Es un estándar de Internet que extiende el formato de los correos electrónicos para soportar texto en múltiples idiomas, caracteres especiales, imágenes, archivos adjuntos y otros tipos de contenido no ASCII. MIME define cómo deben formatearse los mensajes para incluir información adicional y cómo deben manejarse los diferentes tipos de datos.
+- ``MIME (Multipurpose Internet Mail Extensions):`` Permite el intercambio de diferentes tipos de archivos (texto,
+  audio, vídeo, etc.) superando las limitaciones de ASCII-7. Es un estándar de Internet que extiende el formato de los
+  correos electrónicos para soportar texto en múltiples idiomas, caracteres especiales, imágenes, archivos adjuntos y
+  otros tipos de contenido no ASCII. MIME define cómo deben formatearse los mensajes para incluir información adicional
+  y cómo deben manejarse los diferentes tipos de datos.
     - Campos MIME: `Content-Type`, `Content-Transfer-Encoding`, `Content-Description`, `Content-ID`.
     - Características principales de MIME:
-      - **Tipo de contenido (Content-Type):** Especifica el tipo de datos en el cuerpo del mensaje, como `text/plain` para texto sin formato, `text/html` para HTML, `image/jpeg` para imágenes, etc.
-      - **Codificación de contenido (Content-Transfer-Encoding):** Define cómo se codifican los datos para que puedan ser transmitidos de forma segura a través de sistemas de correo electrónico que solo manejan caracteres ASCII. Algunos métodos comunes son Base64 y Quoted-Printable.
-      - **Encabezados MIME (MIME Headers):** Agrega información adicional en los encabezados del correo electrónico, como el tipo de contenido, la codificación utilizada, el nombre del archivo adjunto, etc.
-      - **Multipart:** Permite que un mensaje de correo electrónico contenga varios elementos en diferentes partes (por ejemplo, texto e imágenes), cada uno con su propio tipo de contenido.
-    -  Usos de MIME:
-      - **Correo Electrónico:** MIME es ampliamente utilizado para enviar correos electrónicos con texto enriquecido, imágenes, archivos adjuntos y contenido multimedia.
-      - **Web:** MIME también se usa en la web para definir el tipo de contenido de los archivos transmitidos, como HTML, CSS, JavaScript, imágenes, videos, etc.
-    - MIME ha sido fundamental para mejorar la funcionalidad del correo electrónico y la web, permitiendo una comunicación más rica y diversa.
+        - ``Tipo de contenido (Content-Type):`` Especifica el tipo de datos en el cuerpo del mensaje, como `text/plain`
+          para texto sin formato, `text/html` para HTML, `image/jpeg` para imágenes, etc.
+        - ``Codificación de contenido (Content-Transfer-Encoding):`` Define cómo se codifican los datos para que puedan
+          ser transmitidos de forma segura a través de sistemas de correo electrónico que solo manejan caracteres ASCII.
+          Algunos métodos comunes son Base64 y Quoted-Printable.
+        - ``Encabezados MIME (MIME Headers):`` Agrega información adicional en los encabezados del correo electrónico,
+          como el tipo de contenido, la codificación utilizada, el nombre del archivo adjunto, etc.
+        - ``Multipart:`` Permite que un mensaje de correo electrónico contenga varios elementos en diferentes partes (
+          por ejemplo, texto e imágenes), cada uno con su propio tipo de contenido.
+    - Usos de MIME:
+        - ``Correo Electrónico:`` MIME es ampliamente utilizado para enviar correos electrónicos con texto enriquecido,
+          imágenes, archivos adjuntos y contenido multimedia. - ``Web:`` MIME también se usa en la web para definir el
+          tipo de contenido de los archivos transmitidos, como HTML, CSS, JavaScript, imágenes, videos, etc.
+    - MIME ha sido fundamental para mejorar la funcionalidad del correo electrónico y la web, permitiendo una
+      comunicación más rica y diversa.
 
 
-- **ODMR (On-Demand Mail Relay):** Permite que el correo sea transmitido a receptores que se conecten intermitentemente después de ser autenticados.
+- ``ODMR (On-Demand Mail Relay):`` Permite que el correo sea transmitido a receptores que se conecten intermitentemente
+  después de ser autenticados.
 
-- **ESMTP (Extended SMTP):** Protocolo extendido definido en la **RFC 4954** para autenticar la identidad del cliente.
-    - **EHLO dominio:** Verifica la existencia del dominio.
-    - **ETRN dominio:** Permite al cliente solicitar todos los mensajes que el servidor tenga destinados para él.
-    - **AUTH:** Negocia un protocolo de seguridad para el intercambio de datos.
+- ``ESMTP (Extended SMTP):`` Protocolo extendido definido en la ``RFC 4954`` para autenticar la identidad del cliente.
+    - ``EHLO dominio:`` Verifica la existencia del dominio.
+    - ``ETRN dominio:`` Permite al cliente solicitar todos los mensajes que el servidor tenga destinados para él.
+    - ``AUTH:`` Negocia un protocolo de seguridad para el intercambio de datos.
 
 ### Proceso de Envío de un Mensaje SMTP
+
 #### HELO -> MAIL FROM -> RCPT TO -> DATA -> QUIT o TURN
 
-1. **Conexión:** El emisor SMTP establece una conexión TCP con el servidor destino. Espera un código `220 Service ready` o `421 Service not available`.
-2. **Identificación:** Envía el comando `HELO` o `EHLO` para identificarse.
-3. **Inicio de Transacción:** El emisor envía el comando `MAIL FROM` para iniciar la transacción del mensaje.
-4. **Destinatarios:** Envía comandos `RCPT TO` para cada destinatario del mensaje.
-5. **Contenido del Mensaje:** Envía el comando `DATA` para notificar el inicio del contenido del mensaje.
-6. **Envío de Datos:** El cliente envía los datos del mensaje, incluyendo las cabeceras.
-7. **Finalización:** El emisor termina la sesión con `QUIT` o continúa enviando nuevos mensajes.
+1. ``Conexión:`` El emisor SMTP establece una conexión TCP con el servidor destino. Espera un código `220 Service ready`
+   o `421 Service not available`.
+2. ``Identificación:`` Envía el comando `HELO` o `EHLO` para identificarse.
+3. ``Inicio de Transacción:`` El emisor envía el comando `MAIL FROM` para iniciar la transacción del mensaje.
+4. ``Destinatarios:`` Envía comandos `RCPT TO` para cada destinatario del mensaje.
+5. ``Contenido del Mensaje:`` Envía el comando `DATA` para notificar el inicio del contenido del mensaje.
+6. ``Envío de Datos:`` El cliente envía los datos del mensaje, incluyendo las cabeceras.
+7. ``Finalización:`` El emisor termina la sesión con `QUIT` o continúa enviando nuevos mensajes.
 
 ### Comandos SMTP Principales
 
-- **HELO:** Identificación del cliente al servidor.
-- **EHLO:** Identificación extendida para soportar comandos adicionales.
-- **MAIL FROM:** Indica el remitente del mensaje.
-- **RCPT TO:** Indica los destinatarios del mensaje.
-- **DATA:** Inicia la transferencia del contenido del mensaje.
-- **QUIT:** Termina la sesión.
-- **TURN:** Intercambia roles entre cliente y servidor sin una nueva conexión.
-- **ETRN:** Solicita al servidor enviar todos los mensajes pendientes.
-- **AUTH:** Negocia el protocolo de seguridad.
-- **PIPELINING:** Permite enviar comandos en secuencia sin esperar respuesta.
-- **CHUNKING:** Permite enviar grandes bloques de datos en partes.
-- **VRFY:** Verifica la existencia de un buzón en el servidor.
-- **HELP:** Muestra los comandos compatibles con el servicio SMTP.
-- **STARTTLS:** Activa la seguridad a nivel de transporte.
+- ``HELO:`` Identificación del cliente al servidor.
+- ``EHLO:`` Identificación extendida para soportar comandos adicionales.
+- ``MAIL FROM:`` Indica el remitente del mensaje.
+- ``RCPT TO:`` Indica los destinatarios del mensaje.
+- ``DATA:`` Inicia la transferencia del contenido del mensaje.
+- ``QUIT:`` Termina la sesión.
+- ``TURN:`` Intercambia roles entre cliente y servidor sin una nueva conexión.
+- ``ETRN:`` Solicita al servidor enviar todos los mensajes pendientes.
+- ``AUTH:`` Negocia el protocolo de seguridad.
+- ``PIPELINING:`` Permite enviar comandos en secuencia sin esperar respuesta.
+- ``CHUNKING:`` Permite enviar grandes bloques de datos en partes.
+- ``VRFY:`` Verifica la existencia de un buzón en el servidor.
+- ``HELP:`` Muestra los comandos compatibles con el servicio SMTP.
+- ``STARTTLS:`` Activa la seguridad a nivel de transporte.
 
 ### Otras Extensiones
 
-- **8BITMIME:** Soporta la transmisión de datos en 8 bits.
-- **SMTPUTF8:** Permite la codificación UTF-8 de nombres de buzón y campos de cabecera.
-- **NOOP:** Mantiene la conexión activa sin enviar datos.
-- **EXPN:** Verifica listas de correo.
+- ``8BITMIME:`` Soporta la transmisión de datos en 8 bits.
+- ``SMTPUTF8:`` Permite la codificación UTF-8 de nombres de buzón y campos de cabecera.
+- ``NOOP:`` Mantiene la conexión activa sin enviar datos.
+- ``EXPN:`` Verifica listas de correo.
 
 ---
 
-Este resumen cubre los aspectos principales del protocolo SMTP, incluyendo códigos de respuesta, estándares, extensiones y comandos utilizados en la transferencia de correos electrónicos.
-
-
-
+Este resumen cubre los aspectos principales del protocolo SMTP, incluyendo códigos de respuesta, estándares, extensiones
+y comandos utilizados en la transferencia de correos electrónicos.
 
 | Código | Descripción |
 | :---- | :---- |
