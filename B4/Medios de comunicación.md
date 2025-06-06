@@ -25,14 +25,13 @@ llamada señal moduladora)
 
 * Como ejemplo se han seleccionado 16 puntos, por lo que para cada uno se necesita 4 bits
 
-
- ## 2.Señal digital
+## 2.Señal digital
 
 Señal que representa datos en forma de valores discretos. Solo puede tomar valores específicos y finitos
 
 ![][image4]
 
- ## 3.Conceptos sobre señales
+## 3.Conceptos sobre señales
 
 * ``Longitud de onda`` : Distancia entre dos puntos equifásicos consecutivos de la misma
 * ``Frecuencia``: Número de oscilaciones de una señal por segundo. Se mide en hercios.
@@ -44,7 +43,7 @@ Señal que representa datos en forma de valores discretos. Solo puede tomar valo
 
 * ``Diafonía Alien:`` Tipo especial de interferencia ocasionada por la cercanía de otros cables de red ( por ejemplo en
   los racks de planta) que puede provocar la atenuación de las señales originales.
- 
+
 ![][image5]
 
 * ``Ruido térmico o ruido blanco``
@@ -97,9 +96,9 @@ Hay dos maneras de hacerlo: ``codificación de línea`` ( obligatoria siempre) y
 
 ![][image7]
 
-* ``Manchester``:  
-  * ``Bit 1``: La transición de voltaje ocurre de bajo (0) a alto (1) en el medio del intervalo del bit.  
-  * ``Bit 0``: La transición de voltaje ocurre de alto (1) a bajo (0) en el medio del intervalo del bit.
+* ``Manchester``:
+    * ``Bit 1``: La transición de voltaje ocurre de bajo (0) a alto (1) en el medio del intervalo del bit.
+    * ``Bit 0``: La transición de voltaje ocurre de alto (1) a bajo (0) en el medio del intervalo del bit.
 
 ![][image8]
 
@@ -110,10 +109,9 @@ Hay dos maneras de hacerlo: ``codificación de línea`` ( obligatoria siempre) y
 ![][image9]
 
 * ``Codificación bipolar`` \= Utiliza 3 niveles de voltaje, positivo, negativo y cero . El voltaje cero representa el 0
-  binario y el bit 1 se representa alternando los voltajes positivo y negativo.  
-  
-![][image10]
+  binario y el bit 1 se representa alternando los voltajes positivo y negativo.
 
+![][image10]
 
 * ``Codificación por bloques (opcional)``: Se utilizan bits redundantes para garantizar la exactitud de la trama.
     * ``4b/5b:`` Cada grupo de 4 bits se codifica como un grupo de 5 bits, asegurando que haya suficientes transiciones
@@ -135,7 +133,7 @@ Hay dos maneras de hacerlo: ``codificación de línea`` ( obligatoria siempre) y
     * MLT3 se usó en FDDI y 100BASE-TX(Fast Ethernet)
 
 
-5. ## Transmisión paralela y serie
+## 5.Transmisión paralela y serie
 
 ``PARALELO``:
 
@@ -155,11 +153,11 @@ Hay dos maneras de hacerlo: ``codificación de línea`` ( obligatoria siempre) y
   de reconocer y separar los bits en bytes.
     * Ventajas : velocidad superior y ausencia de bits extra de encabezado y fin.
 
-    6. ## Sentidos de la transmisión
+## 6.Sentidos de la transmisión
 
 ![][image11]
 
-7. ## Multiplexación
+## 7.Multiplexación
 
 * Multiplexación : ``Técnica para mezclar y enviar`` múltiples flujos de datos a través de un único medio.
     * Multiplexación por división de frecuencia (FDM):
@@ -173,21 +171,21 @@ Hay dos maneras de hacerlo: ``codificación de línea`` ( obligatoria siempre) y
     * un multiplexor (``MUX``) para multiplexar los flujos y
     * un demultiplexor (``DEMUX``) que toma la información del medio y la distribuye a sus destinos.
 
-2. # Medios de transmisión
+# 2.Medios de transmisión
 
-    1. ## Medios guiados y no guiados
+## 1.Medios guiados y no guiados
 
 * Un medio de transmisión es el ``material o soporte`` que compone el canal por el cual enviamos datos de un lugar a
   otro.
 
-    2. ## Cable coaxial
+## 2.Cable coaxial
 
 * Velocidades de 4, 10 y 15 Mbps
 * Dos ``opciones`` :
     * ``Thick`` : cable coaxial grueso, de 1 cm de diámetro , empleado por el estándar 10base5.
     * ``Thin`` : diámetro 5mm, empleado en el estándar 10base2 “cheapernet” .
 
-    3. ## Par trenzado
+## 3.Par trenzado
 
 Cable formado por uno o más pares de hilos de cobre, aislado cada uno por su propia cubierta y trenzados entre sí para
 reducir el efecto de la diafonía.
@@ -202,10 +200,11 @@ reducir el efecto de la diafonía.
 * Robusto y flexible, lo que minimiza el riesgo de roturas.
 
 
-4. ## Par trenzado. Clasificación según aislamiento
+## 4.Par trenzado. Clasificación según aislamiento
 
-``![][image12]``  
-``![][image13]``
+![][image12]  
+
+![][image13]
 
 * ``UTP (Unshielded Twisted Pair)`` : Los pares no cuentan con ningún tipo de cobertura individual o en común. Serán los
   que peor aíslen las interferencias.
@@ -222,7 +221,7 @@ reducir el efecto de la diafonía.
   realidad tiene una forma de blindaje (trenzado y/o pantalla(aluminio)).
 
 
-5. ## Par trenzado \- Categorías
+## 5.Par trenzado \- Categorías
 
 Las ``categorías`` vigentes se define en la ``Norma ANSI TIA/EIA-568-C`` y establece una serie de prestaciones
 específicas para los cables y los elementos de interconexión ( siendo necesario que todos ellos pertenezcan a la misma
@@ -235,13 +234,13 @@ intervienen en una conexión extremo a extremo.
 
 * Ya existen las categorías 8.1 y 8.2 se supone que alcanzan velocidades de hasta 40 Gbps pero a no más de 30 m
 
-    6. ## Fibra Óptica
+## 6.Fibra Óptica
 
 Un cable de fibra óptica está compuesto por un núcleo de fibra de vidrio con un alto índice de refracción, rodeado de
 una capa de revestimiento similar pero con menor índice de refracción y todo ello envuelto con una cubierta opaca que da
 protección al conjunto.
 
-* ![][image15]
+![][image15]
 
 ``¿Cómo funciona la fibra?``
 
@@ -258,7 +257,7 @@ protección al conjunto.
 * Mayor seguridad
 * Menos atenuación
 
-    7. ## Fibra óptica \- clasificación
+## 7.Fibra óptica \- clasificación
 
 ![][image16]
 
@@ -282,18 +281,21 @@ Fibra ``monomodo`` : Se propaga una única longitud de onda de luz en el núcleo
     * Menor ancho de banda
     * Menor velocidad
 
-    8. ## Fibra óptica \- Ventanas
+## 8.Fibra óptica \- Ventanas
 
 Se refiere a un rango específico de longitudes de onda en el espectro electromagnético en el cual una fibra óptica
 exhibe una pérdida mínima de señal y una alta eficiencia de transmisión.
 
 * Estas ventanas se definen por las características de absorción y dispersión del material de la fibra óptica.
 * Bandas:intervalos de longitudes de onda que se usan para la transmisión por fibra
-* ![][image17]
-    * ![][image18]
+
+![][image17]
+
+![][image18]
 
 En la fabricación de la fibra, esta absorbe agua. En la longitud de onda de 1400 nm, hace un pico, que se llama
 “``pico de agua``”  
+
 ![][image19]
 
 ``Ventanas:`` rangos específicos de longitudes de onda en los que las fibras ópticas transmiten señales con la menor
@@ -307,7 +309,7 @@ cantidad de pérdida posible
 | 4 | 1625\.  |
 | 5 | Alrededor de 2000 nm (en desarrollo) |
 
-9. ## Fibra óptica – Tipos de fibra
+## 9.Fibra óptica – Tipos de fibra
 
 | nombre | tipo | Ventana | Comentario |
 | :---- | :---- | :---- | :---- |
@@ -319,9 +321,9 @@ cantidad de pérdida posible
 | ``OM4`` | Multimodo | 2ª y 3ª | Distancias de hasta 1 km a una velocidad de 1 Gbps 550m a 10Gbps de 150 m a 40/100 Gbps |
 | ``OM5`` | Multimodo |  | hasta de 550 m a una velocidad de 10 Gbps 150 m a 40/100 Gbps |
 
-10. ## Tipos de conectores de fibra
+## 10.Tipos de conectores de fibra
 
-* ![][image20]
+![][image20]
 
 Nombre de los conectores (de más antiguo a más nuevos)
 
@@ -332,7 +334,7 @@ Nombre de los conectores (de más antiguo a más nuevos)
 * MTRJ (Mechanical Transfer-Registered Jack): conector diseñado para la terminación de 2 fibras
 
 
-11. ## Multiplexación en Fibra óptica
+## 11.Multiplexación en Fibra óptica
 
 ``Wavelength Division Multiplexing (DWDM)``: Se orienta a proporcionar canales separados de transmisión, cada uno de
 ellos operando a la velocidad máxima.   
@@ -343,7 +345,7 @@ La tecnología WDM se divide habitualmente en :
 | ``CWDM Coarse`` |  | separación de 20 nm | 50 \- 70 Km | precio medio |
 | ``SWDM  short`` |  | separación  de 30 nm | 500m | precio mas bajo 40-100Gbps |
 
-12. ## Medios de transmisión no guiados
+## 12.Medios de transmisión no guiados
 
 ``Radiofrecuencia \- Microondas \- Infrarrojos \- Luz Visible \-Ultrasonido``
 
@@ -369,7 +371,8 @@ necesita visión directa entre las antenas para funcionar).
 
 * La distancia está limitada a 60 km (en radioenlaces terrestres).
 * Subdivisión de la banda microondas
-    * ![][image21]
+
+![][image21]
 
 ``Infrarrojos: (300 GHz – 400 THz )``: Requieren visión directa ( o cuasi directa a través de superficies reflectantes)
 y tienen corto alcance ( no atraviesan obstáculos) .
@@ -378,7 +381,8 @@ y tienen corto alcance ( no atraviesan obstáculos) .
     * Estos dispositivos suelen ajustarse a los estándares publicados por ``IrDA`` ( Asociación de datos por
       infrarrojos)
 
-Segunda vuelta:  
+Segunda vuelta:
+
 ![][image22]
 
 ``Li-Fi (Light Fidelity)`` es una tecnología de comunicación inalámbrica que utiliza la luz visible para transmitir
@@ -393,7 +397,7 @@ datos
 * ``Desventajas``
     * Es necesario llevar la luz desde la fuente al receptor directamente, sin obstáculos
 
-3. # Detallando dispositivos de interconexión
+# 3.Detallando dispositivos de interconexión
 
 ``Dominio de colisión``: segmento de una red de computadoras en el cual las colisiones de paquetes pueden ocurrir. En un
 dominio de colisión, todos los dispositivos comparten el mismo medio de transmisión y, por lo tanto, pueden interferir
@@ -412,7 +416,7 @@ recibido por todos los demás dispositivos en ese dominio.
 
 ![][image23]
 
-1. ## Repetidores y concentradores (Nivel 1 OSI)
+## 1.Repetidores y concentradores (Nivel 1 OSI)
 
 * ``Repetidores``:  para amplificar o regenerar señales en una red. Su propósito es extender la distancia sobre la cual
   una señal puede viajar sin degradarse.
@@ -436,7 +440,7 @@ recibido por todos los demás dispositivos en ese dominio.
 * Reenvían todos los datos transmitidos por tanto ``extienden`` el dominio de colisión ( malo )
 
 
-2. ## Bridges-puentes. Nivel 2 OSI
+## 2.Bridges-puentes. Nivel 2 OSI
 
 Conecta dos segmentos de red y filtra el tráfico para reducir la cantidad de tráfico en cada segmento. Permite la
 comunicación entre dos redes locales separadas
@@ -490,7 +494,7 @@ comunicación entre dos redes locales separadas
 * Puente ``Inalámbrico (Wireless Bridge)``: Conecta segmentos de red utilizando enlaces inalámbricos.
 
 
-3. ## Switches-Conmutador. Nivel 2 OSI
+## 3.Switches-Conmutador. Nivel 2 OSI
 
 Dispositivo de red que conecta dispositivos dentro de una red y usa direcciones MAC para dirigir los datos al puerto
 correcto (Se crea un circuito 1 a 1 entre los 2 equipos que tienen que comunicarse)
@@ -536,7 +540,7 @@ Registration Protocol)``:``  para definir las VLAN en un nodo y que se transmita
 
 ``Nota``: recordar algoritmo spanning tree
 
-4. ## Routers \- Nivel 3 OSI
+## 4.Routers \- Nivel 3 OSI
 
 Dirige el tráfico entre diferentes redes. Utiliza direcciones ``IP`` para determinar la mejor ruta para enviar datos a
 su destino.
@@ -579,7 +583,7 @@ Actualización de ``tablas de enrutamiento``
 * Aumenta seguridad y elimina necesidades de cifrado y autenticación
 
 
-5. ## Gateways (pasarelas) \- Nivel 4 OSI en adelante
+## 5.Gateways (pasarelas) \- Nivel 4 OSI en adelante
 
 Dispositivo que conecta redes con diferentes protocolos. Actúa como un traductor entre diferentes sistemas de red.
 
@@ -597,7 +601,7 @@ Dispositivo que conecta redes con diferentes protocolos. Actúa como un traducto
 * Ralentización del gateway por conversión de protocolos
 
 
-6. ## Firewalls
+## 6.Firewalls
 
 Controla el tráfico de red entrante y saliente basado en reglas de seguridad predefinidas. Protege una red contra
 accesos no autorizados.
@@ -610,9 +614,10 @@ Diferentes ``tecnologías``:
 * ``Inspección de estados``: se almacena el estado de la conexión para detectar ataques conocidos
 
 
-7. ## Proxies
+## 7.Proxies
 
-![][image24]  
+![][image24]
+
 Actúa como intermediario entre un cliente y un servidor, realizando solicitudes en nombre del cliente y devolviendo las
 respuestas del servidor.
 
@@ -629,19 +634,22 @@ intermediario para las solicitudes que provienen de los clientes y las respuesta
   directamente
 
 
-8. ## Zona Desmilitarizada
+## 8.Zona Desmilitarizada
 
 Zona en la que se suelen ubicar los servidores que van a ser accesibles desde el exterior de la organización.
 
 * Es una subred aislada del exterior y de la LAN por el cortafuegos
 * En la LAN se sitúan los servidores corporativos y repositorios de datos (servidores de aplicaciones, bbdd, buzones de
   correo,etc.)
-* ![][image25]
 
-    9. ## VLANs 802.1q
+![][image25]
+
+## 9.VLANs 802.1q
 
 Es una tecnología de red que permite segmentar una red física en múltiples redes lógicas. Cada VLAN actúa como una red
-independiente, aunque varios VLANs puedan coexistir en la misma infraestructura física. ![][image26]
+independiente, aunque varios VLANs puedan coexistir en la misma infraestructura física.
+
+![][image26]
 
 * ``Separa dominios de difusión mediante software.``
 * Permite unir de manera lógica usuarios que deben pertenecer a la misma red pero que están físicamente distantes.
@@ -649,28 +657,34 @@ independiente, aunque varios VLANs puedan coexistir en la misma infraestructura 
   el cable sea compartido por varias VLAN ( ``modo trunk`` ).
     * ``Puertos Trunk (cisco)``. En no cisco ``Tagged o etiquetados``: El flujo etiquetado va por los puertos trunk
         * Este puerto es configurable, hasta se le podría decir que VLAN puede pasar
-        * ![][image27]
-    * ``Puertos access (cisco)``. En no cisco se llaman ``Untagged o no etiquetados``. Es para los equipos
-        * ![][image28]
+
+![][image27]
+
+* ``Puertos access (cisco)``. En no cisco se llaman ``Untagged o no etiquetados``. Es para los equipos
+
+![][image28]
 
 Requiere el uso de etiquetas 802.1q para marcar las tramas de las diferentes VLANs antes de mandarlas por el cable.
 
-La comunicación entre 2 equipos de 2 VPNs diferentes, se hace por 802.1Q. Se ha introducido ``802.1Q Header``  
-``![][image29]``  
+La comunicación entre 2 equipos de 2 VPNs diferentes, se hace por 802.1Q. Se ha introducido ``802.1Q Header``
+
+![][image29]
+
 ![][image30]
 
 * ``VID:VLAN Identifier``.12 bits.
     * Número de posibles VLAN a crear: 0-4095
 * Nota: Segunda vuelta como se transmite el tráfico en las vlan
 * Existe una ``VLAN por defecto``  a la que pertenecen todos los equipos. En cisco esta VLAN es la 1.
-* ![][image31]
+
+![][image31]
 
 También existen switches de nivel 3, pero que solo vale para routing entre vlan
 
 ``Router-on-a-stick``: es un tipo de configuración de router en el cual una única interfaz física enruta el tráfico
 entre varias VLAN en una red. (Ejemplo: Para que alguien de RRHH se puede conectar con Contabilidad)
 
-4. # Elementos de un sistema de cableado
+# 4.Elementos de un sistema de cableado
 
 * ``Distribuidor de Campus (DC o CD, Campus Distributor)``: elemento del cual parten los distintos cables que conforman
   el cableado de campus.
