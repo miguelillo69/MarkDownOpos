@@ -135,6 +135,10 @@
       "ruta": "B4\\IEEE_802.x.md"
     },
     {
+      "nombre": "Medios de comunicación.md",
+      "ruta": "B4\\Medios de comunicación.md"
+    },
+    {
       "nombre": "Patrones de diseño.md",
       "ruta": "B4\\Patrones de diseño.md"
     },
@@ -145,6 +149,10 @@
     {
       "nombre": "REDES.md",
       "ruta": "B4\\REDES.md"
+    },
+    {
+      "nombre": "Redes_de_comunicacion.md",
+      "ruta": "B4\\Redes_de_comunicacion.md"
     },
     {
       "nombre": "Sistema de Gestión de Incidencias.md",
