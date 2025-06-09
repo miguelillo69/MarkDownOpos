@@ -84,7 +84,7 @@
 
 Arquitectura Von Newman:
 
-![](../img/von_neuman.png)
+![](img/von_neuman.png)
 
 - ``MP`` (Memoria principal): Guarda información que se está usando.  
 - ``MS`` (Memoria secundaria): Guarda información para utilizar en otro momento.  
@@ -172,7 +172,7 @@ Arquitectura Von Newman:
     palabras que esa memoria puede almacenar.  
     10 hilos sería 210 palabras.
 
-![](../img/tamanyo_memoria.png)
+![](img/tamanyo_memoria.png)
 
 Tipos de direccionamiento:
 
@@ -182,7 +182,7 @@ Tipos de direccionamiento:
 - ``Indirecto``: Dentro de la instrucción se incluye una dirección, en la que se encuentra otra dirección donde está el dato.  
 - ``Relativo``: La dirección del dato se calcula con una dirección base más un desplazamiento.
 
-![](../img/Inmediato.png) ![](../img/Directo.png) ![](../img/Indirecto.png) ![](../img/Relativo.png)
+![](img/Inmediato.png) ![](img/Directo.png) ![](img/Indirecto.png) ![](img/Relativo.png)
 
 ``RAID (Redundant Array of Inexpensive Disks)``
 
@@ -194,12 +194,12 @@ Tipos de direccionamiento:
     * Distribución equitativa entre dos discos.  
     * No hay redundancia de datos. 
 
-![](../img/Raid_0.png)
+![](img/Raid_0.png)
 
   * ``Nivel 1``: Espejo.  
     * Un disco contiene la copia exacta del otro.  
 
-![](../img/Raid_1.png)
+![](img/Raid_1.png)
 
   * ``Nivel 2``: División a nivel de bits.  
     * Con disco de paridad dedicado.  
@@ -207,23 +207,23 @@ Tipos de direccionamiento:
     
   * ``Nivel 3``: División por bytes. No se usa. 
 
-![](../img/Raid_3.png)
+![](img/Raid_3.png)
 
   * ``Nivel 4``: IDA (acceso independiente con discos de paridad dedicada)  
     * Divide por bloques, no por bytes.  
 
-![](../img/Raid_4.png)
+![](img/Raid_4.png)
 
   * ``Nivel 5``: Distribución con paridad.  
     * No tiene un disco dedicado, la paridad se incluye entre los datos.  
     * Muy popular, se necesitan un mínimo de 3 discos. 
 
-![](../img/Raid_5.png)
+![](img/Raid_5.png)
 
   * ``Nivel 6``: Igual que el 5 pero con dos bloques de paridad.  
     * Evita muchos errores  
 
-![](../img/Raid_6.png)
+![](img/Raid_6.png)
 
   * ``Nivel 5E, 6E``: Variedad del nivel 5 y 6 con disco de reserva.  
   * Existen niveles combinados, ``0+1``, ``30``, ``100``, ``10+1``.

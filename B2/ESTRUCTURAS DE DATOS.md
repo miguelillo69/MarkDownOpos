@@ -29,18 +29,18 @@
          Ej: ``int x[5]``  --- array de 5 elementos enteros, int x ``[4][3][6]`` --- matriz de tres dimensiones de enteros.  
 ``Punteros:`` Variables que almacenan una dirección de memoria. (Utilizados a bajo nivel). No necesitan reservar memoria.  * : Para acceder al contenido. &: Para acceder a la dirección de memoria.
 
-![](../img/punteros.png)``&p`` 🡪 E8F2, ``*p`` 🡪 5
+![](img/punteros.png)``&p`` 🡪 E8F2, ``*p`` 🡪 5
 
 ``Listas:`` estructura de datos secuencial dinámica (sin tamaño fijo).
 
-![](../img/listas.png)
+![](img/listas.png)
 
 ``Pilas (LIFO):`` Last In, First Out --- Último en entrar primero en salir.  
 ``Colas (FIFO):`` First In, First Out --- Primero en entrar, primero en salir.                                               
 	Push (meter dato), Pop (sacar dato), Top (primer elemento)  
 ``Árboles:`` 
 
-![](../img/arbol_binario.png)
+![](img/arbol_binario.png)
 
 - ``Raíz``: elemento que no tiene antecesor.  
 - ``Rama``: arista entre dos nodos.  
@@ -59,7 +59,7 @@
 
 ``Grafos:`` árboles no jerárquicos. Las ramas pueden o no tener peso.
 
-![](../img/Grafo.png)
+![](img/Grafo.png)
 
 ``Algoritmo:`` secuencia lógica de pasos a seguir para obtener una solución.
 

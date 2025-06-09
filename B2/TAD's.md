@@ -23,7 +23,7 @@ primero en salir.
 
 ## Modelo gráfico
 
-![](../img/pilas.png)
+![](img/pilas.png)
 
 ## Especificaciones
 
@@ -78,7 +78,7 @@ el primero en salir.
 
 ## Modelo gráfico
 
-![](../img/colas.png)
+![](img/colas.png)
 
 ## Especificaciones
 
