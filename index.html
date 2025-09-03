@@ -53,13 +53,31 @@
       padding-bottom: 30px;
       border-radius: 10px;
     }
+
+    .nav {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .nav button {
+      background-color: white;
+      height: 40px;
+      align-items: center;
+    }
   </style>
 </head>
 
 <body class="p-4">
 
   <div class="container">
-    <h1 class="mb-4">TAI 2025</h1>
+    <div class="nav">
+      <h1 class="mb-4">TAI 2025</h1>
+      <button class="btn" onclick="cargarMarkdown('Temario.md')">Temario</button>
+    </div>
+
 
     <div class="row g-3 navegador">
       <div class="col-md-3">
@@ -93,77 +111,74 @@
     </div>
   </div>
 
-  <script>
-    fetch('markdown_files.json')
-      .then(response => response.json())
-      .then(data => {
-        const carpetas = Object.keys(data);
 
-        carpetas.forEach((carpeta, idx) => {
-          const selectId = `select${idx + 1}`;
-          const select = document.getElementById(selectId);
+   <script>
+  function cargarMarkdown(ruta) {
+    fetch(ruta)
+      .then(r => r.text())
+      .then(md => {
+        const html = marked.parse(md);
+        const container = document.getElementById('markdown-container');
+        container.innerHTML = html;
 
-          data[carpeta].forEach(archivo => {
-            const option = document.createElement('option');
-            option.value = archivo.ruta;
-            option.textContent = archivo.nombre;
-            select.appendChild(option);
-          });
-
-
-
-          select.addEventListener('change', function () {
-            const selects = document.querySelectorAll('select.form-select');
-            selects.forEach(s => {
-              if (s !== this) {
-                s.value = 'ninguno';
-                s.style.backgroundColor = '';
-                s.style.color = '';
-                s.style.fontWeight = '';
-              }
-            });
-
-            if (this.value === 'ninguno' || this.value === '') {
-              this.style.backgroundColor = '';
-              this.style.color = '';
-              this.style.fontWeight = '';
-              document.getElementById('markdown-container').innerHTML = '<p class="text-gray-500">No se ha seleccionado ningún archivo.</p>';
-              return;
-            }
-
-            this.style.backgroundColor = 'white';
-            this.style.color = 'black';
-            this.style.fontWeight = 'bold';
-
-            cargarMarkdown(this.value);
-          });
-
-
+        // Inicializa el resaltado de código
+        container.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightElement(block);
         });
-
-        function cargarMarkdown(ruta) {
-          fetch(ruta)
-            .then(r => r.text())
-            .then(md => {
-              const html = marked.parse(md);
-              const container = document.getElementById('markdown-container');
-              container.innerHTML = html;
-
-              // Inicializa el resaltado de código
-              container.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block);
-              });
-            })
-            .catch(err => {
-              document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar el archivo.</p>';
-              console.error(err);
-            });
-        }
       })
       .catch(err => {
-        console.error('Error al cargar el JSON:', err);
-        document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar la lista de archivos.</p>';
+        document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar el archivo.</p>';
+        console.error(err);
       });
+  }
+
+  fetch('markdown_files.json')
+    .then(response => response.json())
+    .then(data => {
+      const carpetas = Object.keys(data);
+
+      carpetas.forEach((carpeta, idx) => {
+        const selectId = `select${idx + 1}`;
+        const select = document.getElementById(selectId);
+
+        data[carpeta].forEach(archivo => {
+          const option = document.createElement('option');
+          option.value = archivo.ruta;
+          option.textContent = archivo.nombre;
+          select.appendChild(option);
+        });
+
+        select.addEventListener('change', function () {
+          const selects = document.querySelectorAll('select.form-select');
+          selects.forEach(s => {
+            if (s !== this) {
+              s.value = 'ninguno';
+              s.style.backgroundColor = '';
+              s.style.color = '';
+              s.style.fontWeight = '';
+            }
+          });
+
+          if (this.value === 'ninguno' || this.value === '') {
+            this.style.backgroundColor = '';
+            this.style.color = '';
+            this.style.fontWeight = '';
+            document.getElementById('markdown-container').innerHTML = '<p class="text-gray-500">No se ha seleccionado ningún archivo.</p>';
+            return;
+          }
+
+          this.style.backgroundColor = 'white';
+          this.style.color = 'black';
+          this.style.fontWeight = 'bold';
+
+          cargarMarkdown(this.value);
+        });
+      });
+    })
+    .catch(err => {
+      console.error('Error al cargar el JSON:', err);
+      document.getElementById('markdown-container').innerHTML = '<p class="text-danger">Error al cargar la lista de archivos.</p>';
+    });
 
 
   </script>

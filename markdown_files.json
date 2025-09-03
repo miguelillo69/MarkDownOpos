@@ -83,10 +83,6 @@
   ],
   "B2": [
     {
-      "nombre": "archivos_formatos.md",
-      "ruta": "B2\\archivos_formatos.md"
-    },
-    {
       "nombre": "BBDD_NoSQL.md",
       "ruta": "B2\\BBDD_NoSQL.md"
     },
@@ -95,8 +91,20 @@
       "ruta": "B2\\CABLEDADO.md"
     },
     {
+      "nombre": "COMANDOS_LINUX.md",
+      "ruta": "B2\\COMANDOS_LINUX.md"
+    },
+    {
       "nombre": "ESTRUCTURAS DE DATOS.md",
       "ruta": "B2\\ESTRUCTURAS DE DATOS.md"
+    },
+    {
+      "nombre": "EXTENSIONES.md",
+      "ruta": "B2\\EXTENSIONES.md"
+    },
+    {
+      "nombre": "FORMATOS_ARCHIVOS.md",
+      "ruta": "B2\\FORMATOS_ARCHIVOS.md"
     },
     {
       "nombre": "INFORMÁTICA BÁSICA.md",
@@ -175,8 +183,8 @@
   ],
   "B4": [
     {
-      "nombre": "1. Administración del Sistema operativo y software de base. Actualización, mantenimiento y reparación del sistema operativo.md",
-      "ruta": "B4\\1. Administración del Sistema operativo y software de base. Actualización, mantenimiento y reparación del sistema operativo.md"
+      "nombre": "1. Administración del Sistema operativo y software de base. Actualización, mantenimiento y reparación del sistema operativo_.docx.md",
+      "ruta": "B4\\1. Administración del Sistema operativo y software de base. Actualización, mantenimiento y reparación del sistema operativo_.docx.md"
     },
     {
       "nombre": "12_CODD.md",
@@ -185,6 +193,10 @@
     {
       "nombre": "CCN_CERT.md",
       "ruta": "B4\\CCN_CERT.md"
+    },
+    {
+      "nombre": "El modelo OSI.docx.md",
+      "ruta": "B4\\El modelo OSI.docx.md"
     },
     {
       "nombre": "IEEE_802.x.md",
