@@ -835,156 +835,176 @@ memoria de inicio fija).
         * Fecha de la última modificación.
     * ``Área de datos``: parte del dispositivo lógico donde vamos a poder almacenar información.
 
-1.2. CREACIÓN E INCORPORACIÓN DE SISTEMAS DE FICHEROS  
-Una vez creado un sistema de ficheros mediante la orden “mkfs” necesitamos incorporar ese sistema de ficheros a la
-estructura jerárquica de nuestro sistema UNIX (llamado montar un sistema), para ello se usa la orden mount (mount:
-opciones:dispositivo:punto\_montaje). Para especificar el tipo de File System “-t tipo\_fs” (en Linux), “F tipo\_fs” (en
-Solaris) ... Otro tipo de opción es “-o” y especificar “ro” (read only), rw (lectura-escritura), suid (si acepta suid),
-...  
-El dispositivo es la entrada de /dev que utilizaremos como interface del dispositivo físico y el punto\_montaje es el
-directorio del árbol en el que se hará accesible, si no especificamos el tipo de file system, el comando mount asignará
-por orden secuencial de aparición en /proc/filesystems el tipo más adecuado. Si montamos un dispositivo sobre un punto
-de montaje ocupado por otro, el sistema oculta automáticamente el directorio antiguo, mostrando el nuevo. Proceso para
-desmontar un dispositivo, ejecutar la orden unmount (unmount:punto\_montaje) y para desmontar un file system ninguno de
-los procesos del sistema puede estar utilizando sus recursos.
+#### 1.2. CREACIÓN E INCORPORACIÓN DE SISTEMAS DE FICHEROS
 
-* Cuando arranca el sistema debe tener por lo menos un sistema de ficheros: el directorio raíz, ya montado. Los sistemas
-  de ficheros que se montan de modo automático la arrancar el sistema, se especifican en ficheros del estilo
-  /etc/fstab (en Linux). La organización de estos ficheros son entradas con la sintaxis (device:punto\_montaje:tipo\_fs:
-  opciones:freq:passno), device es el dispositivo que enlaza al sistema de ficheros, punto\_montaje es el directorio en
-  el que se hará accesible, tipo\_fs es el tipo de fs que vamos a usar, opciones (la opción “auto” provoca que la
-  ejecución de los scripts de arranque monte el dispositivo en cuestión durante el proceso de arranque. Si no está
-  especificada la opción auto solo se preparará al FS para un montaje más automatizado en ejecución), freq es la
-  frecuencia de volcado y passno orden en que se chequean los sistemas de archivos con “fsck” al arrancar la máquina.
-  Puede haber dos entradas especiales:
-* ``swap``: no necesita punto de montaje.
-* ``/proc``: no está asociado a ningún dispositivo físico de la máquina ya que es un FS virtual que actúa como interface
-  entre las estructuras de datos del kernel y las aplicaciones.
+* Una vez creado un sistema de ficheros mediante la orden “mkfs” necesitamos incorporar ese sistema de ficheros a la
+  estructura jerárquica de nuestro sistema UNIX (llamado montar un sistema), para ello se usa la orden mount (mount:
+  opciones:dispositivo:punto\_montaje).
+* Para especificar el tipo de File System “-t tipo\_fs” (en Linux), “F tipo\_fs” (en Solaris) ... Otro tipo de opción es
+  “-o” y especificar “ro” (read only), rw (lectura-escritura), suid (si acepta suid), ...
+* El dispositivo es la entrada de /dev que utilizaremos como interface del dispositivo físico y el punto\_montaje es el
+  directorio del árbol en el que se hará accesible, si no especificamos el tipo de file system, el comando mount
+  asignará por orden secuencial de aparición en /proc/filesystems el tipo más adecuado.
+* Si montamos un dispositivo sobre un punto de montaje ocupado por otro, el sistema oculta automáticamente el directorio
+  antiguo, mostrando el nuevo.
+* Proceso para desmontar un dispositivo, ejecutar la orden unmount (unmount:punto\_montaje) y para desmontar un file
+  system ninguno de los procesos del sistema puede estar utilizando sus recursos.
 
-| BitLocker: provee de cifrado del disco completo, está diseñado para proteger los datos al proporcionar cifrado para volúmenes enteros. Por defecto se utiliza el algoritmo de cifrado estándar AES en modo CBC con una clave de 128 bits. Tres mecanismos de autenticación: Modo de funcionamiento transparente: Este modo aprovecha las capacidades del módulo de plataforma de confianza (en inglés, Trusted Platform Module, TPM). La clave utilizada para el cifrado de disco está cifrada y solo se dará a conocer el código al sistema operativo si los archivos de inicio a principio del arranque no han sido modificados. Este modo es vulnerable a un ataque de arranque en frío, ya que permite el apagado de la máquina por un atacante. Modo de autenticación de usuario: Este modo requiere que el usuario proporcione alguna de autenticación al prearranque. Este modo es vulnerable a un ataque rootkit (conjunto de software que permite un acceso de privilegio continuo “root” a un ordenador pero que mantiene su presencia activamente oculta al control de los administradores al corromper el funcionamiento normal del sistema operativo o de otras aplicaciones). Modo en dispositivos USB: El usuario debe insertar un dispositivo USB que contenga una clave de inicio en el equipo para poder arrancar el sistema operativo protegido. Tenga en cuenta que esta modalidad requiere que la BIOS de la máquina protegida acepte el arranque desde dispositivos USB. Este modo también es vulnerable a un ataque rootkit. |
-| :---- |
+    * Cuando arranca el sistema debe tener por lo menos un sistema de ficheros: el directorio raíz, ya montado.
+    * Los sistemas de ficheros que se montan de modo automático la arrancar el sistema, se especifican en ficheros del
+      estilo /etc/fstab (en Linux). La organización de estos ficheros son entradas con la sintaxis (device:
+      punto\_montaje:tipo\_fs:opciones:freq:passno), device es el dispositivo que enlaza al sistema de ficheros,
+      punto\_montaje es el directorio en el que se hará accesible, tipo\_fs es el tipo de fs que vamos a usar,
+      opciones (la opción “auto” provoca que la ejecución de los scripts de arranque monte el dispositivo en cuestión
+      durante el proceso de arranque.
+    * Si no está especificada la opción auto solo se preparará al FS para un montaje más automatizado en ejecución),
+      freq es la frecuencia de volcado y passno orden en que se chequean los sistemas de archivos con “fsck” al arrancar
+      la máquina. Puede haber dos entradas especiales:
+        * ``swap``: no necesita punto de montaje.
+        * ``/proc``: no está asociado a ningún dispositivo físico de la máquina ya que es un FS virtual que actúa como
+          interface entre las estructuras de datos del kernel y las aplicaciones.
 
-1.3. TIPOS DE SISTEMAS DE FICHEROS  
-``ReFS`` (Resilient File System): se introdujo con Windows Server 2012, es transaccional, sus metadatos y archivos se
-organizan en tablas, de manera similar a una base de datos relacional.
+##
 
-* Mejora la fiabilidad de las estructuras en disco.
-* Capacidad de resiliencia incorporada.
-* Compatibilidad con APIs y tecnologías existentes (Bitlocker\*, ACLs...)
+* > ``BitLocker``: provee de cifrado del disco completo, está diseñado para proteger los datos al proporcionar cifrado para volúmenes enteros. Por defecto se utiliza el algoritmo de cifrado estándar AES en modo CBC con una clave de 128 bits. Tres mecanismos de autenticación:
+    * > Modo de funcionamiento transparente:
+        * > Este modo aprovecha las capacidades del módulo de plataforma de confianza (en inglés, Trusted Platform Module, TPM).
+        * > La clave utilizada para el cifrado de disco está cifrada y solo se dará a conocer el código al sistema operativo si los archivos de inicio a principio del arranque no han sido modificados.
+        * > Este modo es vulnerable a un ataque de arranque en frío, ya que permite el apagado de la máquina por un atacante.
+    * > Modo de autenticación de usuario:
+        * > Este modo requiere que el usuario proporcione alguna de autenticación al prearranque.
+        * > Este modo es vulnerable a un ataque rootkit (conjunto de software que permite un acceso de privilegio continuo “root” a un ordenador pero que mantiene su presencia activamente oculta al control de los administradores al corromper el funcionamiento normal del sistema operativo o de otras aplicaciones).
+    * > Modo en dispositivos USB:
+        * > El usuario debe insertar un dispositivo USB que contenga una clave de inicio en el equipo para poder arrancar el sistema operativo protegido.
+        * > Tenga en cuenta que esta modalidad requiere que la BIOS de la máquina protegida acepte el arranque desde dispositivos USB.
+        * > Este modo también es vulnerable a un ataque rootkit.
 
-``EXT4`` (Extended Filesystem 4): sistema de archivos transaccional (con jounaling), menor uso del CPU, mejoras en la
-velocidad de lectura y escritura,...
+##
 
-* Extents: conjunto de bloques físicos contiguos, mejora el rendimiento de ficheros de gran tamaño y reduce
-  fragmentación.
-* Compatibilidad con EXT3 sin necesidad de cambios de disco.
-* Asignación persistente de espacio en el disco: permite la reserva de espacio en disco para un fichero.
-* Asignación multibloque: permite asignar los bloques para un fichero en una sola operación, lo que reduce la
-  fragmentación.
+#### 1.3. TIPOS DE SISTEMAS DE FICHEROS
 
-| e2fsck: comprueba la integridad de un sistema de ficheros ext3. |
-| :---- |
+* ``ReFS`` (Resilient File System): se introdujo con Windows Server 2012, es transaccional, sus metadatos y archivos se
+  organizan en tablas, de manera similar a una base de datos relacional.
+    * Mejora la fiabilidad de las estructuras en disco.
+    * Capacidad de resiliencia incorporada.
+    * Compatibilidad con APIs y tecnologías existentes (Bitlocker\*, ACLs...)
 
-``ReiserFS`` (Reiser File System): sistema de propósito general, soportado por Linux y Windows, soporta journaling y
-reparticionamiento.
+* ``EXT4`` (Extended Filesystem 4): sistema de archivos transaccional (con jounaling), menor uso del CPU, mejoras en la
+  velocidad de lectura y escritura,...
+    * Extents: conjunto de bloques físicos contiguos, mejora el rendimiento de ficheros de gran tamaño y reduce
+      fragmentación.
+    * Compatibilidad con EXT3 sin necesidad de cambios de disco.
+    * Asignación persistente de espacio en el disco: permite la reserva de espacio en disco para un fichero.
+    * Asignación multibloque: permite asignar los bloques para un fichero en una sola operación, lo que reduce la
+      fragmentación.
 
-* Tail packing, un esquema para reducir la fragmentación interna.
+> ``e2fsck``: comprueba la integridad de un sistema de ficheros ext3.
 
-| rsync: herramienta de copia y sincronización de archivos en Unix. |
-| :---- |
+* ``ReiserFS`` (Reiser File System): sistema de propósito general, soportado por Linux y Windows, soporta journaling y
+  reparticionamiento.
+    * Tail packing, un esquema para reducir la fragmentación interna.
 
-1.4. LOGIC VOLUME MANAGER (LVM)  
-``PV``: puede ser cualquier tipo de dispositivo de almacén, pasa a llamarse Physical Volume.
+> ``rsync``: herramienta de copia y sincronización de archivos en Unix.
 
-* pvcreate dev “disco, partición...”
-* pvdisplay (permite ver información del PV)
-* pvresice (redimensiona el tamaño del LV)
+#### 1.4. LOGIC VOLUME MANAGER (LVM)
 
-``VG``: agrupa varios PV, funciona como una agrupación de discos que puede expandirse “en caliente”.
+* ``PV``: puede ser cualquier tipo de dispositivo de almacén, pasa a llamarse Physical Volume.
+    * pvcreate dev “disco, partición...”
+    * pvdisplay (permite ver información del PV)
+    * pvresice (redimensiona el tamaño del LV)
+* ``VG``: agrupa varios PV, funciona como una agrupación de discos que puede expandirse “en caliente”.
+    * vgcreate “nombre del vg” disco, partición...
+    * vgextend “disco a incorporar”
+    * vgreduce “disco a retirar”
 
-* vgcreate “nombre del vg” disco, partición...
-* vgextend “disco a incorporar”
-* vgreduce “disco a retirar”
+* ``LV``: partición del VG, entendido ya como almacenamiento lógico. o lvcreate \-L “tamaño” “vg al que pertenece”
 
-``LV``: partición del VG, entendido ya como almacenamiento lógico. o lvcreate \-L “tamaño” “vg al que pertenece”
+### 2\. ENLACES DIRECTOS EN UNIX
 
-2\. ENLACES DIRECTOS EN UNIX  
-Un inodo es un bloque especial de disco de 64 bytes que almacena las propiedades de un fichero (tamaño del fichero, id
-del usuario, permisos...), existen tantos inodos como ficheros existen en el sistema. Tipos de enlaces:  
-``Enlace simbólico``: entradas del sistema de ficheros que apuntan a otra entrada (accesos directo), no conservan el
-inodo, pero si conserva los permisos del fichero original.
+* Un inodo es un bloque especial de disco de 64 bytes que almacena las propiedades de un fichero (tamaño del fichero, id
+  del usuario, permisos...), existen tantos inodos como ficheros existen en el sistema.
+* Tipos de enlaces:
+    * ``Enlace simbólico``: entradas del sistema de ficheros que apuntan a otra entrada (accesos directo), no conservan
+      el inodo, pero si conserva los permisos del fichero original.
 
-| Para crear un enlace simbólico a un inodo se usa “ln \-s origen destino” (siendo “origen” el fichero existente y “destino” el nombre del nuevo enlace). |
-| :---- |
+        * > Para crear un enlace simbólico a un ``inodo`` se usa “ln \-s origen destino” (siendo “origen” el fichero existente y “destino” el nombre del nuevo enlace).
 
-``Enlaces fuertes``: es otra entrada de directorio que referencia al mismo inodo. Solo se pueden hacer enlaces fuertes
-entre ficheros del mismo dispositivo de almacenamiento (no se pueden saltar puntos de montaje).
+    * ``Enlaces fuertes``: es otra entrada de directorio que referencia al mismo inodo. Solo se pueden hacer enlaces
+      fuertes entre ficheros del mismo dispositivo de almacenamiento (no se pueden saltar puntos de montaje).
+        * \-i: averigua el número de inodo de un fichero.
+        * \-l: número de enlaces fuertes a un inodo.
 
-* \-i: averigua el número de inodo de un fichero.
-* \-l: número de enlaces fuertes a un inodo.
+        * > Un enlace fuerte “ln origen destino” (siendo “origen” el fichero existente y “destino” el nombre del nuevo enlace). Si borramos el fichero original, el enlace simbólico permanece en el sistema de ficheros, no referenciado (entrada inútil).
 
-| Un enlace fuerte “ln origen destino” (siendo “origen” el fichero existente y “destino” el nombre del nuevo enlace). Si borramos el fichero original, el enlace simbólico permanece en el sistema de ficheros, no referenciado (entrada inútil). |
-| :---- |
+### 3\. PERMISOS
 
-3\. PERMISOS  
-Solo el propietario y el administrador tienen permiso para modificar el mapa de permisos de un fichero, para ellos se
-usa la orden “chmod”:  
-``r``: permiso de lectura.  
-``w``: permiso de escritura o modificación, así como añadir o borrar ficheros de un directorio.  
-``x``: permiso de ejecución.
+* Solo el propietario y el administrador tienen permiso para modificar el mapa de permisos de un fichero, para ellos se
+  usa la orden “chmod”:
+    * ``r``: permiso de lectura.
+    * ``w``: permiso de escritura o modificación, así como añadir o borrar ficheros de un directorio.
+    * ``x``: permiso de ejecución.
 
-``Se organizan en tres bloques``:
+* ``Se organizan en tres bloques``:
+    * ``Tres primeros``: afectan al propietario (u) del fichero.
+    * ``Tres segundos``: afectan al grupo (g) principal al que pertenece el usuario.
+    * ``Tres últimos``: afecta al resto de usuarios (o).
 
-* ``Tres primeros``: afectan al propietario (u) del fichero.
-* ``Tres segundos``: afectan al grupo (g) principal al que pertenece el usuario.
-* ``Tres últimos``: afecta al resto de usuarios (o).
+* En el momento de su creación los ficheros y los directorios obtienen una serie de ``permisos por defecto``:
+    * ``666`` (rw-rw-rw-): mapa total que afecta a los ficheros por defecto del sistema.
+    * ``777`` (rwxrwxrwx): mapa total que afecta a los directorios por defecto del sistema.
 
-En el momento de su creación los ficheros y los directorios obtienen una serie de ``permisos por defecto``:  
-``666`` (rw-rw-rw-): mapa total que afecta a los ficheros por defecto del sistema.  
-``777`` (rwxrwxrwx): mapa total que afecta a los directorios por defecto del sistema.
+#### 3.1. PERMISOS ESPECIALES
 
-3.1. PERMISOS ESPECIALES  
-Para cambiar la contraseña de usuario ejecutamos la instrucción “passwd” esta actualiza el fichero /etc/passwd o en el
-/etc/shadow, pero por defecto el usuario no tiene permiso de escritura en ese fichero, esta situación se resuelve con el
-uso del bit ``SUID`` (peso 4\) y ``GUID`` (peso 2), su función es asociar al proceso lanzado por el usuario (o el grupo)
-los permisos y privilegios del propietario del programa ejecutable, así el sistema entiende que quien está intentando
-modificar los fichero sea root, y se le permite realizar la modificación. Sticky bit (bit de permanencia): es un
-bloqueador del fichero, protegiéndolo contra agresiones  
-involuntarias, cualquier usuario puede crear ficheros dentro del directorio con sticky bit, pero solamente el
-propietario puede eliminarlos (peso 1).
+* Para cambiar la contraseña de usuario ejecutamos la instrucción “passwd” esta actualiza el fichero /etc/passwd o en el
+  /etc/shadow, pero por defecto el usuario no tiene permiso de escritura en ese fichero, esta situación se resuelve con
+  el uso del bit ``SUID`` (peso 4\) y ``GUID`` (peso 2), su función es asociar al proceso lanzado por el usuario (o el
+  grupo)
+  los permisos y privilegios del propietario del programa ejecutable, así el sistema entiende que quien está intentando
+  modificar los fichero sea root, y se le permite realizar la modificación.
+* Sticky bit (bit de permanencia): es un bloqueador del fichero, protegiéndolo contra agresiones involuntarias,
+  cualquier usuario puede crear ficheros dentro del directorio con sticky bit, pero solamente el propietario puede
+  eliminarlos (peso 1).
+    * Estos permisos valen tanto para aumentar como para disminuir privilegios.
+    * Para poner o quitar los bits SUID, SGID y Sticky, se usa la formula “chmod u (user) /g (group) /o (other) ± s
+      (SUID) /t (Sticky)”.
 
-* Estos permisos valen tanto para aumentar como para disminuir privilegios.
-* Para poner o quitar los bits SUID, SGID y Sticky, se usa la formula “chmod u (user) /g (group) /o (other) ± s (SUID)
-  /t (Sticky)”.
+### 4\. PROCESO DE ARRANQUE DE UNIX
 
-4\. PROCESO DE ARRANQUE DE UNIX  
-1\. Chequeo inicial del sistema por las rutinas ROM almacenadas en la máquina.  
-2\. Carga de una boot-prompt (gestor de arranque) que permita localizar el núcleo de un sistema operativo UNIX (LILO en
-caso de Linux).  
-3\. Carga del núcleo del sistema.  
-4\. Carga del proceso “init” padre de todos los procesos, establece el runlevel (conjunto de servicios referenciados por
-una letra o número) por defecto, y pone disponibles los servicios en el sistema.
+* 1\. Chequeo inicial del sistema por las rutinas ROM almacenadas en la máquina.
+* 2\. Carga de una boot-prompt (gestor de arranque) que permita localizar el núcleo de un sistema operativo UNIX (LILO
+  en caso de Linux).
+* 3\. Carga del núcleo del sistema.
+* 4\. Carga del proceso “init” padre de todos los procesos, establece el runlevel (conjunto de servicios referenciados
+  por una letra o número) por defecto, y pone disponibles los servicios en el sistema.
 
-| GNU GRUB (GNU GRand Unified Bootloader): es un gestor de arranque multiple usado en GNU/Linux y Solaris. Alrededor de 2002 investigadores japoneses empezaron a trabajar en PUPA (siglas de Preliminary Universal Programming Architecture), cuyo objetivo era reescribir el cuerpo de GRUB para hacerlo más claro, seguro, robusto y poderoso. PUPA fue posteriormente renombrado a GRUB 2, y la versión original de GRUB fue renombrada a GRUB Legacy. |
-| :---- |
+##
 
-``Sistemas de inicio``:
+* > ``GNU GRUB`` (GNU GRand Unified Bootloader): es un gestor de arranque multiple usado en GNU/Linux y Solaris.
+* > Alrededor de 2002 investigadores japoneses empezaron a trabajar en PUPA (siglas de Preliminary Universal Programming Architecture), cuyo objetivo era reescribir el cuerpo de GRUB para hacerlo más claro, seguro, robusto y poderoso.
+* > ``PUPA`` fue posteriormente renombrado a GRUB 2, y la versión original de GRUB fue renombrada a GRUB Legacy.
 
-* ``upstart``: desarrollado por Ubuntu, mejora la gestión de los disipativos que se conectan en caliente.
-* ``systemd``: utilizado en Fedora y Mandriva, arranque más rápido al iniciar los servicios en paralelo.
+##
 
-| Xfce: entorno de escritorio libre para sistemas tipo Unix como GNU/Linux, BSD, Solaris y derivados. Es rápido y ligero, sin dejar de ser visualmente atractivo y fácil de usar. |
-| :---- |
+* ``Sistemas de inicio``:
+    * ``upstart``: desarrollado por Ubuntu, mejora la gestión de los disipativos que se conectan en caliente.
+    * ``systemd``: utilizado en Fedora y Mandriva, arranque más rápido al iniciar los servicios en paralelo.
 
-``Runlevels estándar`` (En cada uno de estos niveles init lanza servicios que se  
-indican en el fichero “/etc/inittab”):  
-0: Maquina apagada o boot-prompt.  
-1 o “S”: Single-user.  
-2: Multiuser sin NFS (sin red).  
-3: Multiuser con NFS y con entorno gráfico).  
-4: sin uso especifico.  
-5: apagar la máquina.  
-6: reinicio del sistema.
+##
+
+* > ``Xfce``: entorno de escritorio libre para sistemas tipo Unix como GNU/Linux, BSD, Solaris y derivados.
+* > Es rápido y ligero, sin dejar de ser visualmente atractivo y fácil de usar.
+
+##
+
+* ``Runlevels estándar`` (En cada uno de estos niveles init lanza servicios que se indican en el fichero
+  “/etc/inittab”):
+    * 0: Maquina apagada o boot-prompt.
+    * 1 o “S”: Single-user.
+    * 2: Multiuser sin NFS (sin red).
+    * 3: Multiuser con NFS y con entorno gráfico).
+    * 4: sin uso especifico.
+    * 5: apagar la máquina.
+    * 6: reinicio del sistema.
 
 * ``Sintaxis``: son un conjunto de registros con la estructura (ID:runlevels:acción:comando), uno de los comandos que se
   ejecutan durante el establecimiento del runlevel es rc, invoca al directorio del runlevel indicado, se localizan
@@ -993,1290 +1013,1388 @@ indican en el fichero “/etc/inittab”):
   sintaxis: “KXXfile” o “SXXfile” donde “K” indica para el servicio, “S” indica levantar el servicio y “XX” un numero de
   prioridad.
 
-Una vez finalizado el proceso de arranque se nos presentara una login-prompt donde podemos lanzar una sesión de usuario.
-
-| who \-r: indica el runlevel actual |
-| :---- |
-
-5\. USUARIOS Y GRUPOS  
-``Cuentas de usuario``: cada usuario tiene una cuenta home asociada, con acceso completo a este directorio, lo que
-implica que podrá crear, borrar y almacenar ficheros en este directorio. El usuario está en por lo menos un grupo (grupo
-principal), puede estar en más grupos (secundarios), el listado de usuarios y sus asignaciones a grupos se almacenan en
-/etc/passwd (listado de usuarios, un registro para cada usuario del sistema con la estructura de campos: \[alias:
-pw\_encript:UDI:GID:datos descriptivos:home\_directory:default\_shell\])  
-La modificación de cuentas de usuario se efectúa con el comando usermod, este modifica las características de una cuenta
-de usuario ya existente, modifica por ejemplo:
-
-* ``/etc/shadow``: fichero adicional donde se almacenan los passwords encriptados y los datos para la expiración de
-  contraseñas. (también se usa el comando “chage” SIN “N” para cambiar la fecha de expiración de contraseñas \[-e\], ver
-  el último cambio de contraseña \[-l (ele)\]...).
-* ``/etc/groups``: contiene toda la información de pertenencia a grupos.
-* ``/etc/gshadow``: similar al fichero shadow de contraseñas, contiene los grupos, contraseñas y miembros.
-* ``/etc/login.defs``: definir valores por defecto para diferentes programas como useradd.
-* ``/etc/shells``: contienen un alista de shells válidos.
-
-``Cuentas de grupo``: proporcionan un método para vincular a usuarios similares, agrupándolos para agrupar un conjunto
-de cuentas de usuario de características similares con el propósito de aplicar directivas de seguridad parecidas a
-ellas, las cuentas de grupo son similares a las cuantas de usuario y se definen en un único fichero /etc/groups que
-contiene una lista con todos los grupos y sus correspondientes miembros, los grupos también poseen un nombre y un GID.
-Cuando un usuario se conecta al sistema Linux lo hace dentro de su grupo primario, este es el grupo al que el usuario
-pertenece por defecto, si un usuario quiere acceder a fichero so ejecutar programas que no están en su grupo primario,
-debe conmutar de grupo aquel que este asociado con los ficheros a los que quiere acceder o con los programas que quiere
-ejecutar. Solamente el root puede crear y administrar grupos, para crear un nuevo grupo en Linux se utiliza el comando
-groupadd, para crear nuevos usuarios el comando useradd y para modificar grupos ya existentes se usa el comando gpasswd:
-
-* \-M: para asignar miembros a un determinado grupo.
-* \-a nombreUsuario: añadir un usuario al grupo.
-* \-d nombreUsuario: eliminar un usuario del grupo especificado.
-* \-r: elimina la contraseña del grupo.
-* \-R: indica que no se puedan añadir usuarios nuevos el grupo especificado con el comando newgrp.
-* \-A nombreUsuario \[nombreUsuario\]: el usuario root pueda especificar que usuarios tienen privilegios para añadir o
-  eliminar usuarios de los grupos, especificar las contraseñas de grupo, este sobrescribe cualquier lista previa.
-  Implica que todos los nombres de usuario se deben introducir con esta opción.
-
-| groups: se utiliza para mostrar los grupos a los que pertenece el usuario en un determinado momento, “root” es miembro de todos los grupos por defecto. |
-| :---- |
-
-``Cuenta de root``: se crea por defecto durante la instalación del SO, es la cuenta que utiliza el administrador del
-sistema para realizar cualquier tarea administrativa en el sistema Linux, se puede usar:
-
-* ``Accediendo al sistema con la cuenta “root”``: se puede utilizar para acceder al equipo directamente a través de
-  consola, solamente se puede realizar a través de la consola principal, una vez logueado, cualquier acción que se
-  realice en el sistema es llevada a cabo como “root”.
-* ``Comando SU``: se puede utilizar para adquirir temporalmente los privilegios de superusuario para realizar tareas
-  administrativas o para ejecutar programas que requieran privilegios de superusuario, se solicitara la contraseña de
-  roo y si es correcta se obtendrán lo privilegios, el comando SU puede utilizarse también para conmutar a otras cuentas
-  de usuario.
-* ``Comando SUDO``: permite a un administrador seleccionar ciertos comandos que pueden ser tecleados sin ser “root” que
-  de otra forma requerirían los privilegios de superusuario, esto se hace editando el fichero /etc/sudoers y
-  especificando que usuario y que comandos podrán ejecutar dichos usuarios sin convertirse en root.
-* ``Ficheros SUID root``: es posible seleccionar un fichero que se ejecute como si fuese lanzado por el “root” pese a
-  que haya sido ejecutado por cualquier otro usuario del sistema.
-
-6\. MANEJO DE LA SHELL  
-Cuando iniciamos sesión en UNIX, se ejecutan una serie de instrucciones contenidas normalmente en los ficheros
-.profile (en estos ficheros se personaliza el entorno de usuario, configurando variables de ambiente y alias. La shell
-ofrece una prompt, puede ser:
-
-* ``\#``: prompt de root.
-* ``$``: prompt de usuario en las principales Shell de UNIX (Bourne, Bash, Korn).
-* ``%``: prompt de usuario en la C-Shell.
-
-Las órdenes del Shell pueden ser internas o externas, el tratamiento que recibe una orden es el de una subshell, el
-proceso padre es la shell.
-
-* ``Orden interna`` es aquella cuyo código está integrado en el shell: bg, fg, cd, exec, exit, echo…
-* ``Orden es externa`` si su código reside en un archivo: more, cat, mkdir, ls, grep...
-
-6.1. ÓRDENES DE USUARIO EN UNIX  
-``Control``:
-
-* ``CTRL+c``: termina un comando.
-* ``CTRL+d``: End Of File (fin de fichero).
-* ``CTRL+u``: borra la línea de comandos.
-
-``Páginas Man:``
-
-* ``intro``: desplaza una línea.
-* ``space``: siguieinte pantalla.
-* ``f``: avanza una pantalla.
-* ``q``: sale de las páginas MAN.
-
-7\. COMANDOS UNIX  
-``pwd`` (print working directory): directorio de trabajo actual.  
-``who``: listado de usuarios conectados a nuestro sistema.  
-``id user``: muestra el UID y el GID del usuario especificado, sin parámetros muestra información de uno mismo.  
-``passwd user``: permite cambiar la password de usuario user.  
-``uname``: muestra información sobre el sistema actual:
-
-* \-a: información en formato largo.
-* \-s: nombre del sistema operativo.
-* \-n: nombre de la estación de trabajo
-
-``su user``: abre una sesión de user en una subshell de la shell de usuario. Utilizado sin parámetros abre una sesión de
-root (pidiendo la password).  
-``sudo`` comando: ejecuta un comando con los permisos de root.  
-``mkdir`` directorio: crea un directorio.  
-``rmdir``: borra un directorio.  
-``rm`` file o ``rm \-r`` dir: borra un fichero.  
-``cd``: directorio\_destino: se desplaza al directorio de destino.  
-``ls`` directorio: muestra el contenido de un directorio.
-
-* \-a: muestra todos los ficheros.
-* \-l: listado completo (muestra las propiedades de cada archivo).
-* \-i: muestra el número de inodo.
-
-``free``: muestra datos sobre la memoria del sistema  
-``df`` (disk free): detalla el espacio total, ocupado y libre del sistema  
-``du`` (disk usage): muestra el uso en disco que realiza un conjunto de archivos en los directorios existentes.  
-``dd``: permite copiar y convertir datos de archivos a bajo nivel
-
-* if (input file): lee desde el archivo indicado como origen
-* of (output file): escribe al archivo indicado como destino
-* bs: indica el tamaño de bloque en bytes (por defecto)
-* count: copia el número indicado de bloques del archivo
-
-``watch``: ejecutar cualquier comando arbitrario a intervalos regulares.  
-``ss``: se utiliza para volcar estadísticas de sockets (permite mostrar información similar a netstat).  
-``whereis``: localiza el archivo binario, el código fuente y la página de manual de un determinado comando.  
-``which``: comando de búsqueda que lista la ruta completa de un comando.  
-``touch``: crea un fichero vacío desde el terminal de linux, si el fichero existe le cambia la fecha y hora de
-modificación.  
-``nmap``: herramienta de exploración de red y escáner de seguridad/puertos.  
-``top`` (comando linux): monitoreo de procesos y tareas, varias herramientas dedicadas:
-
-* ``htop``: monitoreo de CPU
-* ``iotop``: monitoreo de la información de E/S del disco
-* ``iftop``: monitoreo de red
-
-7.1. Comandos de manejo de ficheros:  
-``cat`` file1 file2: concatena los ficheros mostrándolos por pantalla.  
-``pg`` file: muestra el contenido del fichero file y a continuación la prompt.  
-``head / tail`` ± n file: muestra las n (primeras o últimas líneas) del fichero.  
-``wc`` file: muestra el número de caracteres (-m), líneas (-l), palabras (-w) o bytes (-c) del fichero.  
-``cmp`` file1 file2: localiza la primera diferencia entre los ficheros.  
-``file`` file: informa sobre el tipo de fichero (ASCII, binario, ejecutable...).  
-``cp / mv`` fichero\_origen fichero\_destino: copia / mueve el fichero origen con el nombre y posición del fichero
-destino.  
-``sort`` file: ordena alfabéticamente las líneas (registros) del fichero.
-
-7.2. Comandos de búsqueda de información:  
-``find`` ruta patrón acción: busca los archivos que coincidan con el patrón en la ruta especificado y ejecuta la acción
-indicada.
-
-* ``ruta``: lugar donde empieza la búsqueda
-* ``patrón``: criterio de búsqueda (-name, \-size, \-type, \-mtime \[mide el tiempo transcurrido desde hoy hasta el
-  parámetro\]...).
-* ``acción``: acción a realizar (-print, \-exec, \-copy, \-delete...).
-
-``grep / fgrep`` (no reconoce metacaracteres) / egrep patrón fichero: busca patrón en ficheros.
-
-* ^: seguido de una letra indica las líneas que empiezan por esa letra.
-* $: precedido de una letra indica todas las líneas que acaba por esa letra.
-* \*: a\* equivale a “aa”, a\*\*\* equivale a “aaaa”.
-
-7.4. Comandos VI: editor de texto en consola.  
-``w``: guardar los cambios pero no sale del editor.  
-``wq``: guarda los cambios y sale del editor.  
-``q\!``: sale del editor sin guardar los datos.
-
-| less: visualizador de archivos de texto, funciona en intérpretes de comandos UNIX. |
-| :---- |
-
-8\. METACARACTERES (caracteres especiales que cumplen funciones dentro de la Shell)  
-``\``*: sustituye cualquier cadena de caracteres.  
-``\[rango\]``: sustituye cualquier carácter descrito en el rango.  
-``$``: obtiene el valor de una variable.  
-``?``: comodín que sustituye cualquier carácter.  
-``|``: enlaza ordenes (convierte la salida de la primera orden en la entrada de la segunda) orden1|orden2.  
-``\>``: redirecciona la salida. \<: redirecciona la entrada.  
-``;``: enlaza la ejecución de dos órdenes / && (si la primera tiene éxito) / || (si la primera fracasa).
-
-9\. ÓRDENES DE IMPRESIÓN  
-``/etc/printcap``: base de datos de la configuración de las impresoras (spool).  
-``lp`` y ``lpr``: encola ficheros de texto para imprimir:
-
-* \-d: especifica impresora.
-* \-n: imprime un número de copias específicas.
-
-``lprm``: borra los documentos pendientes de la cola de impresion  
-``lpstat``: monitoriza el estado de la cola de impresión:
-
-* \-p: visualiza el estado de las impresoras.
-* \-d: visualiza la impresora por defecto.
-* \-s: resumen de información de estado para todas las impresoras.
-
-``cancel`` id\_peticion: cancela una petición de impresión.  
-``pr``: formatea para imprimir.
-
-10\. COPIAS DE SEGURIDAD Y ALMACENAMIENTO  
-``tar``: agrupa ficheros pero sin “-z” no comprime. Archiva y extrae ficheros desde y hacia un fichero de destino u
-origen.
-
-* c: crea un nuevo fichero tar.
-* t: lista los contenidos de un fichero tar.
-* x: extrae los contenidos de un fichero tar / z: comprime los ficheros agrupados.
-* f: especifica el fichero de destino.
-* v: visualiza la extracción o empaquetado de ficheros.
-
-``compress``: reducir el tamaño de un fichero: (el fichero resultante tiene la extensión “.Z”)
-
-* \-v: indica la progresión de la compresión.
-
-``uncompress``: descomprimir ficheros:
-
-* \-c: muestra el contenido del fichero sin descomprimirlo.
-
-``cpio`` (copy in/out): archiva o extrae información de una cita o de un fichero. Realiza un empaquetamiento más
-eficiente que tar, permite la recuperación de soportes defectuosos y posibilita escribir ficheros con distinto formato
-de cabecera.
-
-* o: crea un nuevo fichero.
-* i: extrae el fichero del archivo.
-* c: lee la información de cabecera en ASCII (muestra los ficheros comprimidos pero sin extraerlos).
-* t: lista la tabla del contenido de la cinta / v: imprime la lista de los nombres del fichero.
-
-``.jar``: comprime y empaqueta en un entorno jvm (java virtual machine).
-
-11\. GESTIÓN DE PROCESOS  
-Cada programa que se ejecuta en un entorno UNIX es un proceso, cuando se entra en la shell y comienza a ejecutarse la
-sesión, eso es un proceso, a cada proceso se le asigna un PID, usado por el kernel. El sistema también comienza algunos
-procesos llamados demonios, son programas arrancados en tiempo de arranque y son críticos para la funcionalidad del
-sistema. Para comenzar un proceso se crea un duplicado del proceso actual al que le llamaremos hijo, la  
-referencia de este proceso es PPID, dos modos de ejecución:  
-``Foreground`` (primer plano): suspende la interactividad de la shell hasta el fin de su ejecución.  
-``Background`` (segundo plano): se lanza añadiendo “&” al final del comando, devuelve la prompt del sistema, el usuario
-es informado mediante un mensaje de la finalización del proceso.
-
-| fg: trae a primer plano un proceso / bg: envía a background un proceso. |
-| :---- |
-
-``Herramientas para gestionar procesos``:  
-``ps``: la salida de la orden “ps” es el PID (identificador del proceso), TTY (identificador de terminal), TIME (tiempo
-de ejecución acumulado) y CMD (línea de comando):
-
-* \-e: muestra información sobre todos los procesos del sistema.
-* \-f: genera un listado completo que añade los campos UID (usuario propietario del proceso), PPID (padre del proceso) y
-  STIME (hora de inicio del proceso).
-* \-a: lista los procesos que no pertenecen al usuario.
-* \-x: lista de procesos que no tienen asociada una terminal.
-* \-u: lista extendida.
-
-``pidof``: muestra el ID de un proceso activo.
-
-11.1. SEÑALES  
-Se usan para controlar los procesos en ejecución en el sistema, se envían a procesos para indicar que ha corrido un
-evento y el proceso debe reaccionar (CTRL+c por ejemplo). Cada señal está asociada a un único número, un nombre y una
-acción esperada. Su sintaxis es (kill:señal:PID\_proceso), donde la opcion :señal: realiza:
-
-* ``SIGHUP`` (1): Hangup (reinicia teniendo en cuenta cambios de configuracion al reiniciar).
-* ``SIGINT`` (2): Interrupt.
-* ``SIGKILL`` (9): Kill (finaliza de golpe un proceso, no libera las instancias ocupadas).
-* ``SIGTERM`` (15): Terminate (finaliza ordenadamente el proceso dando tiempo a cerrar los buffers accedidos).
-
-12\. ADMINISTRACIÓN DE DISPOSITIVOS  
-UNIX controla los dispositivos, escalando las capas de interacción desde el hardware hasta el nivel de usuario, Driver
-es un programa que gestión la interacción entre un hardware determinado interpretándolo comandos propios del dispositivo
-a la interface propia del núcleo, pueden ser tanto parte del kernel como módulos independientes (LKM, Loadable Kernel
-Modules). El acceso a nivel de usuario es provisto a través de archivos de dispositivo especiales que encontraremos en
-el directorio /dev. El núcleo transforma las operaciones sobre estos archivos especiales en las llamadas al código del
-controlador. Los dispositivos son tratados por UNIX como entradas en el File System.  
-Los archivos de dispositivo se mapean en los correspondientes dispositivos a través del Número menor / mayor de
-dispositivo.  
-``Número mayor``: identifica el tipo de driver al que está asociado el archivo.  
-``Número menor``: indica el número de instancia o número d unidad que ocupa el driver en cuestión, es usado por el
-controlador para seleccionar características particulares del dispositivo. Debemos diferenciar entre dos grandes tipos
-de archivos de dispositivo:  
-``Dispositivos de bloques``: escribe o lee bloque a bloque (grupos de bytes de tamaño múltiplo de 512 o 1024 bytes).  
-``Dispositivos de caracteres``: escriben carácter a carácter.  
-Los drivers de dispositivos presentan una interface estándar del kernel, cada driver tiene rutinas (open, close, read,
-reset...). Dentro del núcleo, las funciones para cada controlador se mantienen en una tabla de saltos (man mkmod),
-indexadas por el número mayor de dispositivo. Hay dos tablas para dispositivos una en modo bloque y otra en modo
-carácter. Cuando un programa realiza una operación sobre un archivo de dispositivo, el kernel intercepta la referencia
-automáticamente, busca la función adecuada en la tabla de saltos y le transfiere el control. Todos los sistemas
-proporcionan algún sistema de agregar nuevos drivers de dispositivo al kernel, ya se modificando tablas y recompilando,
-o en forma de módulos cargables en tiempo de ejecución.
-
-12.1 ARCHIVOS DE DISPOSITIVO  
-Se encuentran en el directorio /dev, en este directorio puede haber cientos de dispositivos, se crean con el comando
-“mkmod” (el SO crea y monta al conectar por primera vez), usa la sintaxis (mkmod:nombre:tipo:major:minor), tipo es “c”
-para los archivos de caracteres y “b” para los dispositivos de bloques.  
-Muchos sistemas proporcionan un script llamado MAKEDEV para aplicar de forma automatizada los argumentos a “mkmod” para
-los dispositivos más comunes. En Linux, utilizamos la abreviatura de disco o dispositivo, seguido del etiquetado del
-elemento y el número de partición hda1 para la primera partición del primer disco duro).
-
-13\. SCRIPTS DEL SHELL  
-Una serie de estructuras de control del propio shell que también actúa como intérprete de un potente lenguaje de
-programación, se crean scripts para automatizar tareas o ejecutar lotes largos de órdenes. La almohadilla (\#), tiene
-doble función:
-
-* ``Marcar como comentario``: cualquier línea de código del script, estas serán ignoradas por el shell en el momento de
-  la ejecución.
-* ``Como excepción``, la primera línea de un script suele ser: \#\!/bin/\*shell indicada\*. Mediante esta secuencia
-  indicamos al intérprete de comandos que lo que vienen a continuación es un script, debe ser interpretado mediante la
-  \*shell indicada\*.
-
-13.1 CRON Y CRONTAB  
-``CRON`` es un demonio que se ejecuta desde el arranque del sistema. Comprueba si existe alguna tarea para ser ejecutada
-de acuerdo a la hora configurada en el sistema. En función de la distribución, se inicia utilizando las carpetas
-/etc/rc.d/ o /etc/init.d y cada minuto comprueba los ficheros /etc/crontab o /var/spool/cron es busca de posibles
-ejecuciones.  
-``CRONTAB`` es un archivo de texto que posee una lista con todos los scripts a ejecutar, generalmente cada usuario del
-sistema posee su propio fichero Crontab. Se considera que el ubicado en la carpeta /etc pertenece al usuario “root” (
-para generar el archivo propio, cada usuario deberá hacer uso del comando crontab). Para editar el archivo se usa la
-opción “-e” con la notación: (\* \* \* \* \*:comando a ejecutar). Cada asterisco (\*) significa, de izquierda a derecha:
-
-* ``minutos``: (0-59).
-* ``horas``: (0-23).
-* ``día del mes``: (1-31).
-* ``mes``: (1-12).
-* ``día de la semana``: (0-6), siendo 0=domingo 1=lunes, 2=martes,... 6=sábado.
-
-| Se puede usar el metacaracter “/” antes del número para indicar que la acción se haga un número determinado de veces. |
-| :---- |
-
-13.2. VARIABLES (almacenamiento temporal en un área de la memoria)  
-``Variables locales``: privadas de la shell donde se han creado.  
-``Variables de entorno``: pasadas del proceso padre al hijo, algunas heredadas por la entrada en la Shell, otras son
-creadas en los ficheros de inicialización de la Shell del usuario, en scripts de la shell o en líneas de comando.
-Variables más frecuentes establecidas por el shell:
-
-* ``EDITOR``: define el editor por defecto de la shell.
-* ``HOME``: directorio al que lleva el comando cd sin argumentos.
-* ``LOGNAME``: establece el nombre de entrada del usuario.
-* ``PATH``: lista de rutas en las cuales el intérprete de comandos debe buscar los programas a ejecutar.
-* ``PS1``: indicador primario del shell (“$” para usuario y “\#” para root).
-* ``PS2``: indicador secundario del shell, suele ser “\>”.
-* ``SHELL``: el nombre del shell por defecto.
-
-``Variables especiales``: pasan argumentos desde la línea de comandos, cada palabra separada por un espacio que sigue al
-nombre del script es llamada argumento.  
-Cuando ejecutamos (nombre\_script:argumento1:argumento2:argumento3:...), el shell almacena el “argumento 1” en $1, el
-“argumento 2” en $2 y así sucesivamente. ``Posiciones especiales``:
-
-* ``$0``: el propio nombre del script.
-* ``$\#``: el número total de argumentos de script.
-* ``$@``: visualizar cada uno de los argumentos.
-* ``$?``: retoma el valor del ultimo comando ejecutado.
-
-| Se puede usar el metacaracter “/” antes del número para indicar que la acción se haga un número determinado de veces. |
-| :---- |
-
-13.3. ORDEN TEST Y EXPR  
-Se usa para realizar comparación de expresiones, evalúa la expresión y se esta es verdad devuelve como salida cero, si
-es falso, devuelve un valor distinto, permite comprar cadenas, operadores lógicos, valores numéricos...  
-``Comparación de cadenas``:
-
-* \=: iguales.
-* \!=: distintos.
-* \-n: evaluar la longitud de la cadena.
-
-``Comparación de expresiones lógicas``:
-
-* \!: negar una expresión lógica.
-* \-a: AND.
-* \-o: OR.
-
-``Comparación y valoración de archivos``:
-
-* \-d: comprueba si es un directorio.
-* \-f: “” si es un archivo.
-* \-r: “” el permiso de lectura.
-
-``Comparación numérica``:
-
-* \-eq: iguales.
-* \-ge: mayor.
-* \-le: menor.
-
-| read: para el script y pide un dato al usuario. |
-| :---- |
-
-``EXPR``: Realiza operaciones, es una utilidad de cálculo aritmético que admite las siguientes operaciones básicas (+,
-\-, /\*, /, %), solo se admiten valores enteros y deben ir entre acentos.
-
-13.4. SENTENCIAS REPETITIVAS, CONDICIONALES Y BUCLES  
-``for``: implementa un bucle, es decir, que es capaz de repetir un grupo de sentencias un número determinado de veces. (
-for contador in valor / do / sentencias / done).  
-``while``: ejecutara las sentencias mientras se cumpla la condición especifica en las siguientes sintaxis. (while
-expesion / do / sentencias / done).  
-``if``: evalúa una expresión para tomar una decisión según el resultado de ella.  
-(if expresión / then sentencias / else / sentencias / fi).  
-``case``: ejecuta diferentes sentencias dependiendo de un valor o rango de valores que coincida con la variable
-especificada. (case cadena in / lista de patrones 1 sentencia / ... / ;;).  
-``func``: aparte del programa que realiza un proceso concreto. (func() / { / sentencias / }).
-
-14\. UNIX EN RED  
-Los comandos “ifconfig” o “ip” se utilizan para la configuración de los drivers y de los interfaces de red, se ejecuta
-en los scripts de arranque del sistema para poner en marcha los interfaces de red, sin argumentos ``ifconfig`` muestra
-el estado actual de los interfaces, sus opciones son:
-
-* \-a: muestra todas las interfaces disponibles.
-* interface: muestra el nombre de la interfaz, suele ser eth0 para la primera y así sucesivamente, se puede también
-  habilitar o deshabilitar dicha interface, asociar una dirección ip (adress), una máscara de red (netmask addr), un
-  alias, una dirección de broadcast,...
-* up/down: activa o desactiva la interfaz.
-* \-promisc: activa o desactiva el modo promiscuo en esa interfaz.
-
-Para ``ip``, algunas de sus opciones son:
-
-* \-h (-human): muestra las estadísticas de un modo más legible (equivalente a “-v”).
-* \-s (-stats): muestra más información (equivalente a “-a”).
-* \-f (-family): especifica la familia de protocolos (inet \[-4\], inet6 \[-6\], bridge \[-B\], mpls \[-M\] o link
-  \[-0\]).
-* \-r (-resolve): muestra los nombres DNS en lugar de las direcciones ip.
-* \-br (-brief): muestra solo información básica en formato de tabla.
-
-El programa “``route``” se utiliza para definir tablas de enrutamiento, cuando nuestro host necesita acceder a recursos
-de más de una red lógica. (opciones: add, del, target, netmask, gw,...).
-
-| IP Masquerade: es una capacidad de red de Linux en desarrollo. Si un servidor Linux está conectado a Internet con IP Masquerade habilitado, los ordenadores conectados a él (bien en la misma red local, bien por módem) también pueden conectarse a Internet, incluso aunque no tengan una dirección IP oficial asignada. |
-| :---- |
-
-Resolución de nombres en UNIX, serie de ficheros encargados de definir y acceder a los nombres: /etc/hosts.conf y
-/etc/resolve.conf. \[Nombres de las interfaces de red: /dev/eth0 (en Linux)\].
-
-14.1. CONFIGURACIÓN DE LOS SERVICIOS DE RED  
-Servicios basados en red, en sistemas UNIX, se habilitan mediante demonios que corren en los servidores, un demonio no
-es más que un programa que se activa en tiempo de arranque del sistema y permanece a la escucha de recibir una solicitud
-para ofrecer un servicio, dos modos:  
-``standalone``: un proceso escuchando un único puerto, para responder a las solicitudes.  
-``inetd`` (metademonio de red): escucha distintos puertos y reclama el servicio apropiado.  
-Ficheros implicados en este tipo de servicios:
-
-* ``/etc/services``: se reserva un puerto para cada servicio, hay una serie de puertos reservados y los no reservados
-  por encima del 1024 son determinados arbitrariamente.
-* ``/etc/inetd.conf``: se configuran las llamadas de inetd.
-
-14.2 X WINDOW SYSTEM  
-Protocolo que permite la interacción grafica en red entre un usuario y una o más computadoras haciendo transparente la
-red para este de forma totalmente independiente del SO. Distribuye el procesamiento de aplicaciones especificando
-enlaces cliente-servidor\*. El servidor provee servicios para acceder a la pantalla, teclado y ratón, mientras que los
-clientes son las aplicaciones que utilizan estos recursos para interacción con el usuario. Debido a este esquema
-cliente-servidor, se puede decir que X se comporta como un terminal gráfico virtual.
-
-14.3. SMB vs SAMBA  
-``Server Message Block`` (SMB): es un protocolo que permite compartir recursos en una red. Fue modificado y renombrado,
-por Microsoft, como CIFS (Common Internet File system).  
-``Samba``: es una implementación libre del protocolo SMB/CIFS que se usa en sistemas GNU/Linux y Unix en general.
-
-15\. IPTABLES  
-Programa de utilidad de espacio de usuario que permite a un administrador de sistemas configurar las tablas
-proporcionadas por el cortafuegos del núcleo Linux (implementado como diferentes módulos Netfilter) y las cadenas y
-reglas que almacena. Se utilizan diferentes módulos del kernel y programas para protocolos diferentes; iptables se
-aplica a IPv4, ip6tables a IPv6, arptables a ARP, y ebtables a marcos de Ethernet. Las reglas se guardan en el fichero
-“iptables.sh”:  
-``Cadenas`` (por donde van a circular los paquetes dentro del sistema):
-
-* ``PREROUTING``: contiene los paquetes que acaban de entrar al sistema, independientemente de que estén generados por
-  el mismo equipo o un equipo remoto.
-* ``INPUT``: contiene los paquetes destinados al equipo local con cualquier origen.
-* ``OUTPUT``: contiene los paquetes generados en el equipo local y que van a salir del mismo.
-* ``FORWARD``: contiene los paquetes que pasan por el equipo pero que son generados en equipos remotos y se dirigen a
-  otros equipos diferentes.
-* ``POSTROUTING``: contiene los paquetes que van a abandonar el sistema, independientemente de estén generados en el
-  mismo equipo o en un equipo remoto.
-
-``Acciones`` (especifican qué se va a realizar con el paquete cuando satisface la regla en la que se encuentra):
-
-* ``ACCEPT``: el paquete se acepta y no continúa atravesando ni la cadena actual ni cualquier otra cadena de la misma
-  tabla.
-* ``DROP``: el paquete se elimina completamente dentro de la cadena actual, y no será procesado en ninguna de las
-  cadenas principales de ninguna tabla. Tampoco se enviará ninguna información en ninguna dirección para informar de
-  ello.
-* ``REJECT``: el paquete se elimina completamente dentro de la cadena actual, aunque en este caso sí que se devuelve
-  información al equipo que envió el paquete. Sólo es válido en las cadenas INPUT, OUTPUT y FORWARD.
-* ``RETURN``: el paquete dejará la cadena en la que se encuentre, pero continuará por la cadena superior a esa, si es
-  que existe.
-* ``REDIRECT``: redirige el paquete hacia el mismo equipo local donde se ejecuta Iptables. Necesita un parámetro
-  opcional para indicar hacia dónde se redirige (--to-ports puertos).
-
-``Operaciones``:
-
-* \-L (--list): lista todas las reglas de la cadena.
-* \-A (–append): añade la regla al final de la cadena.
-* \-I (–insert): inserta la regla en la posición que indiquemos de la cadena.
-* \-D (–delete): elimina la regla de la cadena.
-* \-R (--replace): sustituye la regla en la cadena por la nueva.
-* \-F (–flush): elimina todas las reglas de la cadena.
-* \-P (--policy): crea una política por defecto en la cadena.
-
-``Coincidencias`` (patrones de los paquetes, podremos aplicarles acciones):
-
-* \-j accion: realiza la acción (ACCEPT, DROP, QUEUE y RETURN) cuando un paquete coincide con una regla particular.
-* \-p protocolo (--protocol): indica el protocolo de conexión que debe poseer el paquete.
-* \-s ip/máscara (--source): indica la dirección o red de origen del paquete.
-* \-d ip/máscara (--destination): indica la dirección o red de destino del paquete.
-* \-i interfaz (--in-interface): indica la interfaz de red del sistema por la que se recibe el paquete (sólo permitido
-  en las cadenas PREROUTING, INPUT y FORWARD).
-* \-o interfaz (--out-interface): indica la interfaz de red del sistema por la que se envía el paquete (sólo permitido
-  en las cadenas OUTPUT, FORWARD y POSTROUTING).
-* \--sport puerto (--source-port): indica el puerto de origen del paquete (sólo para los protocolos TCP y UDP).
-* \--dport puerto (--destination-port): indica el puerto de destino del paquete (sólo para los protocolos TCP y UDP).
-
-La ``Arquitectura cliente servidor`` es un modelo de diseño de software en el que las tareas se reparten entre los
-proveedores de recursos o servicios, llamados servidores, y los demandantes, llamados clientes. Un cliente realiza
-peticiones a otro programa, el servidor, quien le da respuesta. Esta idea también se puede aplicar a programas que se
-ejecutan sobre una sola computadora, aunque es más ventajosa en un sistema operativo multiusuario distribuido a través
-de una red de  
-computadoras. En la arquitectura C/S sus características generales son:
-
-* El Cliente y el Servidor pueden actuar como una sola entidad y también pueden actuar como entidades separadas,
-  realizando actividades o tareas independientes.
-* Las funciones de Cliente y Servidor pueden estar en plataformas separadas, o en la misma plataforma.
-* Cada plataforma puede ser escalable independientemente. Los cambios realizados en las plataformas de los Clientes o de
-  los Servidores, ya sean por actualización o por reemplazo tecnológico, se realizan de una manera transparente para el
-  usuario final.
-* La interrelación entre el hardware y el software están basados en una infraestructura poderosa, de tal forma que el
-  acceso a los recursos de la red no muestra la complejidad de los diferentes tipos de formatos de datos y de los
-  protocolos.
-* Su representación típica es un centro de trabajo (PC), en donde el usuario dispone de sus propias aplicaciones de
-  oficina y sus propias bases de datos, sin dependencia directa del sistema central de información de la organización.
-
-Los servidores pueden ser apátridas o stateful. Un servidor apátrida no guarda ninguna información entre las peticiones.
-Un servidor stateful puede recordar la información entre las peticiones. El alcance de esta información puede ser global
-o sesión-específico. Un servidor del HTTP para las páginas estáticas del HTML es un ejemplo de un servidor, apátrida
-mientras que Apache Tomcat es un ejemplo de un servidor stateful. La interacción entre el cliente y el servidor se
-describe a menudo usando diagramas de secuencia. Los diagramas de secuencia se estandarizan en el UML. Es importante que
-los clientes no interactúen entre sí ni que lo hagan clientes de capas bajas hacia otros de capas más altas, por eso
-todo tiene que pasar por el servidor. Para la arquitectura C/S el remitente de una solicitud es conocido como cliente (
-front-end). Sus características son:
-
-* Es quien inicia solicitudes o peticiones, tienen por tanto un papel activo en la comunicación (dispositivo maestro o
-  amo).
-* Espera y recibe las respuestas del servidor.
-* Por lo general, puede conectarse a varios servidores a la vez.
-* Normalmente interactúa directamente con los usuarios finales mediante una interfaz gráfica de usuario.
-
-Al receptor de la solicitud enviada por el cliente se conoce como servidor (back-end). Sus características son:
-
-* Al iniciarse esperan a que lleguen las solicitudes de los clientes, desempeñan entonces un papel pasivo en la
-  comunicación (dispositivo esclavo).
-* Tras la recepción de una solicitud, la procesan y luego envían la respuesta al cliente.
-
-Por lo general, acepta las conexiones de un gran número de clientes (en ciertos casos el número máximo de peticiones
-puede estar limitado).
-
-WINDOWS  
-Microsoft produce dos líneas separadas de sistemas operativos, una para ordenadores personales y otra para servidores.
-Versiones más importantes:  
-``Windows NT``: primera versión, orientada a computadoras personales, necesitaba gran cantidad de recursos  
-``Windows 95 y 98``: Versiones basadas en MS-DOS.  
-``Windows 2000``: muy útil para los administradores de sistemas y con una gran cantidad de servicios de red,
-implementaba la posibilidad del “plug and play”, alguna de las características más destacables.
-
-* Soporte para FAT32 y NTFS.
-* Cifrado de ficheros (EFS).
-* Sistema RAID.
-* Servicios de acceso remoto (RAS, VPN, RADIUS...).
-* Active Directory.
-* Windows XP: nueva interfaz, mayores capacidades multimedia, multitarea mejorada, soporte para redes inalámbricas...
-
-``Windows Server``: basada en el núcleo de XP con servicios añadidos.  
-``Windows 7``: mayor compatibilidad con aplicaciones y hardware, mejor interfaz, sistema de redes domesticas
-simplificado y fácil de usar denominado “Grupo en el hogar”, mejoras de rendimiento...  
-``Windows 10``: introdujo una arquitectura de aplicaciones universales, desarrolladas con la interfaz “modern UI”,
-orientado al uso con ratón y al uso con pantalla táctil, introduce la vista de tareas, un sistema de escritorio virtual
-y el asistente Cortana.
-
-1\. WINDOWS XP (Windows XP Home, Windows XP Profesional)  
-Construido con el código de Windows 2000 con un nuevo interfaz gráfico, introduce mejoras importantes como “entorno
-mejorado orientado a tareas”, “asistentes y herramientas”, “restaurar el sistema”, “nuevas tecnologías (conexión de
-varios monitores, DVD, dispositivos inalámbricos, bus USB...)”, “mejoras multimedia (controladores de tarjetas de video
-y sonido)”...  
-``Instalación``: el proceso de instalación está dirigido por un asistente que se ocupa de todo, solicitado en cada paso
-la información que necesita.
-
-* ``RIS`` (Remote Installation Services): servicio de los servidores de Microsoft que permite a ordenadores con BIOS PXE
-  ejecutar parámetros de arranque de forma remota.
-
-``Administración de discos``: admite trabajar con “discos básicos” que se dividen en particiones y “discos dinámicos”
-que se dividen en volúmenes, facilita dos herramientas, el administrador de discos y la línea de comandos “diskpart”.
-
-* Los ``discos básicos`` pueden dividirse en porciones de almacenamiento más pequeñas denominadas particiones, dos tipos
-  de particiones en un disco básico: primaria y extendida y esta a su vez se puede dividir en particiones lógicas.
-* Los ``discos dinámicos`` dan la posibilidad de administrarlo sin la necesidad de reiniciar, ampliar un volumen de
-  disco, extender un volumen entre múltiples discos duros, realizar secciones de un volumen para mejorar su rendimiento,
-  hacer un espejo o añadirlo a un array RAID 5, todo desde MMC y sin tener que reiniciar, la creación inicial o
-  conversión de un disco básico a disco dinámico si necesitara reinicio. ``Se organizan en``:
-    * ``Volúmenes simples``: contienen el espacio en un único disco.
-* ``Volúmenes seccionados`` (striped): combina espacio libre de dos o más discos físicos en un único volumen, este
-  proceso de división de los datos entre varios discos mejora el rendimiento del disco.
-* ``Volúmenes distribuidos`` (spanned): usa dos o más discos físicos de forma que se rellena el primer disco y después
-  el segundo y así sucesivamente.
-
-| Windows proporciona dos métodos para la desfragmentación del disco y mejorar el rendimiento: la herramienta gráfica “desfragmentador de disco” y la línea de comandos “defrag”. |
-| :---- |
-
-1.1. SISTEMA DE ARCHIVOS  
-Es la estructura en la que se asigna nombres a los archivos, se almacena y se tiene acceso a ellos, tres tipos de
-archivos en los discos duros FAT, FAT32 y NTFS, donde el utilizado actualmente es NTFS (New Technology File System)
-sistema de archivos implementado en Windows NT, aunque son posibles tamaños mayores, el máximo recomendado en la
-práctica para cada volumen es de 2 TB (Terabytes). El tamaño máximo de fichero viene limitado por el tamaño del volumen.
-A partir de la versión 3.0, soporta cuotas de disco, cifrado de archivos, archivos dispersos, puntos de análisis, número
-de secuencia de actualización (USN) diario, la carpeta $ Extender y sus archivos. Se reorganizó los descriptores de
-seguridad de forma que varios archivos utilizando la misma configuración de seguridad pueden compartir el mismo
-descriptor. La versión 3.1 amplió la tabla maestra de archivos (MFT) entradas con número de registro MFT redundante (
-útil para la recuperación de archivos dañados MFT).
-
-| chkdsk (windows): comprueba la integridad del disco. |
-| :---- |
-
-1.1.1. PERMISOS NTFS  
-Los permisos sobre carpetas y archivos en NTFS son: escribir (crear archivos y carpetas y modificar los atributos),
-leer (leer los archivos y carpetas, también los atributos), mostrar el contenido de la carpeta (permite movernos por la
-carpeta), lectura y ejecución (lectura y listado), modificar (lectura y ejecución más suprimir la carpeta) y control
-total (permite cambiar los permisos y tomar posesión). En un volumen NTFS se pueden establecer permisos a nivel de
-archivo, cualquier archivo puede otorgar a los usuarios diferentes tipos de acceso. Se deben asignar permisos a grupos,
-no a usuarios individualmente. No hay que establecer permisos archivo a archivo a menos que sea inevitable. Estos
-permisos siguen unas reglas: El usuario que crea un archivo o carpeta es el propietario de ese objeto. Los permisos que
-le demos a una carpeta se heredan en los niveles inferiores (Herencia). Los permios son acumulativos cuando un usuario
-está en más de un grupo salvo que alguno tenga marcado “DENEGAR” (Aditivos). Si copiamos un archivo a una partición
-distinta se heredan los permisos de la partición destino, si movemos un archivo o una carpeta NTFS hacia otra partición
-esta pierde sus propiedades de seguridad, se eliminan los permisos y se heredan de la carpeta destino. Para determinar
-los permisos reales de acceso a un recurso, el permiso global efectivo será el más restrictivo entre el permiso efectivo
-de compartición (FAT) y el permiso efectivo de NTFS.
-
-1.2. CARPETAS Y RECURSOS COMPARTIDOS  
-El sistema crea varios recursos compartidos especiales como ADMIN$ (aparece como C$, D$, E$...), permiten a los
-administradores conectarse a unidades que en otro caso no estarían compartidas. Existen como parte de la instalación del
-SO:  
-``ADMIN$``: se utiliza durante la administración remota de un equipo, solo los administradores, operadores de copia y
-operadores de servidores se pueden conectar a este recurso compartido.  
-``C$``: carpeta raíz de la unidad específica.  
-``IPC$``: utilizado durante la administración remota y cuando se revisan los recursos  
-compartidos, es esencial en la comunicación y no se debe cambiar, modificar o eliminar.  
-``NETLOGON``: servicio Inicio de sesión de red de un servidor que ejecuta Windows NT Server cuando procesa los únicos de
-sesión en el dominio.  
-``PRINT$``: soporta impresoras compartidas.  
-``REPL$``: se crea en un servidor cuando un cliente de fax está enviando el fax.  
-El objeto principal en una red es compartir archivos entre los distintos equipos, en sistemas Microsoft vamos a
-compartir siempre carpetas nunca archivos. La forma más sencilla de crear carpetas compartidas es utilizar la consola
-MMC con el complemento de carpetas compartidas, le asigna un nombre identificativo y se asignan los permisos
-correspondientes. Se pueden definir recursos compartidos y una única carpeta puede ser compartida más de una vez, un
-recurso compartido podría incluir control total para administradores y otro recurso compartido para  
-usuarios podría ser más restrictivo.  
-Los permisos de recursos compartidos se pueden asignar a usuarios individuales, a grupos y a las entidades especiales
-“Todos”, SYSTEM, INTERACTIVE, NETWORK y Usuarios autentificados. ``Carpetas que comparte`` el sistema ``por defecto``:  
-``C$``  
-``IPC$``: comunicación entre procesos.  
-``ADMIN$``: ruta %systemroot%.  
-``Print$``: administración de impresoras.
-
-1.3. CONFIGURACIÓN DE RED EN WINDOWS XP  
-Dos métodos para asignar direcciones IP a un dispositivo de red TCP/IP:  
-``Direccionamiento estático``: se especifica físicamente la dirección IP.  
-``Direccionamiento dinámico``: protocolo DHCP, configurado de forma predeterminada para obtener una dirección IP
-automáticamente de un servidor DHCP. Utilidades que permiten diagnosticar problemas de red:
-
-* ``arp``: muestra y permite modificar las tablas de protocolo arp, convertir direcciones IP de cada ordenador en
-  direcciones MAC.
-* ``ftp``: conectarse a otra maquina a través del protocolo FTP para transferir archivos.
-* ``ipconfig``: configuración de todos las interfaces.
-    * ``/flushdns``: purga la cache de resolución de DNS.
-* ``net``: administrar usuarios, carpetas compartidas, servicios...
-* ``netstat``: listado de todas las conexiones de red que nuestra maquina está realizando.
-* ``nslookup``: obtener la dirección IP conociendo el nombre, y viceversa; permite que el usuario consulte de forma
-  manual los servidores de nombres para resolver un nombre de host dado.
-* ``ping``: paquetes IP, comprobar la conexión, informa del tiempo que tarda en contestar la máquina destino.
-* ``pathping``: la ruta que sigue cada paquete para llegar a una IP determinada, tiempo de respuesta de cada uno de los
-  nodos por los que pasa y las estadísticas de cada uno de ellos.
-* ``route``: ver o modificar las tablas de enrutamiento de red.
-
-Un equipo puede estar configurado en modo:
-
-* ``Grupo de trabajo``: cada máquina se administra de forma independiente, es una agrupación de equipos en una red que
-  comparte recursos, todos los equipos pueden compartir recursos como elementos iguales sin servidor dedicado.
-* ``Dominio``: todas las maquinas son controladas por un equipo llamado controlador de dominio.
-
-1.4. USUARIOS Y GRUPOS  
-El fichero “NTUSER.DAT” se encarga de guardar las configuraciones y preferencias de cada usuario de Windows. Cada
-usuario tendrá su propio fichero dentro de su carpeta personal, y cuando inicia sesión se carga este fichero en el
-registro para dar forma al perfil de usuario.  
-``Administradores``: pueden acceder a todos los componentes, configuración, instalar programas, crear nuevos
-usuarios...  
-``Usuarios``: usar el equipo y almacenar sus archivos en las carpetas del equipo.  
-``Usuario Avanzado``: similar a usuario con más derechos administrativos.  
-``Cuentas de usuario en red``: registradas en el equipo servidor, pueden iniciar sesión en cualquier equipo de la red,
-las cuentas de usuario local son el único tipo de cuenta en un grupo de trabajo que se crea en el equipo que se va a
-utilizar, pero reside en una base de datos de cuentas denominada administrador de seguridad SAM.  
-Los usuarios y contraseñas se almacenan en system32/config y cada usuario tiene un SID (security identifier) único. La
-configuración especifica de un usuario queda guardada en su perfil, en la carpeta %HOMEPATH% (Documents and
-settings/User), los perfiles existentes son:  
-``Usuario permanente``: base de todos los perfiles de usuario.  
-``Usuario local``: perfiles creados en un equipo cuando un usuario inicia sesión, el perfil es especifico a un usuario y
-local al equipo. Se crean en los equipos cuando los usuarios individuales inician sesión y la primera vez que un usuario
-inicia sesión en un equipo, se genera una carpeta de perfil para el usuario y los contenidos de la carpeta Default User
-se copian a ella. Si un usuario tiene una cuenta local en el equipo además de una cuenta de dominio, tendrá dos carpetas
-de perfil en el equipo local, una para cuando inicie sesión localmente y otra para cuando inicie sesión en el dominio.  
-``Usuario móvil``: perfiles creados por un administrador y almacenados en un servidor, después del inicio de sesión del
-usuario sea autentificado en el servicio de directorio se copia al equipo local. Se crea una carpeta compartida con los
-usuarios que tengan perfiles móviles. Se introduce una ruta de acceso a esa carpeta en la ventana propiedades del perfil
-de los usuarios, cuando el usuario cierra la sesión, el perfil se almacena tanto localmente como en la ubicación de la
-ruta de acceso al perfil del usuario.  
-``Usuario obligatorio``: lo crea el administrador del sistema con determinada configuración para uno o varios usuarios,
-puede convertir perfiles móviles en obligatorio si se cambia el nombre del archivo de perfil de Ntuser.dat en Ntuser.man
-
-1.4.2. ACCESO REMOTO  
-``Remote Desktop Protocol`` (RDP): es un protocolo que permite la comunicación en la ejecución de una aplicación entre
-una terminal (mostrando la información procesada que recibe del servidor) y un servidor Windows (recibiendo la
-información dada por el usuario en el terminal mediante el ratón o el teclado), bajo el puerto TCP 3389\. La información
-gráfica que genera el servidor es convertida a un formato propio RDP y enviada a través de la red al terminal, que
-interpretará la información contenida en el paquete del protocolo para reconstruir la imagen a mostrar en la pantalla
-del terminal. Para acceder al cliente del protocolo se ejecuta mstsc (Microsoft Remote Desktop Connection), en ese
-momento se tiene acceso a todas las aplicaciones, archivos y recursos, mientras se utiliza el equipo de forma remota,
-nadie podrá usarlo de forma local, provocaría el cierre de la sesión remota.
-
-1.5. SERVICIOS  
-Son aplicaciones que se ejecutan en segundo plano y que el sistema ejecuta de forma predeterminada al iniciar o cuando
-es necesario (como los demonios de UNIX).  
-``Estado``: modo de funcionamiento actual del servicio (Detenido, pausado, iniciado).  
-``Tipo de inicio``:
-
-* ``Manual``: mediante intervención del usuario.
-* ``Automático``: cada vez que arranca el SO, arranca el servicio.
-* ``Deshabilitar``: no se puede iniciar.
-
-Se puede parar o arrancar servicios desde la línea de comandos con el comando “net”:
-
-* net ``start``: inicializa un servicio / net stop: detiene un servicio que se encuentra en ejecución.
-* net ``continue``: inicia de nuevo un servicio interrumpido.
-* net ``user``: para la gestión de usuarios
-* net ``name``: agrega o elimina un alias.
-* net ``session``: muestra y gestiona una lista con las sesiones conectadas a un equipo local.
-* net ``accounts``: actualiza la base de datos y modifica las directivas de seguridad.
-* net ``computer``: agrega o quita equipos en una base de datos de dominios.
-* net ``group``: agrega o elimina grupos globales
-* net ``localgroup``: agrega elimina grupos locales.
-* net ``share``: comparte carpetas o impresoras (recurso compartido) para ser utilizadas en red.
-* net ``config``: muestra o modifica los servicios configurables que están en ejecución.
-* net ``file``: muestra los nombres de todos los archivos compartidos abiertos en un servidor.
-* net ``help``: muestra la ayuda de un comando
-* net ``helpmsg``: muestra la ayuda de un error.
-* net ``print``: muestra la cola de impresión
-* net ``statistics``: muestra estadísticas del servicio local.
-* net ``view``: muestra un listado de los recursos compartidos de un equipo.
-
-1.6. IMPRESORAS  
-``Servidor de impresión``: ordenador al que se mandan los documentos para imprimir.  
-``Impresora``: interfaz entre aplicación e impresión.  
-``Dispositivo de impresión``.  
-``Cola de impresión``: lista de documentos que se están imprimiendo.  
-``Spool de impresión``: software que se encarga de administrar la cola de impresión.  
-``Pool de impresoras``: dirigir desde una única impresora los documentos hacia varios dispositivos de impresión.
-Puertos:
-
-* ``Impresoras locales``: USB, COM, LPR (compatible con UNIX).
-* ``Impresoras de red``: para compartir una impresora local, se comparten los drivers de dicha impresora con TCP/IP,
-  quedan incluidos en la carpeta PRINT$ con la ruta %systemroot%/system32/spool/drivers.
-
-2\. WINDOWS 7 (Windows Home / Windows 7 Professional / Windows 7 Ultimate)  
-Windows 7 crea una partición automática utilizando la totalidad del disco duro,  
-automáticamente crea una partición de 200MB, se denomina partición de sistema y contienen los archivos para que Windows
-7 arranque correctamente, la otra partición se denomina arranque y contiene el resto de archivos del sistema operativo.
-Modos de instalación:  
-``Instalación manual``:
-
-* ``Actualizaciones``: conserva los archivos, la configuración y los programas en su ubicación en el equipo. Es posible
-  realizar un proceso de migración de los perfiles de usuario:
-* ``Windows Easy Transfer`` (WET): migración de un único ordenador.
-* ``Personalizada``: no conserva los archivos, la configuración ni los programas, se la denomina instalación limpia.
-
-``Mediante imagen estándar`` (clonación de equipo), pasos:
-
-* Analizar la compatibilidad de las aplicaciones: con ACT (Kit de herramientas de compatibilidad de aplicaciones).
-* Prepara un dispositivo de arranque para capturar imágenes: AIK de Windows, prepara una imagen del entorno de
-  preinstalación de Windows (Windows PE).
-* Instalar Windows 7 en el equipo de referencia las aplicaciones, controladores y actualizaciones que queramos incluir
-  en la imagen.
-* Prepara la imagen en el equipo de referencia con sysprep.
-* Capturar la imagen del equipo de referencia: se inicia el equipo de referencia con Windows PE y se captura una imagen
-  con ImageX, se puede almacenar la imagen en un recurso compartido de red o disco duro USB local.
-* Se crea un archivo de respuestas Unattend.xml que apunte a la imagen anterior.
-* Instalar la imagen en el quipo cliente con el archivo de respuesta.
-
-``Implementación con MDT`` (Microsoft Deployment Toolkit):
-
-* Instalación: debe crearse un servidor de archivos (Windows Server).
-* Se instala el MDT 2010, en ese servidor de archivos junto con el resto de componentes.
-* Se crea un recurso compartido de distribución que debe contener el sistema operativo, las aplicaciones, los drivers y
-  la configuración del Windows.
-* En MDT 2010 indican las instrucciones para la instalación y configuraron de Windows, se crea también en el MDT punto
-  de implementación, establecer una conexión a archivos en el resto de recurso compartido de distribución
-* Podemos almacenar las imágenes que ha creado el MDT en dispositivo de almacenamiento extraíble.
-
-``User State Migration Tool`` (USMT): automatización de la migración.  
-``Herramientas externas`` como “Clonezilla”.
-
-2.1. PROCESO DE ARRANQUE  
-1\. La BIOS accede al MBR indicando cual es la partición activa.  
-2\. Se accede al sector de arranque de dicha partición (creando al instalar el SO).  
-3\. Este sector de arranque direcciona al fichero BOOTMGR (en Windows NT, XP y Server 2003 se usa NTLDR “NT Loader”).  
-4\. BOOTMGR accede al fichero BOOTBCD, es un archivo binario, no editable mediante procesador de textos, se encuentra en
-la partición de 200MB.  
-5\. Inicio del sistema ejecutamos el kernel y ubicado en el fichero NTOSKRNL.exe
-
-2.2. NOVEDADES  
-Se añaden a los tipos de usuarios ya vistos en Windows XP:
-
-* ``Operadores de copia de seguridad``: pueden hacer copias de seguridad y restaurar archivos de un equipo.
-* ``Replicador``: cuenta de usuario de dominio que se usa para iniciar sesión en servicios de replicador de un
-  controlador de domino.
-
-``Compartición de carpetas``: permite compartir archivos de las carpetas públicas con otras personas con el mismo equipo
-y con personas que usen otros equipos en la misma red.  
-``Servicios``: se añade un nuevo modo de inicio, Automático (inicio retrasado), retrasa el inicio del servicio hasta
-después de completarse el proceso de arranque de Windows.  
-``Impresoras``: se añaden el formato XPS (XML Paper Specification) y Location-Aware Printing, la impresora por defecto
-se modifica automáticamente cuando se detecta el cambio de conexión a una nueva red.  
-Además de trabajar con los tipos de discos ya vistos en Windows XP, también soporta el trabajo
-con ``dos nuevos tipos de discos``:
-
-* ``MBR`` (Master Boot Record): discos tradicionales, en los que se crea una tabla de particiones con un máximo de
-  cuatro, en el primer sector del disco duro.
-* ``GPT`` (GUID Partition Table): contiene un array de entradas de particiones que indican la dirección del bloque
-  inicial y final de cada partición en el disco.
-
-2.6. MEJORAS DE SEGURIDAD EN WINDOWS 7  
-``User Access Control``: permite controlar los privilegios de los usuarios que hacen uso del sistema cuando se ejecutan
-tareas administrativas que acceden o modifican archivos críticos del sistema, se activara cuando identifique la
-necesidad de tareas administrativas por parte de procesos o actualizaciones.  
-``Supresión de Autoplay``: solo los dispositivos ópticos (CD, DVD...) utilizaran la opción de ejecutar automáticamente
-archivos al ser insertados (USB deja de utilizarla, pregunta primero).  
-``Windows Biometric Framework`` (WBF): utilización de dispositivos biométricos de lectura de huellas dactilares.
-
-3\. WINDOWS 10 (Windows 10 Home / Windows 10 Pro / Windows 10 Enterprise-Education)   
-Introduce una arquitectura de aplicaciones universales (Modern UI), diseñadas para ejecutarse en todas las familias de
-productos Microsoft. Se introduce la vista de tareas, sistema de escritorio virtual, soporte para huella digital o
-reconocimiento facial, DirectX 12, WDDM 2.0. La edición Pro añade características adicionales de seguridad y red como
-BitLocker, Device Guard, Windows Update para empresas y la habilidad de unirse a un dominio.
-
-3.1. SISTEMA Y SEGURIDAD  
-Incorpora ``FIDO`` (Fast Identity Online) una tecnología de autenticación en factores múltiples, incluye soporte
-mejorado para la ``autenticación biométrica`` (Windows Hello), las credenciales se almacenan localmente y están
-protegidas mediante cifrado asimétrico. La plataforma “Passport” permitirá a las redes, software y sitios web verificar
-la identidad del usuario mediante un PIN o un inicio de sesión biométrico, los administradores establecen normativas
-para el cifrado de datos automático y bloquear selectivamente las solicitudes de acceso a datos cifrados.  
-``Device Guard``, permite a los administradores reforzar la seguridad de un espacio digital, mediante el bloqueo de la
-ejecución de software que no está firmado digitalmente por un proveedor de confianza o Microsoft, también incluye Sensor
-de almacenamiento, permite al usuario ver de qué forma la capacidad de almacenamiento de su dispositivo está siendo
-utilizado por diferentes tipos de archivos.
-
-| SCCM (Microsoft System Center Configuration Manager): solución de software de administración que permite gestionar de forma centralizada la configuración de todos los sistemas físicos y virtuales de una organización o grupo de organizaciones permitiendo, entre otras características, control remoto, gestión de actualizaciones y parches, distribución de software, despliegue de sistemas operativos, protección, cumplimiento e inventariado de software y de hardware. Desde la versión 1910, se llama ECM (Microsoft Endpoint Configuration Manager). |
-| :---- |
-
-4\. WINDOWS SERVER 2008  
-``Active Directory`` es el nombre utilizado por Microsoft (desde Windows 2000\) como almacén centralizado de información
-de uno de sus dominios de administración. Un Servicio de Directorio es un depósito estructurado de la información de los
-diversos objetos que contiene el Active Directory, en este caso podrían ser impresoras, usuarios, equipos... Bajo este
-nombre se encuentra realmente un esquema (definición de los campos que pueden ser consultados) LDAP versión 3, lo cual
-permite integrar otros sistemas que soporten el protocolo. En este LDAP se almacena información de usuarios, recursos de
-la red, políticas de seguridad, configuración, asignación de permisos, etc.
-
-| LDAP (Lightweight Directory Access Protocol): protocolo a nivel de aplicación que permite el acceso a un servicio de directorio ordenado y distribuido para buscar diversa información en un entorno de red. Los despliegues actuales de LDAP tienden a usar DNS para estructurar los niveles más altos de la jerarquía. Conforme se desciende en el directorio pueden aparecer entradas que representan personas, unidades organizacionales, impresoras, documentos, grupos de personas o cualquier cosa que representa una entrada dada en el árbol (o múltiples entradas). Habitualmente, almacena la información de autenticación (usuario y contraseña) y es utilizado para autenticarse aunque es posible almacenar otra información (datos de contacto del usuario, ubicación de diversos recursos de la red, permisos, certificados, etc). A manera de síntesis, LDAP es un protocolo de acceso unificado a un conjunto de información sobre una red. |
-| :---- |
-
-Combina el SO del equipo y de red en un mismo sistema, configura un equipo para proporcionar funciones y recursos de
-servidor a una red y las funciones de cliente de red. Trabaja sobre una modelo de dominio, es una colección de equipos y
-usuarios que comparten unas políticas de seguridad y una base de datos común (catalogo global).
-
-Se debe designar un servidor como controlador principal de domino (PDC, Primary Domain Controller). Este servidor
-mantiene los servicios de directorios y autentifica cualquier usuario que quiera entrar en el sistema. Los servicios de
-directorios de Windows Server se pueden implementar de varias formas, existen cuatro modelos de domino:  
-``Dominio único``: un único servidor mantiene la base de datos de seguridad y de las cuentas.  
-``Maestro único``: una red con maestro único puede tener diferentes dominios, pero se designa uno como el maestro y
-mantiene la base de datos de las cuentas de usuario. Incluye varios roles y la capacidad de transferir roles a cualquier
-controlador de dominio de la empresa. Dado que un rol de Active Directory no está enlazado a un solo controlador de
-dominio, se conoce como un rol ``FSMO`` (Flexible Single Master Operations). Actualmente en Windows hay ``cinco roles``
-FSMO:
-
-* ``Maestro de esquema``: se encarga de procesar actualizaciones del esquema de directorio. Una vez completada la
-  actualización de esquema, se replica desde el patrón de esquema a todos los demás DCs del directorio.
-* ``Patrón de nomenclatura de dominio``: se encarga de agregar o quitar un dominio del directorio. También puede agregar
-  o quitar referencias cruzadas a dominios en directorios externos.
-* ``Patrón de RID``: responsable de quitar un objeto de su dominio y colocarlo en otro dominio durante un movimiento de
-  objeto. Cuando un controlador de dominio crea un objeto de entidad de seguridad, como un usuario o grupo, adjunta un
-  identificador de seguridad (SID, security identifier) único al objeto. Consta de un SID de dominio que es el mismo
-  para todos los SID creados en un dominio y de un RID (relative identifier) que es único para cada SID de entidad de
-  seguridad creado en un dominio.
-* ``Emulador PDC``: el emulador PDC es necesario para sincronizar el tiempo en una empresa. Windows incluye el servicio
-  de tiempo W32Time, que requiere el protocolo de autenticación Kerberos\*. Se encarga de los cambios de contraseña
-  realizados por otros controladores de dominio en el mismo, se replican de forma preferente en el emulador de PDC,
-  cuando se producen errores de autenticación en un controlador de dominio determinado debido a una contraseña
-  incorrecta, los errores se reenvían al emulador de PDC antes de que se informe al usuario de un mensaje de error de
-  contraseña incorrecto, el bloqueo de cuentas se procesa en el emulador PDC y este realiza todas las funciones.
-
-| Kerberos: protocolo de autenticación de redes de ordenador, permite a dos ordenadores en una red insegura demostrar su identidad mutuamente de manera segura mediante autenticación mutua: tanto cliente como servidor verifican la identidad uno del otro. Kerberos se basa en criptografía de clave simétrica y requiere un tercero de confianza. Además, existen extensiones del protocolo para poder utilizar criptografía de clave asimétrica. |
-| :---- |
-
-* ``Maestro de infraestructura``: cuando otro objeto de otro dominio hace referencia a un objeto de un dominio,
-  representa la referencia mediante el GUID, el SID y el DN del objeto al que se hace referencia. El titular de la
-  función FSMO de infraestructura es el controlador de dominio responsable de actualizar el SID y el nombre distintivo
-  de un objeto en una referencia de objeto entre dominios.
-
-``Maestro múltiple``: incluye diferentes dominios y la base de datos de la cuenta se mantiene en más de un servidor.  
-``Confianza completa``: existen varios dominios, ninguno esta designado como maestro, sino que todos confían
-completamente en el resto.  
-Sus características principales son:
-
-* Gestión mediante la consola de administración MMC.
-* Servicios de distribución de Windows (WDS), evolución de RIS, para la implementación de los sistemas operativos en
-  múltiples equipos.
-* Nuevo entorno de Windows PowerShell que permite programar scripts de administración y tener acceso a los recursos de
-  las aplicaciones desde la propia interfaz, es un intérprete de comandos orientado a objetos. La información de entrada
-  y de salida en cada etapa del proceso (cmdlet, "comándulo") es un conjunto de instancias de objeto, a diferencia de lo
-  que ocurre con los intérpretes de comandos tradicionales, que devuelven y reciben texto.
-    * ``get-item``: lista archivos o carpetas
-* ``get-childitem``: lista los archivos o carpetas de un sistema de archivos
-* ``get-command``: lista todos los comandos
-* ``get-process``: lista los procesos activos del equipo local
-* ``remove-item``: borra archivos o carpetas
-* ``copy-item``: copia archivos o carpetas
-* ``set-location``: sitúa el directorio de trabajo en un directorio concreto
-* ``clear-content``: borra el contenido de un objeto pero no el propio objeto.
-* ``clear-item``: limpia el contenido de un objeto pero no el propio objeto
-* ``remove-item``: borra un objeto especifico
-* ``get-WmiObject``: muestra el listado de software instalado por Windows Installer
-* ``get-history``: obtiene el historial de comandos introducidos
-* ``get-service``: lista los servicios en el puesto de usuario
-
-* Motor de visualización llamado ``Hyper-V``, utiliza la virtualización por hardware.
-* Nuevos servicios de terminal server como el ``RemoteApp``, que permite la ejecución remota de aplicaciones desde los
-  equipos cliente sin tener que abrir una sesión.
-* ``IPAM`` (Internet Protocol Address Management): software que puede planificar, hacer seguimiento y administrar las
-  direcciones IP usadas en una red de computadoras.
-
-``Versiones``:  
-``Web Edition``: servidores WEB fundamentalmente y servidores de aplicaciones, incluye .NET Framework, IIS con ASP.NET,
-servidor de aplicaciones, carece de servicios como Active Directory y es posible instalar una versión core del mismo.
-Soportar un máximo de 2 GB de RAM y dos CPU.  
-``Standar Edition``: proporcionar servicios básicos y recursos a otros sistemas a través de una red. Soporta hasta 32 GB
-de memoria en sistemas de 64 bits.  
-``Enterprise Edition``: mayor escalabilidad y disponibilidad, dispone de servicios de clustering y Active Directory,
-soporte para el intercambio de RAM en caliente, soporta un máximo de 2 TB de RAM en sistemas de 64 bit.  
-``Datacenter Edition``.
-
-4.1. CARACTERÍSTICAS  
-Windows Server trabaja con Active Directory, este se centra en la administración de los recursos de la red organizativa,
-independientemente de la ubicación física de dichos recursos, y de la topología de las redes subyacentes. Los objetos de
-Active Directory representan usuarios y recursos, como por ejemplo, los ordenadores y las impresoras. La estructura
-lógica de Active Directory se compone de objetos, clases de objetos, unidades organizativas, dominios, árboles de
-dominios y bosques:  
-``Objetos``: componentes básicos de la estructura lógica. Algunos objetos representan entidades individuales de la red,
-como un usuario o equipo (hojas) y no pueden contener otros objetos. Sin embargo, para facilitar la administración y
-simplificar la organización del directorio, se pueden colocar objetos “hoja” dentro de otros objetos denominados objetos
-contenedor. Los objetos contenedores también pueden contener otros contenedores de forma anidada, o jerárquica. Cada
-objeto puede definirse mediante unas plantillas o modelos definidos por unos atributos y valores (clases de objetos).  
-``Unidades organizativas``: tipo más común de objeto contenedor y se pueden utilizar para organizar otros objetos con
-propósitos administrativos, por ejemplo dividir una empresa en departamentos. Organizando éstos es más fácil localizar y
-administrar objetos. También es posible delegar la autoridad para administrar estas unidades organizativas de manera que
-haya administradores de cada una de ellas.
-
-| Importación de usuarios con la herramienta de comando CSVDE: permite la importación/exportación de objetos de AD desde o hacia un archivo de texto (Formato CSV). |
-| :---- |
-
-``Dominios``: se usan para agrupar objetos relacionados con el fin de reflejar la red de una organización, son
-colecciones de los objetos administrativos definidos, que comparten en una base de datos común del directorio, políticas
-de la seguridad y relaciones de confianza con otros dominios. Cada dominio que se crea almacena información acerca de
-los objetos que contiene. Los dominios proporcionan un límite administrativo para los objetos, medios de administrar la
-seguridad para los recursos compartidos y una réplica para los objetos.  
-``Árbol de dominios``: dominios agrupados en estructuras jerárquicas que permiten el uso compartido de recursos
-globales. Cuando se agrega un segundo dominio a un árbol, se convierte en hijo del dominio raíz y este a su vez puede
-tener sus propios hijos, combinándose con el nombre de su padre para formar su propio y único.  
-``Bosque``: nivel más alto, pueden agruparse árboles dispares para formar un bosque. Un bosque permite combinar
-divisiones diferentes en una organización o, incluso, pueden agruparse organizaciones distintas. El primer dominio en el
-bosque se llama Dominio raíz del bosque y el nombre de ese dominio se refiere al bosque, por ejemplo miempresa.com. Por
-defecto, la información en Active Directory se comparte solamente dentro del bosque. De esta manera, la seguridad del
-bosque estará contenida en una sola instancia de Active Directory. Así que la mayoría de las veces nuestra organización
-será de un sólo dominio (miempresa.com) dentro de un solo bosque.
-
-Los ``grupos de usuario`` facilitan al administrador las tareas de mantenimiento y gestión de los usuarios, pueden ser
-organizados en grupos y aplicar sobre ellos actualizaciones de forma simultánea, tres tipos de grupos:
-
-* ``Globales``: pueden contener cuentas de usuario y otros grupos globales del mismo dominio, se usan para las tareas
-  más cotidianas de gestión dentro del mismo domino, no se propagan a otros dominios del mismo bosque.
-* ``Locales``: a los miembros de los grupos locales solo se les pueden asignar permisos dentro de un mismo dominio, los
-  grupos locales pueden contener dentro de ellos cuentas de cualquier domino, grupos globales de cualquier domino,
-  grupos universales de cualquier dominio y grupos locales del mismo dominio.
-* ``Universales``: contienen cuentas de cualquier dominio del bosque, grupos globales de cualquier dominio del bosque y
-  grupos universales de cualquier dominio del bosque, a estos grupos se le s pueden asignar permisos en cualquier
-  dominio del bosque, son útiles para consolidar grupos que abarquen varios dominios, debe limitarse su uso a casos
-  indispensables.
-
-4.1.1. SERVICIOS  
-Con el tiempo, Microsoft ha agregado servicios adicionales bajo el estandarte de Active Directory que proporciona un
-framework para otros servicios similares.  
-``Certificate Server Active Directory`` (AD CS): servicios y funcionalidades que permite que un servidor emita
-certificados digitales para asegurar los sistemas y las comunicaciones en red.  
-``Servicios de Domino de Active Directory`` (AD DS): proporcionar los servicios de directorio en un dominio, emite
-certificados digitales para asegurar los sistemas y las comunicaciones en red.  
-``Servicios de Federación de Active Directory`` (AD FS): complementan las características de autenticación y gestión de
-acceso que proporciona AD DS, extendiéndolas a la WEB, la gestión de los accesos a los sistemas y recursos desde el
-exterior, internet.  
-``Servicios de directorio activo ligero de Active Directory`` (AD LDS): almacén de datos a las aplicaciones de datos a
-las aplicaciones basadas en la utilización del directorio, puede ser empleado en grupos de trabajo.  
-``Active Directory Rights Management Services`` (AD RMS): capa de seguridad en la protección de la información de la
-organización, proteger los accesos no autorizados, establecimiento de relaciones de confianza.
-
-| Las impresoras se publican en el almacén de AD como objetos printQueu, estos contienen un subconjunto de la información almacenada en el servidor de impresión. Cualquier impresora compartida se publica en los servicios de AD. |
-| :---- |
-
-Herramientas de comandos de AD: permiten gestionar los objetos de AD, son:
-
-* ``dsadd``: crea un objeto en el directorio.
-* ``dsget``: obtiene atributos de un objeto del directorio.
-* ``dsmod``: modifica atributos.
-* ``dsmove``: mueve un objeto entre contenedores o OU del directorio.
-* ``dsrm``: elimina un objeto o todos los objetos de un subárbol bajo un contexto.
-* ``dsquery``: realiza una consulta y devuelve una lista con los objetos que coinciden con los parámetros de la
-  búsqueda. (“dsquerry:computer”: busca ordenadores en el directorio).
-
-4.2. GESTIÓN DE POLÍTICAS DE GRUPO  
-Ofrecen infraestructura, centralizan las configuraciones que se implementan en los usuarios y/o equipos. En un entorno
-administrativo mediante directivas de grupo todas las configuraciones se realizan a través de objetos de política de
-grupo (GPO) ejecutando “gpedit.msc”, pueden afectar a una OU, a un sitio o a un domino. Mediante directivas de grupo se
-puede configurar prácticamente todo desde la configuración de seguridad, la implementación de software, las directivas
-de contraseñas y auditoría. El método más habitual de delimitar el ámbito de un GPO es vincularlo a un sitio, dominio o
-OU a través de GPMC. Las GPO se gestionan a través de la Group Policy Management Console (GPMC), puede tener tres
-estados:
-
-* ``No configurada``: el GPO no modificara la configuración existente de esa configuración particular para el usuario o
-  grupo.
-* ``Habilitada o deshabilitada``: se producirá un cambio en la configuración de usuario so equipos a los que se aplique
-  dicha directiva.
-
-Las configuraciones de directivas se aplican cuando se inicia una sesión de usuario y después requieren el cierre de
-sesión, pero es posible forzar la actualización de directivas con comando “gupdate/target:equipo” o “gupdate/target:
-usuario”.   
-Las Directivas de Grupo se procesan:
-
-* ``Sitio``: el ordenador procesa todas las políticas de grupo que se aplican al sitio en el que se encuentra
-  actualmente el equipo.
-* ``Dominio``: cualesquiera políticas aplicadas en el nivel de dominio (ámbito de la política por defecto) se procesan a
-  continuación.
-* ``Unidad organizativa``: último grupo de políticas asignado a la unidad organizativa que contiene la computadora o el
-  usuario que se procesan.
-
-| gpresult: muestra información del conjunto de directivas para un usuario y equipo remotos. gpupdate: actualiza la configuración de directiva de grupo. |
-| :---- |
-
-4.3. CARPETAS COMPARTIDAS (ofrece dos modos de compartición de archivos):  
-``Modo estándar``: acceso a recursos de red como archivos, carpetas y unidades, la compartición de una unidad o carpeta
-se aplica a todas las subcarpetas y archivos contenidos en dicha carpeta y/o unidad, se puede aplicar a discos con
-formato FAT32, NTFS... Para gestionar se usa la herramienta “administración de almacenamiento y recursos compartidos”, y
-también con el comando net (net share, net sessions).  
-``Modelo público``: consiste en copiar o trasladar los archivos a una carpeta publica, estarán accesibles para cualquier
-usuario que inicie una sesión local en dicha máquina. Si dicha carpeta publica se comparte, existe la posibilidad de
-establecer permisos de acceso a esta carpeta a través de la red. La carpeta publica está ubicada en
-%SystemDrive%/Users/Public.
-
-4.3. GESTIÓN DE DISPOSITIVOS  
-El almacenamiento local y de red se ha simplificado para el usuario, proporciona soporte tanto para almacenamiento
-remoto como para almacenamiento local y en medios extraíbles, todo de forma completamente transparente al usuario, el
-usuario no tiene que preocuparse de sí un programa o archivo se almacena en disco, en cinta o en cualquier parte de
-internet, solo de que esté disponible cuando sea necesario. La interfaz está basada en la consola de administración  
-(MMC), permite administrar discos locales y discos remotos en otras computadoras.
-
-4.4. GESTIÓN DE DISCOS  
-Windows Server utiliza particiones MBR (Master Boot Record) y GPT (GUID Partition Table) al igual que Windows 7, la
-herramienta fundamental para la gestión de discos es “diskpart”, se pueden configurar tres tipos de discos:  
-``Básico``: pueden dividirse en porciones de almacenamiento más pequeñas denominadas particiones, dos tipos de
-particiones en un disco básico: primaria y extendida y esta a su vez se puede dividir en particiones lógicas.  
-``Dinámico``: da la posibilidad de administrarlo sin la necesidad de reiniciar en la  
-mayoría de las ocasiones, ampliar un volumen de disco, extender un volumen entre múltiples discos duros, realizar
-secciones de un volumen para mejorar su  
-rendimiento, hacer un espejo o añadirlo a un array RAID 5, todo desde MMC y sin tener que reiniciar, la creación inicial
-o conversión de un disco básico a disco dinámico si necesitara reinicio. Se pueden organizar en simples, stripped y
-spanned.  
-``Extraíble``: propio de unidades de disco extraíble. Se dispone de una herramienta grafica “Administrador de cuotas del
-administrador de recursos del servidor de archivos”, dos tipos de cuotas:
-
-* ``Cuotas de disco NTFS``: se emplean para administrar la utilización del espacio de disco que hacen los usuarios. Se
-  configuran por volumen, es posible configurar mensajes de advertencia, para definir los límites de uso de disco:
-  denegar espacio de disco a usuarios que excedan el límite de cuota, limitar espacio de disco, establecer el nivel de
-  advertencia.
-* ``Cuotas de disco del administrador de recursos``: permiten gestionar el espacio ocupado por carpetas y volúmenes
-  cuando un usuario se aproxima o exceda la cuota recibirá un aviso.
-
-4.4. GESTIÓN DE IMPRESIÓN EN WINDOWS SERVER  
-Está diseñado para la impresión en red, las aplicaciones envían los trabajos de impresión a las impresoras conectadas a
-un servidor de impresión de Windows Server. Varias configuraciones básicas de clientes, servidores y dispositivos de
-impresión, dependiendo de si es remoto o no:  
-``Dispositivo de impresión local no remoto``: está enchufada a un puerto del ordenador, el controlador de la impresora y
-la cola de trabajos están en esa computadora que envía los datos a directamente al dispositivo de impresión.  
-``Pequeño grupo de equipos que comparten un dispositivo de impresión en red``: una red donde cada ordenador tienen igual
-acceso al dispositivo de impresión y no hay un control central de impresión o de seguridad, cada equipo tiene su propia
-cola de trabajos y no puede ver los documentos en la cola en el dispositivo de impresión por otras computadoras.  
-``Servidor central de impresión``: el acceso al dispositivo de impresión es a través del servidor que está conectado
-localmente al dispositivo de impresión, la cola de trabajos se encuentra en el servidor y es visible para cada
-cliente.  
-``Varios clientes que comparten un dispositivo de impresión en un dominio``: el dispositivo de impresión se conecta al
-servidor a través de la red, permitiendo que un servidor de impresión que administre varios dispositivos de impresión.
-
-Una página de separación es un archivo que contiene órdenes del dispositivo de impresión, identifica y separar los
-documentos impresos y cambia entre los modos de impresión (se pueden utilizar páginas de separación para determinar el
-lenguaje de descripción de página, PostScript o PCL).
-
-Windows incluye cuatro archivos de páginas de separación de forma predeterminada, pero se pueden crear páginas de
-separación personalizadas creando un archivo “.sep”:
-
-* ``Pcl.sep``: cambia el modo de impresión a PCL.
-* ``Pscript.sep``: cambia el modo de impresión a PostScript
-* ``Sysprint.sep``: imprime una página antes de cada documento, compatible con PostScript.
-* ``Sysprtj.sep``: una versión de “Sysprint.sep” que utiliza caracteres japoneses.
-
-| Para que un servidor de impresión de Windows server soporte páginas web es necesario instalar en el servidor de impresión los servicios de información de internet (IIS Internet Information Services). Se crea un directorio virtual Printers debajo del sitio web predeterminado, este directorio apunta a la carpeta %systemroot%\\web\\printers. |
-| :---- |
-
-Un ``grupo de impresoras`` es una impresora que está conectada a múltiples dispositivos de impresión a través de
-múltiples puertos de un servidor de impresión, pueden ser dispositivos de  
-impresión locales o de red. Cuando se crea un grupo de impresoras, los usuarios pueden imprimir documentos sin tener que
-averiguar qué dispositivo de impresión está disponible, la impresora busca un puerto disponible; disminuye el tiempo que
-esperan los documentos en el servidor de impresión y simplifica la administración porque se pueden administrar múltiples
-dispositivos de impresión desde una sola impresora. Esto hace posible establecer prioridades entre grupos de documentos
-que se imprimen en el mismo dispositivo de impresión, los críticos siempre se imprimen primero.
-
-4.5. GESTIÓN DE LAS ACTUALIZACIONES DE WINDOWS  
-``WSUS`` (Windows Server Update Services) versión privada del servicio Microsoft Update, desde el que los equipos pueden
-desplegar actualizaciones automáticamente, se puede emplear para distribuir actualizaciones además es posible mantener
-un control total sobre las actualizaciones instaladas, supone una conexión del servidor en que está instalado al sitio
-de Microsoft Update, se descargar la información de las actualizaciones disponibles y se agrega a una lista que
-posteriormente tiene que aceptar el administrador. El servidor WSUS establece conexión HTTP o HTTPS (80/443) con el
-sitio web de Windows Update.
-
-4.6. MICROSOFT EXCHANGE SERVER  
-Microsoft Exchange Server es un software propietario de colaboración entre usuarios, desarrollado por Microsoft. Es
-parte de la familia Microsoft Server ya que es una de las aplicaciones destinadas para el uso de servidores  
-``Exchange ActiveSync``: protocolo de sincronización de Exchange, basado en HTTP y XML, permite a los teléfonos móviles
-acceder a la información (correo electrónico, calendario...) de la organización en un servidor que está ejecutando
-Microsoft Exchange. Se puede configurar ActiveSync para utilizar cifrado SSL. Puede establecer directivas, iniciar una
-limpieza remota, ejecutar informes, controlar los tipos de dispositivos móviles mediante reglas de acceso... Algunos
-comandos para su administración son:  
-``GetBulkRequest``: cuando es requerida una larga transmisión de datos, tal como la recuperación de largas tablas.  
-``InformRequest``: transmite un mensaje de este tipo a otro con las mismas características, para notificar información
-sobre objetos administrados.  
-``Trap``: mensajes no solicitados enviados por los agentes al administrador SNMP si ocurre algún evento inesperado.
-
-| DAG (Database Availability Group): contiene servidores de buzones de correo que se convierten en miembros del DAG. Una vez que un servidor de buzones de correo es miembro de un DAG, las bases de datos de buzones de ese servidor se pueden copiar a otros miembros del DAG. Asumiendo que no haya problemas de replicación y que las bases se encuentren disponibles, dentro de un DAG de Exchange estas pueden encontrarse “Mounted (Activa)” o “Healthy (Pasiva)”. En ningún caso una misma base de datos puede estar activa en más de un servidor a la vez. |
-| :---- |
-
-5\. NOVEDADES EN WINDOWS SERVER 2012 Y 2016  
-``2012``:
-
-* Powershell incluye mayor cantidad de comandos.
-* PAM (IP Address Management): función de administración de direcciones IP para la búsqueda, monitoreo, auditoria y
-  administración del espacio de direcciones IP usados en la red corporativa.
-* Mejoras en AD, como un interfaz gráfico.
-* Hyper-V: incluye soporte para virtualización de redes y copias de seguridad en la nube.
-* ReFS (Resilient File System): mejora NTFS.
-* Nueva versión de IIS (IIS 80).
-* LAPS (Local Administrator Password Solution)
-
-``2016``:
-
-* Windows Defender.
-* Soporte para librerías OpenGL y OpenCL.
-* Failover Clustering: clúster de actualización gradual del sistema operativo con soporte para réplicas de
-  almacenamiento.
-* Web Aplication Proxy.
-* ISS 10: soporte para HTTP/2.
-* Powershell 5.0
-* “Reinicio Suave”: reinicia solo el software sin tener que inicializar el hardware.
-
-6\. SISTEMAS OPERATIVOS PARA DISPOSITIVOS MÓVILES  
-Fabricantes de hardware que son los fabricantes de sus propios SO: Apple.  
-Fabricantes de dispositivos que utilizan SO de otras compañías: Android, Windows Mobile.
-
-6.1. ANDROID (construido a partir de la versión 2.6 del kernel de Linux en 2008 (v. 1.0)):  
-1.0 Apple Pie (Alpha).  
-1.1 Banana Bread (Beta).  
-1.5 Cupcake.  
-1.6 Donut.  
-2.0 Eclair.  
-2.2 Froyo.  
-2.3 Gingerbread.  
-3.0 Honeycomb (sólo para tablets).  
-4.0 Ice Cream Sandwich / 4.1-4.3 Jelly Bean / 4.4 KitKat.  
-5.0 Lollipop. (ART).  
-6.0 Marshmallow. (Adoptable Storage).  
-7.0 Nougat.  
-8.0 Oreo.  
-9.0 Pie.  
-10 Quince Tart.  
-11 Red Velvet Cake.  
-12 Snow Cone.  
-13 Tiramisú.  
-14 Upside Down Cake.  
-15 Vanilla Ice Cream.  
-16 Baklava.
-
-Basa el funcionamiento de sus aplicaciones en una máquina virtual Java que ejecuta cada aplicación en un proceso propio,
-donde se lanza una nueva máquina virtual llamada Dalvik, sustituida por ART (Android Runtime) en Android 5.0. Las
-aplicaciones se distribuyen en ficheros empaquetados “.apk”, posee un navegador integrado basado en WebKit, los gráficos
-están optimizados por una librería grafica 2D propia y OpenGL para gráficos 3D, para el almacenamiento de datos utiliza
-como gestor de bases de datos SQLite.
-
-6.2. IOS  
-Esta limitado a la instalación en hardware propietario, la versión más actual es IOS 13.2. Deriva del sistema operativo
-de ordenadores Mac (OS X), es un sistema UNIX, la pantalla principal (SpringBoard).
-
-| Swift: lenguaje de programación multiparadigma creado por Apple enfocado en el desarrollo de aplicaciones para iOS y macOS. FileVault: tecnología que proporciona capacidades de cifrado para todo el sistema de almacenamiento principal de un equipo macOS, usando el método de encriptación AES. Gatekeeper: es una función de seguridad de macOS. Hace cumplir la firma de código y verifica las aplicaciones descargadas antes de permitir que se ejecuten. |
-| :---- |
-
-6.3 TIPOS DE APP MÓVILES  
-``Nativas``: se diseñan y desarrollan específicamente para un sistema operativo en particular, empleando un lenguaje de
-programación específico, son fluidas, estables y permiten obtener el máximo provecho de las funcionalidades del
-dispositivo.  
-``Web``: se desarrollan con lenguajes como es el caso de HTML, CSS o Javascrip. Se accede a ellas mediante un navegador
-web por lo que cualquier dispositivo puede entrar en ellas. PWA “Progressive Web App” páginas web, pero mediante el uso
-de Service Workers y otras tecnologías se comportan más como aplicaciones normales que como aplicaciones web, es decir,
-pueden seguir ejecutándose en segundo plano.  
-``Híbridas``: combinación de los dos tipos de apps descritos con anterioridad, serán desarrolladas con lenguajes de
-programación típicos de una web, pero su estructura externa estará basada en lenguajes de programación propios del
-dispositivo móvil.
-
-6.4 TENDENCIAS EN SO  
-Uso de sistemas operativos en la nube, ahorro de costes en licencias. Plataformas de virtualización de sistemas
-operativos y del software de aplicación en las máquinas virtuales. Tipos de servicios Cloud:  
-``IaaS`` (Infraestructure as a Service): el consumidor alquila recursos IT, no controla la infraestructura cloud, pero
-tiene control directo sobre el SO, computación, almacenamiento, deploy de aplicaciones y red. Se realiza a través de
-virtualización, externalizando todos estos recursos y lo delegan al proveedor de servicios externo (Amazon Web Services,
-Windows Azure, Rackspace, Openstack).
-
-| ownCloud: aplicación de software libre del tipo Servicio de alojamiento de archivos, que permite el almacenamiento en línea y aplicaciones en línea (cloud computing). ownCloud puede ser instalado dentro de un servidor que disponga de una versión reciente de PHP (mayor o igual a 5.6) y soporte de SQLite (base de datos por defecto), MySQL o PostgreSQL. |
-| :---- |
-
-``PaaS`` (Platform as a Service): ofrece todo lo necesario para soportar el ciclo de vida completo de
-desarrollo/construcción y puesta en marcha (deploy) de aplicaciones y servicio web mediante lenguajes o herramientas
-soportadas por el proveedor (java, phyton...). Proporciona control completo sobre las aplicaciones desplegadas y sobre
-los ajustes de configuración de estas, es usado principalmente por desarrolladores. (Servicios de Azure, Google App
-Engine, OpenShift...).
-
-| OpenShift: producto de computación en la nube de plataforma como servicio de Red Hat. Los desarrolladores pueden usar Git para desplegar sus aplicaciones Web en los diferentes lenguajes de la plataforma. OpenShift se encarga de mantener los servicios subyacentes a la aplicación y la escalabilidad de la aplicación como se necesite. Origin: la versión de código abierto de Open Shift, utiliza Docker para la gestión de contenedores y Kubernetes para la gestión de grupos de contenedores. Todo el código del proyecto está disponible sobre la licencia Apache en GitHub. Azure DevOps: anteriormente Team Foundation Server (TFS), es un producto de Microsoft que proporciona control de versiones, informes, gestión de requisitos, gestión de proyectos, building automatizado y testing. |
-| :---- |
-
-``SaaS`` (Software as a Service): las aplicaciones del proveedor son accesibles como servicios, el consumidor no
-controla la infraestructura ni las capacidades de las aplicaciones. (Office 365, Suit de Google...).
-
-``Git`` es un software de control de versiones, eficiencia, confiabilidad y compatibilidad del mantenimiento de
-versiones de aplicaciones cuando estas tienen un gran número de archivos de código fuente. Comandos GIT:
-
-* ``init``: creará un nuevo repositorio local GIT.
-* ``clone``: se usa para copiar un repositorio
-* ``add``: agregar archivos al área de preparación.
-* ``commit``: creará una instantánea de los cambios y la guardará en el directorio git.
-* ``config``: establecer una configuración específica de usuario, como el email, user...
-* ``status``: muestra la lista de los archivos que se han cambiado junto con los archivos que están por ser preparados o
-  confirmados.
-* ``push``: se usa para enviar confirmaciones locales a la rama maestra del repositorio remoto.
-* ``checkout``: crea ramas y te ayuda a navegar entre ellas.
-* ``remote``: lista los repositorios remotos.
-* ``branch``: listar, crear o borrar ramas.
-* ``pull``: fusiona todos los cambios que se han hecho en el repositorio local con el directorio de trabajo local.
-* ``merge``: fusionar una rama con otra rama activa.
-* ``diff``: hacer una lista de conflictos.
-* ``tag``: marca commits específicos.
-* ``log``: se usa para ver el historial del repositorio listando ciertos detalles de la confirmación.
-* ``reset``: sirve para resetear el index y el directorio de trabajo al último estado de confirmación.
-* ``rm``: remover archivos del index y del directorio de trabajo.
-* ``stash``: guardará momentáneamente los cambios que no están listos para ser confirmados
-* ``fetch``: buscar todos los objetos de un repositorio remoto que actualmente no se encuentran en el directorio de
-  trabajo local.
-* ``show``: mostrar información sobre cualquier objeto git.
-* ``grep``: permite al usuario buscar frases y palabras específicas en los árboles de confirmación, el directorio de
-  trabajo y en el área de preparación.
-
-| Bitbucket: servicio de alojamiento basado en web, para los proyectos que utilizan el sistema de control de versiones Mercurial y Git, similar a GitHub. |
-| :---- |
-
-``TIPOS DE SOFTWARE``, en función de su proximidad al hardware:  
-``Software de base``: compuesto por programas que interactúan directamente con el hardware del SO.  
-``Software de utilidad``: utilizado como herramienta básica en tareas de mantenimiento, soporte y ejecución.  
-``Software de aplicación``: realización de tareas específicas, aplicaciones ofimáticas, software educativo, editores de
-música...
-
-| Software MDM (mobile device management): es un tipo de software que permite asegurar, monitorizar y administrar dispositivos móviles sin importar el operador de telefonía o proveedor de servicios. La mayoría de las MDM permiten instalar aplicaciones, localizar y rastrear equipos, sincronizar archivos, reportar datos y acceder a dispositivos, todo esto de manera remota. MobileIron: un MDM que permite la seguridad y la gestión de dispositivos móviles como teléfonos inteligentes y tabletas en un entorno empresarial, así como el acceso móvil seguro a los datos empresariales. |
-| :---- |
+* Una vez finalizado el proceso de arranque se nos presentara una login-prompt donde podemos lanzar una sesión de
+  usuario.
+
+> ``who \-r``: indica el runlevel actual.
+
+### 5\. USUARIOS Y GRUPOS
+
+* ``Cuentas de usuario``: cada usuario tiene una cuenta home asociada, con acceso completo a este directorio, lo que
+  implica que podrá crear, borrar y almacenar ficheros en este directorio.
+* El usuario está en por lo menos un grupo (grupo principal), puede estar en más grupos (secundarios), el listado de
+  usuarios y sus asignaciones a grupos se almacenan en /etc/passwd (listado de usuarios, un registro para cada usuario
+  del sistema con la estructura de campos):\[alias:pw\_encript:UDI:GID:datos descriptivos:home\_directory:
+  default\_shell\]
+* La modificación de cuentas de usuario se efectúa con el comando usermod, este modifica las características de una
+  cuenta de usuario ya existente, modifica por ejemplo:
+    * ``/etc/shadow``: fichero adicional donde se almacenan los passwords encriptados y los datos para la expiración de
+      contraseñas. (también se usa el comando “chage” SIN “N” para cambiar la fecha de expiración de contraseñas ``-e``,
+      ver el último cambio de contraseña ``-l (ele)``...).
+    * ``/etc/groups``: contiene toda la información de pertenencia a grupos.
+    * ``/etc/gshadow``: similar al fichero shadow de contraseñas, contiene los grupos, contraseñas y miembros.
+    * ``/etc/login.defs``: definir valores por defecto para diferentes programas como useradd.
+    * ``/etc/shells``: contienen un alista de shells válidos.
+
+* ``Cuentas de grupo``: proporcionan un método para vincular a usuarios similares, agrupándolos para agrupar un conjunto
+  de cuentas de usuario de características similares con el propósito de aplicar directivas de seguridad parecidas a
+  ellas, las cuentas de grupo son similares a las cuantas de usuario y se definen en un único fichero /etc/groups que
+  contiene una lista con todos los grupos y sus correspondientes miembros, los grupos también poseen un nombre y un GID.
+* Cuando un usuario se conecta al sistema Linux lo hace dentro de su grupo primario, este es el grupo al que el usuario
+  pertenece por defecto, si un usuario quiere acceder a fichero so ejecutar programas que no están en su grupo primario,
+  debe conmutar de grupo aquel que este asociado con los ficheros a los que quiere acceder o con los programas que
+  quiere ejecutar. Solamente el root puede crear y administrar grupos, para crear un nuevo grupo en Linux se utiliza el
+  comando groupadd, para crear nuevos usuarios el comando useradd y para modificar grupos ya existentes se usa el
+  comando gpasswd:
+    * \-M: para asignar miembros a un determinado grupo.
+    * \-a nombreUsuario: añadir un usuario al grupo.
+    * \-d nombreUsuario: eliminar un usuario del grupo especificado.
+    * \-r: elimina la contraseña del grupo.
+    * \-R: indica que no se puedan añadir usuarios nuevos el grupo especificado con el comando newgrp.
+    * \-A nombreUsuario: el usuario root pueda especificar que usuarios tienen privilegios para añadir o eliminar
+      usuarios de los grupos, especificar las contraseñas de grupo, este sobrescribe cualquier lista previa. Implica que
+      todos los nombres de usuario se deben introducir con esta opción.
+
+> ``groups``: se utiliza para mostrar los grupos a los que pertenece el usuario en un determinado momento, “root” es miembro de todos los grupos por defecto.
+
+* ``Cuenta de root``: se crea por defecto durante la instalación del SO, es la cuenta que utiliza el administrador del
+  sistema para realizar cualquier tarea administrativa en el sistema Linux, se puede usar:
+    * ``Accediendo al sistema con la cuenta “root”``: se puede utilizar para acceder al equipo directamente a través de
+      consola, solamente se puede realizar a través de la consola principal, una vez logueado, cualquier acción que se
+      realice en el sistema es llevada a cabo como “root”.
+    * ``Comando SU``: se puede utilizar para adquirir temporalmente los privilegios de superusuario para realizar tareas
+      administrativas o para ejecutar programas que requieran privilegios de superusuario, se solicitara la contraseña
+      de roo y si es correcta se obtendrán lo privilegios, el comando SU puede utilizarse también para conmutar a otras
+      cuentas de usuario.
+    * ``Comando SUDO``: permite a un administrador seleccionar ciertos comandos que pueden ser tecleados sin ser “root”
+      que de otra forma requerirían los privilegios de superusuario, esto se hace editando el fichero ``/etc/sudoers`` y
+      especificando que usuario y que comandos podrán ejecutar dichos usuarios sin convertirse en root.
+    * ``Ficheros SUID root``: es posible seleccionar un fichero que se ejecute como si fuese lanzado por el ``“root”``
+      pese a que haya sido ejecutado por cualquier otro usuario del sistema.
+
+### 6\. MANEJO DE LA SHELL
+
+* Cuando iniciamos sesión en UNIX, se ejecutan una serie de instrucciones contenidas normalmente en los ficheros
+  ``.profile`` (en estos ficheros se personaliza el entorno de usuario, configurando variables de ambiente y alias.
+* La shell ofrece una prompt, puede ser:
+    * ``\#``: prompt de root.
+    * ``$``: prompt de usuario en las principales Shell de UNIX (Bourne, Bash, Korn).
+    * ``%``: prompt de usuario en la C-Shell.
+
+* Las órdenes del Shell pueden ser internas o externas, el tratamiento que recibe una orden es el de una subshell, el
+  proceso padre es la shell.
+    * ``Orden interna`` es aquella cuyo código está integrado en el shell:
+        * bg, fg, cd, exec, exit, echo…
+    * ``Orden es externa`` si su código reside en un archivo:
+        * more, cat, mkdir, ls, grep...
+
+#### 6.1. ÓRDENES DE USUARIO EN UNIX
+
+* ``Control``:
+    * ``CTRL+c``: termina un comando.
+    * ``CTRL+d``: End Of File (fin de fichero).
+    * ``CTRL+u``: borra la línea de comandos.
+
+* ``Páginas Man:``
+    * ``intro``: desplaza una línea.
+    * ``space``: siguieinte pantalla.
+    * ``f``: avanza una pantalla.
+    * ``q``: sale de las páginas MAN.
+
+### 7\. COMANDOS UNIX
+
+* ``pwd`` (print working directory): directorio de trabajo actual.
+* ``who``: listado de usuarios conectados a nuestro sistema.
+* ``id user``: muestra el UID y el GID del usuario especificado, sin parámetros muestra información de uno mismo.
+* ``passwd user``: permite cambiar la password de usuario user.
+* ``uname``: muestra información sobre el sistema actual:
+    * \-a: información en formato largo.
+    * \-s: nombre del sistema operativo.
+    * \-n: nombre de la estación de trabajo
+* ``su user``: abre una sesión de user en una subshell de la shell de usuario. Utilizado sin parámetros abre una sesión
+  de root (pidiendo la password).
+* ``sudo`` comando: ejecuta un comando con los permisos de root.
+* ``mkdir`` directorio: crea un directorio.
+* ``rmdir``: borra un directorio.
+* ``rm`` file o ``rm \-r`` dir: borra un fichero.
+* ``cd``: directorio\_destino: se desplaza al directorio de destino.
+* ``ls`` directorio: muestra el contenido de un directorio.
+    * \-a: muestra todos los ficheros.
+    * \-l: listado completo (muestra las propiedades de cada archivo).
+    * \-i: muestra el número de inodo.
+* ``free``: muestra datos sobre la memoria del sistema
+* ``df`` (disk free): detalla el espacio total, ocupado y libre del sistema
+* ``du`` (disk usage): muestra el uso en disco que realiza un conjunto de archivos en los directorios existentes.
+* ``dd``: permite copiar y convertir datos de archivos a bajo nivel
+    * if (input file): lee desde el archivo indicado como origen
+    * of (output file): escribe al archivo indicado como destino
+    * bs: indica el tamaño de bloque en bytes (por defecto)
+    * count: copia el número indicado de bloques del archivo
+* ``watch``: ejecutar cualquier comando arbitrario a intervalos regulares.
+* ``ss``: se utiliza para volcar estadísticas de sockets (permite mostrar información similar a netstat).
+* ``whereis``: localiza el archivo binario, el código fuente y la página de manual de un determinado comando.
+    - Ejemplo: `whereis ls`
+* ``which``: comando de búsqueda que lista la ruta completa de un comando.
+    - Ejemplo: `which python3` → `/usr/bin/python3`
+* ``touch``: crea un fichero vacío desde el terminal de linux, si el fichero existe le cambia la fecha y hora de
+  modificación.
+* ``nmap``: herramienta de exploración de red y escáner de seguridad/puertos.
+    - Ejemplo: `nmap 192.168.1.1`
+* ``top`` (comando linux): monitoreo de procesos y tareas, varias herramientas dedicadas:
+    * ``htop``: monitoreo de CPU
+    * ``iotop``: monitoreo de la información de E/S del disco
+    * ``iftop``: monitoreo de red
+        - Ejemplo: `top`
+        - ``htop`` → interfaz mejorada.
+        - ``iotop`` → uso de disco.
+        - ``iftop`` → uso de red.
+
+#### 7.1. Comandos de manejo de ficheros:
+
+* ``cat`` file1 file2: concatena los ficheros mostrándolos por pantalla.
+* ``pg`` file: muestra el contenido del fichero file y a continuación la prompt.
+* ``head / tail`` ± n file: muestra las n (primeras o últimas líneas) del fichero.
+* ``wc`` file: muestra el número de caracteres (-m), líneas (-l), palabras (-w) o bytes (-c) del fichero.
+* ``cmp`` file1 file2: localiza la primera diferencia entre los ficheros.
+* ``file`` file: informa sobre el tipo de fichero (ASCII, binario, ejecutable...).
+* ``cp / mv`` fichero\_origen fichero\_destino: copia / mueve el fichero origen con el nombre y posición del fichero
+  destino.
+* ``sort`` file: ordena alfabéticamente las líneas (registros) del fichero.
+
+#### 7.2. Comandos de búsqueda de información:
+
+* ``find`` ruta patrón acción: busca los archivos que coincidan con el patrón en la ruta especificado y ejecuta la
+  acción indicada.
+    * ``ruta``: lugar donde empieza la búsqueda
+    * ``patrón``: criterio de búsqueda (-name, \-size, \-type, \-mtime (mide el tiempo transcurrido desde hoy hasta el
+      parámetro...)).
+    * ``acción``: acción a realizar (-print, \-exec, \-copy, \-delete...).
+        - Ejemplo: `find /home -name "*.txt"`
+        - Ejemplo: `find . -type f -size +10M`
+
+* ``grep / fgrep`` (no reconoce metacaracteres) / egrep patrón fichero: busca patrón en ficheros.
+    * ^: seguido de una letra indica las líneas que empiezan por esa letra.
+    * $: precedido de una letra indica todas las líneas que acaba por esa letra.
+    * \*: a\* equivale a “aa”, a\*\*\* equivale a “aaaa”.
+        - Ejemplo: `grep "ERROR" log.txt`
+        - Ejemplo: `egrep "^(a|b)" palabras.txt` (líneas que empiezan por a o b)
+
+#### 7.4. Comandos VI: editor de texto en consola.
+
+* ``w``: guardar los cambios pero no sale del editor.
+* ``wq``: guarda los cambios y sale del editor.
+* ``q!``: sale del editor sin guardar los datos.
+
+> ``less``: visualizador de archivos de texto, funciona en intérpretes de comandos UNIX.
+
+### 8. METACARACTERES (caracteres especiales que cumplen funciones dentro de la Shell)
+
+* ``*``: sustituye cualquier cadena de caracteres.
+    - Ejemplo: `ls *.txt` → lista todos los ficheros terminados en `.txt`.
+
+* ``[rango]``: sustituye cualquier carácter descrito en el rango.
+    - Ejemplo: `ls archivo[1-3].txt` → busca `archivo1.txt`, `archivo2.txt`, `archivo3.txt`.
+    - Ejemplo: `ls [abc]*.sh` → busca scripts que comiencen por `a`, `b` o `c`.
+
+* ``$``: obtiene el valor de una variable.
+    - Ejemplo: `echo $HOME` → muestra la ruta del directorio personal.
+
+* ``?``: comodín que sustituye **un solo carácter**.
+    - Ejemplo: `ls fichero?.doc` → encuentra `fichero1.doc`, `ficheroA.doc`, etc.
+
+* ``|``: enlaza órdenes (convierte la salida de la primera en la entrada de la segunda).
+    - Ejemplo: `ls -l | grep ".txt"`
+
+* ``>``: redirecciona la salida.
+    - Ejemplo: `echo "hola" > salida.txt`
+
+* ``<``: redirecciona la entrada.
+    - Ejemplo: `wc -l < archivo.txt`
+
+* ``;``: enlaza la ejecución de dos órdenes.
+    - Ejemplo: `echo hola ; echo adiós`
+
+* ``&&``: ejecuta la segunda orden **solo si la primera tiene éxito**.
+    - Ejemplo: `mkdir test && cd test`
+
+* ``||``: ejecuta la segunda orden **solo si la primera falla**.
+    - Ejemplo: `cd carpeta_inexistente || echo "Error: no existe la carpeta"`
+
+### 9\. ÓRDENES DE IMPRESIÓN
+
+* ``/etc/printcap``: base de datos de la configuración de las impresoras (spool).
+* ``lp`` y ``lpr``: encola ficheros de texto para imprimir:
+    * \-d: especifica impresora.
+    * \-n: imprime un número de copias específicas.
+
+* ``lprm``: borra los documentos pendientes de la cola de impresion
+* ``lpstat``: monitoriza el estado de la cola de impresión:
+    * \-p: visualiza el estado de las impresoras.
+    * \-d: visualiza la impresora por defecto.
+    * \-s: resumen de información de estado para todas las impresoras.
+
+* ``cancel`` id\_peticion: cancela una petición de impresión.
+* ``pr``: formatea para imprimir.
+
+### 10\. COPIAS DE SEGURIDAD Y ALMACENAMIENTO
+
+* ``tar``: agrupa ficheros pero sin “-z” no comprime. Archiva y extrae ficheros desde y hacia un fichero de destino u
+  origen.
+    * c: crea un nuevo fichero tar.
+    * t: lista los contenidos de un fichero tar.
+    * x: extrae los contenidos de un fichero tar / z: comprime los ficheros agrupados.
+    * f: especifica el fichero de destino.
+    * v: visualiza la extracción o empaquetado de ficheros.
+
+* ``compress``: reducir el tamaño de un fichero: (el fichero resultante tiene la extensión “.Z”)
+    * \-v: indica la progresión de la compresión.
+
+* ``uncompress``: descomprimir ficheros:
+    * \-c: muestra el contenido del fichero sin descomprimirlo.
+
+* ``cpio`` (copy in/out): archiva o extrae información de una cita o de un fichero. Realiza un empaquetamiento más
+  eficiente que tar, permite la recuperación de soportes defectuosos y posibilita escribir ficheros con distinto formato
+  de cabecera.
+    * o: crea un nuevo fichero.
+    * i: extrae el fichero del archivo.
+    * c: lee la información de cabecera en ASCII (muestra los ficheros comprimidos pero sin extraerlos).
+    * t: lista la tabla del contenido de la cinta / v: imprime la lista de los nombres del fichero.
+
+* ``.jar``: comprime y empaqueta en un entorno jvm (java virtual machine).
+
+### 11\. GESTIÓN DE PROCESOS
+
+* Cada programa que se ejecuta en un entorno UNIX es un proceso, cuando se entra en la shell y comienza a ejecutarse la
+  sesión, eso es un proceso, a cada proceso se le asigna un PID, usado por el kernel.
+* El sistema también comienza algunos procesos llamados demonios, son programas arrancados en tiempo de arranque y son
+  críticos para la funcionalidad del sistema. Para comenzar un proceso se crea un duplicado del proceso actual al que le
+  llamaremos hijo, la referencia de este proceso es PPID, dos modos de ejecución:
+    * ``Foreground`` (primer plano): suspende la interactividad de la shell hasta el fin de su ejecución.
+    * ``Background`` (segundo plano): se lanza añadiendo “&” al final del comando, devuelve la prompt del sistema, el
+      usuario es informado mediante un mensaje de la finalización del proceso.
+
+> ``fg``: trae a primer plano un proceso / bg: envía a background un proceso.
+
+* ``Herramientas para gestionar procesos``:
+    * ``ps``: la salida de la orden “ps” es el PID (identificador del proceso), TTY (identificador de terminal), TIME (
+      tiempo de ejecución acumulado) y CMD (línea de comando):
+        * \-e: muestra información sobre todos los procesos del sistema.
+        * \-f: genera un listado completo que añade los campos UID (usuario propietario del proceso), PPID (padre del
+          proceso) y STIME (hora de inicio del proceso).
+        * \-a: lista los procesos que no pertenecen al usuario.
+        * \-x: lista de procesos que no tienen asociada una terminal.
+        * \-u: lista extendida.
+
+    * ``pidof``: muestra el ID de un proceso activo.
+
+#### 11.1. SEÑALES
+
+* Se usan para controlar los procesos en ejecución en el sistema, se envían a procesos para indicar que ha corrido un
+  evento y el proceso debe reaccionar (CTRL+c por ejemplo).
+* Cada señal está asociada a un único número, un nombre y una acción esperada. Su sintaxis es (kill:señal:PID\_proceso),
+  donde la opcion :señal: realiza:
+    * ``SIGHUP`` (1): Hangup (reinicia teniendo en cuenta cambios de configuracion al reiniciar).
+    * ``SIGINT`` (2): Interrupt.
+    * ``SIGKILL`` (9): Kill (finaliza de golpe un proceso, no libera las instancias ocupadas).
+    * ``SIGTERM`` (15): Terminate (finaliza ordenadamente el proceso dando tiempo a cerrar los buffers accedidos).
+
+### 12\. ADMINISTRACIÓN DE DISPOSITIVOS
+
+* ``UNIX`` controla los dispositivos, escalando las capas de interacción desde el hardware hasta el nivel de usuario,
+  Driver es un programa que gestión la interacción entre un hardware determinado interpretándolo comandos propios del
+  dispositivo a la interface propia del núcleo, pueden ser tanto parte del kernel como módulos independientes (LKM,
+  Loadable Kernel Modules).
+* El acceso a nivel de usuario es provisto a través de archivos de dispositivo especiales que encontraremos en el
+  directorio /dev. El núcleo transforma las operaciones sobre estos archivos especiales en las llamadas al código del
+  controlador. Los dispositivos son tratados por UNIX como entradas en el File System.
+* Los archivos de dispositivo se mapean en los correspondientes dispositivos a través del Número menor / mayor de
+  dispositivo.
+    * ``Número mayor``: identifica el tipo de driver al que está asociado el archivo.
+    * ``Número menor``: indica el número de instancia o número d unidad que ocupa el driver en cuestión, es usado por el
+      controlador para seleccionar características particulares del dispositivo. Debemos diferenciar entre dos grandes
+      tipos de archivos de dispositivo:
+        * ``Dispositivos de bloques``: escribe o lee bloque a bloque (grupos de bytes de tamaño múltiplo de 512 o 1024
+          bytes).
+        * ``Dispositivos de caracteres``: escriben carácter a carácter.
+* Los drivers de dispositivos presentan una interface estándar del kernel, cada driver tiene rutinas (open, close, read,
+  reset...). Dentro del núcleo, las funciones para cada controlador se mantienen en una tabla de saltos (man mkmod),
+  indexadas por el número mayor de dispositivo.
+* Hay dos tablas para dispositivos una en modo bloque y otra en modo carácter.
+* Cuando un programa realiza una operación sobre un archivo de dispositivo, el kernel intercepta la referencia
+  automáticamente, busca la función adecuada en la tabla de saltos y le transfiere el control.
+* Todos los sistemas proporcionan algún sistema de agregar nuevos drivers de dispositivo al kernel, ya se modificando
+  tablas y recompilando, o en forma de módulos cargables en tiempo de ejecución.
+
+#### 12.1 ARCHIVOS DE DISPOSITIVO
+
+* Se encuentran en el directorio /dev, en este directorio puede haber cientos de dispositivos, se crean con el comando
+  “mkmod” (el SO crea y monta al conectar por primera vez), usa la sintaxis (mkmod:nombre:tipo:major:minor), tipo es “c”
+  para los archivos de caracteres y “b” para los dispositivos de bloques.
+* Muchos sistemas proporcionan un script llamado MAKEDEV para aplicar de forma automatizada los argumentos a “mkmod”
+  para los dispositivos más comunes.
+* En Linux, utilizamos la abreviatura de disco o dispositivo, seguido del etiquetado del elemento y el número de
+  partición hda1 para la primera partición del primer disco duro).
+
+### 13\. SCRIPTS DEL SHELL
+
+* Una serie de estructuras de control del propio shell que también actúa como intérprete de un potente lenguaje de
+  programación, se crean scripts para automatizar tareas o ejecutar lotes largos de órdenes. La almohadilla (\#), tiene
+  doble función:
+    * ``Marcar como comentario``: cualquier línea de código del script, estas serán ignoradas por el shell en el momento
+      de la ejecución.
+    * ``Como excepción``, la primera línea de un script suele ser: \#\!/bin/\*shell indicada\*. Mediante esta secuencia
+      indicamos al intérprete de comandos que lo que vienen a continuación es un script, debe ser interpretado mediante
+      la \*shell indicada\*.
+
+#### 13.1 CRON Y CRONTAB
+
+* ``CRON`` es un demonio que se ejecuta desde el arranque del sistema. Comprueba si existe alguna tarea para ser
+  ejecutada de acuerdo a la hora configurada en el sistema.
+* En función de la distribución, se inicia utilizando las carpetas /etc/rc.d/ o /etc/init.d y cada minuto comprueba los
+  ficheros /etc/crontab o /var/spool/cron es busca de posibles ejecuciones.
+* ``CRONTAB`` es un archivo de texto que posee una lista con todos los scripts a ejecutar, generalmente cada usuario del
+  sistema posee su propio fichero Crontab. Se considera que el ubicado en la carpeta /etc pertenece al usuario “root” (
+  para generar el archivo propio, cada usuario deberá hacer uso del comando crontab).
+* Para editar el archivo se usa la opción “-e” con la notación: (\* \* \* \* \*:comando a ejecutar). Cada asterisco (\*)
+  significa, de izquierda a derecha:
+    * ``minutos``: (0-59).
+    * ``horas``: (0-23).
+    * ``día del mes``: (1-31).
+    * ``mes``: (1-12).
+    * ``día de la semana``: (0-6), siendo 0=domingo 1=lunes, 2=martes,... 6=sábado.
+
+> Se puede usar el ``metacaracter`` “/” antes del número para indicar que la acción se haga un número determinado de veces.
+
+#### 13.2. VARIABLES (almacenamiento temporal en un área de la memoria)
+
+* ``Variables locales``: privadas de la shell donde se han creado.
+* ``Variables de entorno``: pasadas del proceso padre al hijo, algunas heredadas por la entrada en la Shell, otras son
+  creadas en los ficheros de inicialización de la Shell del usuario, en scripts de la shell o en líneas de comando.
+  Variables más frecuentes establecidas por el shell:
+    * ``EDITOR``: define el editor por defecto de la shell.
+    * ``HOME``: directorio al que lleva el comando cd sin argumentos.
+    * ``LOGNAME``: establece el nombre de entrada del usuario.
+    * ``PATH``: lista de rutas en las cuales el intérprete de comandos debe buscar los programas a ejecutar.
+    * ``PS1``: indicador primario del shell (“$” para usuario y “\#” para root).
+    * ``PS2``: indicador secundario del shell, suele ser “\>”.
+    * ``SHELL``: el nombre del shell por defecto.
+
+* ``Variables especiales``: pasan argumentos desde la línea de comandos, cada palabra separada por un espacio que sigue
+  al nombre del script es llamada argumento.  
+  Cuando ejecutamos (nombre\_script:argumento1:argumento2:argumento3:...), el shell almacena el “argumento 1” en $1, el
+  “argumento 2” en $2 y así sucesivamente. ``Posiciones especiales``:
+    * ``$0``: el propio nombre del script.
+    * ``$\#``: el número total de argumentos de script.
+    * ``$@``: visualizar cada uno de los argumentos.
+    * ``$?``: retoma el valor del ultimo comando ejecutado.
+
+> Se puede usar el ``metacaracter`` “/” antes del número para indicar que la acción se haga un número determinado de veces.
+
+#### 13.3. ORDEN TEST Y EXPR
+
+* Se usa para realizar comparación de expresiones, evalúa la expresión y se esta es verdad devuelve como salida cero, si
+  es falso, devuelve un valor distinto, permite comprar cadenas, operadores lógicos, valores numéricos...
+    * ``Comparación de cadenas``:
+        * \=: iguales.
+        * \!=: distintos.
+        * \-n: evaluar la longitud de la cadena.
+
+    * ``Comparación de expresiones lógicas``:
+        * \!: negar una expresión lógica.
+        * \-a: AND.
+        * \-o: OR.
+
+    * ``Comparación y valoración de archivos``:
+        * \-d: comprueba si es un directorio.
+        * \-f: “” si es un archivo.
+        * \-r: “” el permiso de lectura.
+
+    * ``Comparación numérica``:
+        * \-eq: iguales.
+        * \-ge: mayor.
+        * \-le: menor.
+
+> ``read``: para el script y pide un dato al usuario.
+
+* ``EXPR``: Realiza operaciones, es una utilidad de cálculo aritmético que admite las siguientes operaciones básicas (+,
+  \-, /\*, /, %), solo se admiten valores enteros y deben ir entre acentos.
+
+#### 13.4. SENTENCIAS REPETITIVAS, CONDICIONALES Y BUCLES
+
+* ``for``: implementa un bucle, es decir, que es capaz de repetir un grupo de sentencias un número determinado de
+  veces. (
+  for contador in valor / do / sentencias / done).
+* ``while``: ejecutara las sentencias mientras se cumpla la condición especifica en las siguientes sintaxis. (while
+  expesion / do / sentencias / done).
+* ``if``: evalúa una expresión para tomar una decisión según el resultado de ella.  
+  (if expresión / then sentencias / else / sentencias / fi).
+* ``case``: ejecuta diferentes sentencias dependiendo de un valor o rango de valores que coincida con la variable
+  especificada. (case cadena in / lista de patrones 1 sentencia / ... / ;;).
+* ``func``: aparte del programa que realiza un proceso concreto. (func() / { / sentencias / }).
+
+### 14\. UNIX EN RED
+
+* Los comandos “ifconfig” o “ip” se utilizan para la configuración de los drivers y de los interfaces de red, se ejecuta
+  en los scripts de arranque del sistema para poner en marcha los interfaces de red, sin argumentos ``ifconfig`` muestra
+  el estado actual de los interfaces, sus opciones son:
+    * ``\-a``: muestra todas las interfaces disponibles.
+    * ``interface``: muestra el nombre de la interfaz, suele ser eth0 para la primera y así sucesivamente, se puede
+      también habilitar o deshabilitar dicha interface, asociar una dirección ip (adress), una máscara de red (netmask
+      addr), un alias, una dirección de broadcast,...
+    * ``up/down``: activa o desactiva la interfaz.
+    * ``\-promisc``: activa o desactiva el modo promiscuo en esa interfaz.
+    * Para ``ip``, algunas de sus opciones son:
+        * ``\-h (-human)``: muestra las estadísticas de un modo más legible (equivalente a “-v”).
+        * ``\-s (-stats)``: muestra más información (equivalente a “-a”).
+        * ``\-f (-family)``: especifica la familia de protocolos (inet [-4], inet6 [-6], bridge [-B], mpls [-M] o
+          link [-0])
+          .
+        * ``\-r (-resolve)``: muestra los nombres DNS en lugar de las direcciones ip.
+        * ``\-br (-brief)``: muestra solo información básica en formato de tabla.
+
+* El programa “``route``” se utiliza para definir tablas de enrutamiento, cuando nuestro host necesita acceder a
+  recursos de más de una red lógica. (opciones: add, del, target, netmask, gw,...).
+
+* > ``IP Masquerade``:
+    * > Es una capacidad de red de Linux en desarrollo.
+    * > Si un servidor Linux está conectado a Internet con IP Masquerade habilitado, los ordenadores conectados a él (bien en la misma red local, bien por módem) también pueden conectarse a Internet, incluso aunque no tengan una dirección IP oficial asignada.
+
+* Resolución de nombres en UNIX, serie de ficheros encargados de definir y acceder a los nombres: /etc/hosts.conf y
+  /etc/resolve.conf. \[Nombres de las interfaces de red: /dev/eth0 (en Linux)\]
+
+#### 14.1. CONFIGURACIÓN DE LOS SERVICIOS DE RED
+
+* Servicios basados en red, en sistemas UNIX, se habilitan mediante demonios que corren en los servidores, un demonio no
+  es más que un programa que se activa en tiempo de arranque del sistema y permanece a la escucha de recibir una
+  solicitud para ofrecer un servicio, dos modos:
+    * ``standalone``: un proceso escuchando un único puerto, para responder a las solicitudes.
+    * ``inetd`` (metademonio de red): escucha distintos puertos y reclama el servicio apropiado.
+    * Ficheros implicados en este tipo de servicios:
+        * ``/etc/services``: se reserva un puerto para cada servicio, hay una serie de puertos reservados y los no
+          reservados por encima del 1024 son determinados arbitrariamente.
+        * ``/etc/inetd.conf``: se configuran las llamadas de inetd.
+
+#### 14.2 X WINDOW SYSTEM
+
+* Protocolo que permite la interacción grafica en red entre un usuario y una o más computadoras haciendo transparente la
+  red para este de forma totalmente independiente del SO.
+* Distribuye el procesamiento de aplicaciones especificando enlaces cliente-servidor\*.
+* El servidor provee servicios para acceder a la pantalla, teclado y ratón, mientras que los clientes son las
+  aplicaciones que utilizan estos recursos para interacción con el usuario.
+* Debido a este esquema cliente-servidor, se puede decir que X se comporta como un terminal gráfico virtual.
+
+#### 14.3. SMB vs SAMBA
+
+* ``Server Message Block`` (SMB): es un protocolo que permite compartir recursos en una red. Fue modificado y
+  renombrado, por Microsoft, como CIFS (Common Internet File system).
+* ``Samba``: es una implementación libre del protocolo SMB/CIFS que se usa en sistemas GNU/Linux y Unix en general.
+
+### 15\. IPTABLES
+
+* Programa de utilidad de espacio de usuario que permite a un administrador de sistemas configurar las tablas
+  proporcionadas por el cortafuegos del núcleo Linux (implementado como diferentes módulos Netfilter) y las cadenas y
+  reglas que almacena.
+* Se utilizan diferentes módulos del kernel y programas para protocolos diferentes:
+    * ``iptables`` se aplica a IPv4
+    * ``ip6tables`` a IPv6
+    * ``arptables`` a ARP
+    * ``ebtables`` a marcos de Ethernet.
+* Las reglas se guardan en el fichero “iptables.sh”:
+    * ``Cadenas`` (por donde van a circular los paquetes dentro del sistema):
+        * ``PREROUTING``: contiene los paquetes que acaban de entrar al sistema, independientemente de que estén
+          generados por el mismo equipo o un equipo remoto.
+        * ``INPUT``: contiene los paquetes destinados al equipo local con cualquier origen.
+        * ``OUTPUT``: contiene los paquetes generados en el equipo local y que van a salir del mismo.
+        * ``FORWARD``: contiene los paquetes que pasan por el equipo pero que son generados en equipos remotos y se
+          dirigen a otros equipos diferentes.
+        * ``POSTROUTING``: contiene los paquetes que van a abandonar el sistema, independientemente de estén generados
+          en el mismo equipo o en un equipo remoto.
+
+    * ``Acciones`` (especifican qué se va a realizar con el paquete cuando satisface la regla en la que se encuentra):
+        * ``ACCEPT``: el paquete se acepta y no continúa atravesando ni la cadena actual ni cualquier otra cadena de la
+          misma tabla.
+        * ``DROP``: el paquete se elimina completamente dentro de la cadena actual, y no será procesado en ninguna de
+          las cadenas principales de ninguna tabla. Tampoco se enviará ninguna información en ninguna dirección para
+          informar de ello.
+        * ``REJECT``: el paquete se elimina completamente dentro de la cadena actual, aunque en este caso sí que se
+          devuelve información al equipo que envió el paquete. Sólo es válido en las cadenas INPUT, OUTPUT y FORWARD.
+        * ``RETURN``: el paquete dejará la cadena en la que se encuentre, pero continuará por la cadena superior a esa,
+          si es que existe.
+        * ``REDIRECT``: redirige el paquete hacia el mismo equipo local donde se ejecuta Iptables. Necesita un parámetro
+          opcional para indicar hacia dónde se redirige (--to-ports puertos).
+
+    * ``Operaciones``:
+        * \-L (--list): lista todas las reglas de la cadena.
+        * \-A (–append): añade la regla al final de la cadena.
+        * \-I (–insert): inserta la regla en la posición que indiquemos de la cadena.
+        * \-D (–delete): elimina la regla de la cadena.
+        * \-R (--replace): sustituye la regla en la cadena por la nueva.
+        * \-F (–flush): elimina todas las reglas de la cadena.
+        * \-P (--policy): crea una política por defecto en la cadena.
+
+    * ``Coincidencias`` (patrones de los paquetes, podremos aplicarles acciones):
+        * \-j accion: realiza la acción (ACCEPT, DROP, QUEUE y RETURN) cuando un paquete coincide con una regla
+          particular.
+        * \-p protocolo (--protocol): indica el protocolo de conexión que debe poseer el paquete.
+        * \-s ip/máscara (--source): indica la dirección o red de origen del paquete.
+        * \-d ip/máscara (--destination): indica la dirección o red de destino del paquete.
+        * \-i interfaz (--in-interface): indica la interfaz de red del sistema por la que se recibe el paquete (sólo
+          permitido en las cadenas PREROUTING, INPUT y FORWARD).
+        * \-o interfaz (--out-interface): indica la interfaz de red del sistema por la que se envía el paquete (sólo
+          permitido en las cadenas OUTPUT, FORWARD y POSTROUTING).
+        * \--sport puerto (--source-port): indica el puerto de origen del paquete (sólo para los protocolos TCP y UDP).
+        * \--dport puerto (--destination-port): indica el puerto de destino del paquete (sólo para los protocolos TCP y
+          UDP).
+
+* La ``Arquitectura cliente servidor`` es un modelo de diseño de software en el que las tareas se reparten entre los
+  proveedores de recursos o servicios, llamados servidores, y los demandantes, llamados clientes.
+* Un cliente realiza peticiones a otro programa, el servidor, quien le da respuesta.
+* Esta idea también se puede aplicar a programas que se ejecutan sobre una sola computadora, aunque es más ventajosa en
+  un sistema operativo multiusuario distribuido a través de una red de computadoras.
+* En la arquitectura C/S sus características generales son:
+    * El Cliente y el Servidor pueden actuar como una sola entidad y también pueden actuar como entidades separadas,
+      realizando actividades o tareas independientes.
+    * Las funciones de Cliente y Servidor pueden estar en plataformas separadas, o en la misma plataforma.
+    * Cada plataforma puede ser escalable independientemente. Los cambios realizados en las plataformas de los Clientes
+      o de los Servidores, ya sean por actualización o por reemplazo tecnológico, se realizan de una manera transparente
+      para el usuario final.
+    * La interrelación entre el hardware y el software están basados en una infraestructura poderosa, de tal forma que
+      el acceso a los recursos de la red no muestra la complejidad de los diferentes tipos de formatos de datos y de los
+      protocolos.
+    * Su representación típica es un centro de trabajo (PC), en donde el usuario dispone de sus propias aplicaciones de
+      oficina y sus propias bases de datos, sin dependencia directa del sistema central de información de la
+      organización.
+
+* Los servidores pueden ser apátridas o stateful.
+* Un servidor apátrida no guarda ninguna información entre las peticiones.
+* Un servidor stateful puede recordar la información entre las peticiones.
+* El alcance de esta información puede ser global o sesión-específico.
+* Un servidor del HTTP para las páginas estáticas del HTML es un ejemplo de un servidor, apátrida mientras
+  que ``Apache Tomcat`` es un ejemplo de un servidor stateful.
+* La interacción entre el cliente y el servidor se describe a menudo usando diagramas de secuencia.
+* Los diagramas de secuencia se estandarizan en el UML.
+* Es importante que los clientes no interactúen entre sí ni que lo hagan clientes de capas bajas hacia otros de capas
+  más altas, por eso todo tiene que pasar por el servidor.
+* Para la arquitectura C/S el remitente de una solicitud es conocido como cliente (front-end). Sus características son:
+    * Es quien inicia solicitudes o peticiones, tienen por tanto un papel activo en la comunicación (dispositivo maestro
+      o amo).
+    * Espera y recibe las respuestas del servidor.
+    * Por lo general, puede conectarse a varios servidores a la vez.
+    * Normalmente interactúa directamente con los usuarios finales mediante una interfaz gráfica de usuario.
+
+* Al receptor de la solicitud enviada por el cliente se conoce como servidor (back-end).
+* Sus características son:
+    * Al iniciarse esperan a que lleguen las solicitudes de los clientes, desempeñan entonces un papel pasivo en la
+      comunicación (dispositivo esclavo).
+    * Tras la recepción de una solicitud, la procesan y luego envían la respuesta al cliente.
+
+* Por lo general, acepta las conexiones de un gran número de clientes (en ciertos casos el número máximo de peticiones
+  puede estar limitado).
+
+## WINDOWS
+
+* Microsoft produce dos líneas separadas de sistemas operativos, una para ordenadores personales y otra para servidores.
+* Versiones más importantes:
+    * ``Windows NT``: primera versión, orientada a computadoras personales, necesitaba gran cantidad de recursos
+    * ``Windows 95 y 98``: Versiones basadas en MS-DOS.
+    * ``Windows 2000``: muy útil para los administradores de sistemas y con una gran cantidad de servicios de red,
+      implementaba la posibilidad del “plug and play”, alguna de las características más destacables:
+        * Soporte para FAT32 y NTFS.
+        * Cifrado de ficheros (EFS).
+        * Sistema RAID.
+        * Servicios de acceso remoto (RAS, VPN, RADIUS...).
+        * Active Directory.
+        * Windows XP: nueva interfaz, mayores capacidades multimedia, multitarea mejorada, soporte para redes
+          inalámbricas...
+
+    * ``Windows Server``: basada en el núcleo de XP con servicios añadidos.
+    * ``Windows 7``: mayor compatibilidad con aplicaciones y hardware, mejor interfaz, sistema de redes domesticas
+      simplificado y fácil de usar denominado “Grupo en el hogar”, mejoras de rendimiento...
+    * ``Windows 10``: introdujo una arquitectura de aplicaciones universales, desarrolladas con la interfaz “modern UI”,
+      orientado al uso con ratón y al uso con pantalla táctil, introduce la vista de tareas, un sistema de escritorio
+      virtual y el asistente Cortana.
+
+### 1\. WINDOWS XP (Windows XP Home, Windows XP Profesional)
+
+* Construido con el código de Windows 2000 con un nuevo interfaz gráfico, introduce mejoras importantes como “entorno
+  mejorado orientado a tareas”, “asistentes y herramientas”, “restaurar el sistema”, “nuevas tecnologías (conexión de
+  varios monitores, DVD, dispositivos inalámbricos, bus USB...)”, “mejoras multimedia (controladores de tarjetas de
+  video y sonido)”...
+    * ``Instalación``: el proceso de instalación está dirigido por un asistente que se ocupa de todo, solicitado en cada
+      paso la información que necesita.
+        * ``RIS`` (Remote Installation Services): servicio de los servidores de Microsoft que permite a ordenadores con
+          BIOS PXE ejecutar parámetros de arranque de forma remota.
+
+    * ``Administración de discos``: admite trabajar con “discos básicos” que se dividen en particiones y “discos
+      dinámicos” que se dividen en volúmenes, facilita dos herramientas, el administrador de discos y la línea de
+      comandos “diskpart”.
+
+        * Los ``discos básicos`` pueden dividirse en porciones de almacenamiento más pequeñas denominadas particiones,
+          dos tipos de particiones en un disco básico: primaria y extendida y esta a su vez se puede dividir en
+          particiones lógicas.
+        * Los ``discos dinámicos`` dan la posibilidad de administrarlo sin la necesidad de reiniciar, ampliar un volumen
+          de disco, extender un volumen entre múltiples discos duros, realizar secciones de un volumen para mejorar su
+          rendimiento, hacer un espejo o añadirlo a un array RAID 5, todo desde MMC y sin tener que reiniciar, la
+          creación inicial o conversión de un disco básico a disco dinámico si necesitara reinicio.
+        * ``Se organizan en``:
+            * ``Volúmenes simples``: contienen el espacio en un único disco.
+        * ``Volúmenes seccionados`` (striped): combina espacio libre de dos o más discos físicos en un único volumen,
+          este proceso de división de los datos entre varios discos mejora el rendimiento del disco.
+        * ``Volúmenes distribuidos`` (spanned): usa dos o más discos físicos de forma que se rellena el primer disco y
+          después el segundo y así sucesivamente.
+
+> ``Windows`` proporciona dos métodos para la desfragmentación del disco y mejorar el rendimiento: la herramienta gráfica “desfragmentador de disco” y la línea de comandos “defrag”.
+
+#### 1.1. SISTEMA DE ARCHIVOS
+
+* Es la estructura en la que se asigna nombres a los archivos, se almacena y se tiene acceso a ellos, tres tipos de
+  archivos en los discos duros FAT, FAT32 y NTFS, donde el utilizado actualmente es NTFS (New Technology File System)
+  sistema de archivos implementado en Windows NT, aunque son posibles tamaños mayores, el máximo recomendado en la
+  práctica para cada volumen es de 2 TB (Terabytes).
+* El tamaño máximo de fichero viene limitado por el tamaño del volumen.
+* A partir de la versión 3.0, soporta cuotas de disco, cifrado de archivos, archivos dispersos, puntos de análisis,
+  número de secuencia de actualización (USN) diario, la carpeta $ Extender y sus archivos.
+* Se reorganizó los descriptores de seguridad de forma que varios archivos utilizando la misma configuración de
+  seguridad pueden compartir el mismo descriptor.
+* La versión 3.1 amplió la tabla maestra de archivos (MFT) entradas con número de registro MFT redundante (
+  útil para la recuperación de archivos dañados MFT).
+
+> ``chkdsk`` (windows): comprueba la integridad del disco.
+
+##### 1.1.1. PERMISOS NTFS
+
+* Los permisos sobre carpetas y archivos en NTFS son:
+    * ``escribir`` (crear archivos y carpetas y modificar los atributos),
+    * ``leer`` (leer los archivos y carpetas, también los atributos),
+    * ``mostrar`` el contenido de la carpeta (permite movernos por la carpeta),
+    * ``lectura y ejecución`` (lectura y listado), modificar (lectura y ejecución más suprimir la carpeta) y control
+      total (permite cambiar los permisos y tomar posesión).
+* En un volumen NTFS se pueden establecer permisos a nivel de archivo, cualquier archivo puede otorgar a los usuarios
+  diferentes tipos de acceso.
+* Se deben asignar permisos a grupos, no a usuarios individualmente.
+* No hay que establecer permisos archivo a archivo a menos que sea inevitable.
+* Estos permisos siguen unas reglas:
+    * El usuario que crea un archivo o carpeta es el propietario de ese objeto.
+    * Los permisos que le demos a una carpeta se heredan en los niveles inferiores (Herencia).
+    * Los permisos son acumulativos cuando un usuario está en más de un grupo salvo que alguno tenga marcado “DENEGAR” (
+      Aditivos).
+* Si copiamos un archivo a una partición distinta se heredan los permisos de la partición destino, si movemos un archivo
+  o una carpeta NTFS hacia otra partición esta pierde sus propiedades de seguridad, se eliminan los permisos y se
+  heredan de la carpeta destino.
+* Para determinar los permisos reales de acceso a un recurso, el permiso global efectivo será el más restrictivo entre
+  el permiso efectivo de compartición (FAT) y el permiso efectivo de NTFS.
+
+#### 1.2. CARPETAS Y RECURSOS COMPARTIDOS
+
+* El sistema crea varios recursos compartidos especiales como ADMIN$ (aparece como C$, D$, E$...), permiten a los
+  administradores conectarse a unidades que en otro caso no estarían compartidas. Existen como parte de la instalación
+  del SO:
+    * ``ADMIN$``: se utiliza durante la administración remota de un equipo, solo los administradores, operadores de
+      copia y operadores de servidores se pueden conectar a este recurso compartido.
+    * ``C$``: carpeta raíz de la unidad específica.
+    * ``IPC$``: utilizado durante la administración remota y cuando se revisan los recursos compartidos, es esencial en
+      la comunicación y no se debe cambiar, modificar o eliminar.
+    * ``NETLOGON``: servicio Inicio de sesión de red de un servidor que ejecuta Windows NT Server cuando procesa los
+      únicos de sesión en el dominio.
+    * ``PRINT$``: soporta impresoras compartidas.
+    * ``REPL$``: se crea en un servidor cuando un cliente de fax está enviando el fax.
+
+* El objeto principal en una red es compartir archivos entre los distintos equipos, en sistemas Microsoft vamos a
+  compartir siempre carpetas nunca archivos.
+* La forma más sencilla de crear carpetas compartidas es utilizar la consola MMC con el complemento de carpetas
+  compartidas, le asigna un nombre identificativo y se asignan los permisos correspondientes.
+* Se pueden definir recursos compartidos y una única carpeta puede ser compartida más de una vez, un recurso compartido
+  podría incluir control total para administradores y otro recurso compartido para  
+  usuarios podría ser más restrictivo.
+* Los permisos de recursos compartidos se pueden asignar a usuarios individuales, a grupos y a las entidades especiales
+  “Todos”, SYSTEM, INTERACTIVE, NETWORK y Usuarios autentificados. ``Carpetas que comparte`` el sistema ``por defecto``:
+    * ``C$``
+    * ``IPC$``: comunicación entre procesos.
+    * ``ADMIN$``: ruta %systemroot%.
+    * ``Print$``: administración de impresoras.
+
+#### 1.3. CONFIGURACIÓN DE RED EN WINDOWS XP
+
+* Dos métodos para asignar direcciones IP a un dispositivo de red TCP/IP:
+    * ``Direccionamiento estático``: se especifica físicamente la dirección IP.
+    * ``Direccionamiento dinámico``: protocolo DHCP, configurado de forma predeterminada para obtener una dirección IP
+      automáticamente de un servidor DHCP. Utilidades que permiten diagnosticar problemas de red:
+        * ``arp``: muestra y permite modificar las tablas de protocolo arp, convertir direcciones IP de cada ordenador
+          en direcciones MAC.
+        * ``ftp``: conectarse a otra maquina a través del protocolo FTP para transferir archivos.
+        * ``ipconfig``: configuración de todos las interfaces.
+        * ``/flushdns``: purga la cache de resolución de DNS.
+        * ``net``: administrar usuarios, carpetas compartidas, servicios...
+        * ``netstat``: listado de todas las conexiones de red que nuestra maquina está realizando.
+        * ``nslookup``: obtener la dirección IP conociendo el nombre, y viceversa; permite que el usuario consulte de
+          forma manual los servidores de nombres para resolver un nombre de host dado.
+        * ``ping``: paquetes IP, comprobar la conexión, informa del tiempo que tarda en contestar la máquina destino.
+        * ``pathping``: la ruta que sigue cada paquete para llegar a una IP determinada, tiempo de respuesta de cada uno
+          de los nodos por los que pasa y las estadísticas de cada uno de ellos.
+        * ``route``: ver o modificar las tablas de enrutamiento de red.
+
+* Un equipo puede estar configurado en modo:
+    * ``Grupo de trabajo``: cada máquina se administra de forma independiente, es una agrupación de equipos en una red
+      que comparte recursos, todos los equipos pueden compartir recursos como elementos iguales sin servidor dedicado.
+    * ``Dominio``: todas las maquinas son controladas por un equipo llamado controlador de dominio.
+
+#### 1.4. USUARIOS Y GRUPOS
+
+* El fichero “NTUSER.DAT” se encarga de guardar las configuraciones y preferencias de cada usuario de Windows.
+* Cada usuario tendrá su propio fichero dentro de su carpeta personal, y cuando inicia sesión se carga este fichero en
+  el registro para dar forma al perfil de usuario.
+    * ``Administradores``: pueden acceder a todos los componentes, configuración, instalar programas, crear nuevos
+      usuarios...
+    * ``Usuarios``: usar el equipo y almacenar sus archivos en las carpetas del equipo.
+    * ``Usuario Avanzado``: similar a usuario con más derechos administrativos.
+    * ``Cuentas de usuario en red``:
+        * Registradas en el equipo servidor, pueden iniciar sesión en cualquier equipo de la red, las cuentas de usuario
+          local son el único tipo de cuenta en un grupo de trabajo que se crea en el equipo que se va a utilizar, pero
+          reside en una base de datos de cuentas denominada administrador de seguridad SAM.
+        * Los usuarios y contraseñas se almacenan en system32/config y cada usuario tiene un SID (security identifier)
+          único.
+        * La configuración específica de un usuario queda guardada en su perfil, en la carpeta %HOMEPATH% (
+          Documents and settings/User), los perfiles existentes son:
+            * ``Usuario permanente``: base de todos los perfiles de usuario.
+            * ``Usuario local``: perfiles creados en un equipo cuando un usuario inicia sesión, el perfil es especifico
+              a un usuario y local al equipo. Se crean en los equipos cuando los usuarios individuales inician sesión y
+              la primera vez que un usuario inicia sesión en un equipo, se genera una carpeta de perfil para el usuario
+              y los contenidos de la carpeta Default User se copian a ella. Si un usuario tiene una cuenta local en el
+              equipo además de una cuenta de dominio, tendrá dos carpetas de perfil en el equipo local, una para cuando
+              inicie sesión localmente y otra para cuando inicie sesión en el dominio.
+            * ``Usuario móvil``: perfiles creados por un administrador y almacenados en un servidor, después del inicio
+              de sesión del usuario sea autentificado en el servicio de directorio se copia al equipo local. Se crea una
+              carpeta compartida con los usuarios que tengan perfiles móviles. Se introduce una ruta de acceso a esa
+              carpeta en la ventana propiedades del perfil de los usuarios, cuando el usuario cierra la sesión, el
+              perfil se almacena tanto localmente como en la ubicación de la ruta de acceso al perfil del usuario.
+            * ``Usuario obligatorio``: lo crea el administrador del sistema con determinada configuración para uno o
+              varios usuarios, puede convertir perfiles móviles en obligatorio si se cambia el nombre del archivo de
+              perfil de Ntuser.dat en Ntuser.man
+
+##### 1.4.2. ACCESO REMOTO
+
+* ``Remote Desktop Protocol`` (RDP): es un protocolo que permite la comunicación en la ejecución de una aplicación entre
+  una terminal (mostrando la información procesada que recibe del servidor) y un servidor Windows (recibiendo la
+  información dada por el usuario en el terminal mediante el ratón o el teclado), bajo el puerto TCP 3389\.
+* La información gráfica que genera el servidor es convertida a un formato propio RDP y enviada a través de la red al
+  terminal, que interpretará la información contenida en el paquete del protocolo para reconstruir la imagen a mostrar
+  en la pantalla del terminal.
+* Para acceder al cliente del protocolo se ejecuta mstsc (Microsoft Remote Desktop Connection), en ese momento se tiene
+  acceso a todas las aplicaciones, archivos y recursos, mientras se utiliza el equipo de forma remota, nadie podrá
+  usarlo de forma local, provocaría el cierre de la sesión remota.
+
+#### 1.5. SERVICIOS
+
+* Son aplicaciones que se ejecutan en segundo plano y que el sistema ejecuta de forma predeterminada al iniciar o cuando
+  es necesario (como los demonios de UNIX).
+    * ``Estado``: modo de funcionamiento actual del servicio (Detenido, pausado, iniciado).
+    * ``Tipo de inicio``:
+        * ``Manual``: mediante intervención del usuario.
+        * ``Automático``: cada vez que arranca el SO, arranca el servicio.
+        * ``Deshabilitar``: no se puede iniciar.
+
+* Se puede parar o arrancar servicios desde la línea de comandos con el comando “net”:
+    * net ``start``: inicializa un servicio / net stop: detiene un servicio que se encuentra en ejecución.
+    * net ``continue``: inicia de nuevo un servicio interrumpido.
+    * net ``user``: para la gestión de usuarios
+    * net ``name``: agrega o elimina un alias.
+    * net ``session``: muestra y gestiona una lista con las sesiones conectadas a un equipo local.
+    * net ``accounts``: actualiza la base de datos y modifica las directivas de seguridad.
+    * net ``computer``: agrega o quita equipos en una base de datos de dominios.
+    * net ``group``: agrega o elimina grupos globales
+    * net ``localgroup``: agrega elimina grupos locales.
+    * net ``share``: comparte carpetas o impresoras (recurso compartido) para ser utilizadas en red.
+    * net ``config``: muestra o modifica los servicios configurables que están en ejecución.
+    * net ``file``: muestra los nombres de todos los archivos compartidos abiertos en un servidor.
+    * net ``help``: muestra la ayuda de un comando
+    * net ``helpmsg``: muestra la ayuda de un error.
+    * net ``print``: muestra la cola de impresión
+    * net ``statistics``: muestra estadísticas del servicio local.
+    * net ``view``: muestra un listado de los recursos compartidos de un equipo.
+
+### 1.6. IMPRESORAS
+
+* ``Servidor de impresión``: ordenador al que se mandan los documentos para imprimir.
+* ``Impresora``: interfaz entre aplicación e impresión.
+* ``Dispositivo de impresión``.
+* ``Cola de impresión``: lista de documentos que se están imprimiendo.
+* ``Spool de impresión``: software que se encarga de administrar la cola de impresión.
+* ``Pool de impresoras``: dirigir desde una única impresora los documentos hacia varios dispositivos de impresión.
+* Puertos:
+    * ``Impresoras locales``: USB, COM, LPR (compatible con UNIX).
+    * ``Impresoras de red``: para compartir una impresora local, se comparten los drivers de dicha impresora con TCP/IP,
+      quedan incluidos en la carpeta PRINT$ con la ruta %systemroot%/system32/spool/drivers.
+
+### 2\. WINDOWS 7 (Windows Home / Windows 7 Professional / Windows 7 Ultimate)
+
+* ``Windows 7`` crea una partición automática utilizando la totalidad del disco duro, automáticamente crea una partición
+  de 200MB, se denomina partición de sistema y contienen los archivos para que Windows 7 arranque correctamente, la otra
+  partición se denomina arranque y contiene el resto de archivos del sistema operativo. Modos de instalación:
+    * ``Instalación manual``:
+        * ``Actualizaciones``: conserva los archivos, la configuración y los programas en su ubicación en el equipo. Es
+          posible realizar un proceso de migración de los perfiles de usuario:
+        * ``Windows Easy Transfer`` (WET): migración de un único ordenador.
+        * ``Personalizada``: no conserva los archivos, la configuración ni los programas, se la denomina instalación
+          limpia.
+
+    * ``Mediante imagen estándar`` (clonación de equipo), pasos:
+        * Analizar la compatibilidad de las aplicaciones: con ACT (Kit de herramientas de compatibilidad de
+          aplicaciones).
+        * Prepara un dispositivo de arranque para capturar imágenes: AIK de Windows, prepara una imagen del entorno de
+          preinstalación de Windows (Windows PE).
+        * Instalar Windows 7 en el equipo de referencia las aplicaciones, controladores y actualizaciones que queramos
+          incluir en la imagen.
+        * Prepara la imagen en el equipo de referencia con sysprep.
+        * Capturar la imagen del equipo de referencia: se inicia el equipo de referencia con Windows PE y se captura una
+          imagen con ImageX, se puede almacenar la imagen en un recurso compartido de red o disco duro USB local.
+        * Se crea un archivo de respuestas Unattend.xml que apunte a la imagen anterior.
+        * Instalar la imagen en el quipo cliente con el archivo de respuesta.
+
+    * ``Implementación con MDT`` (Microsoft Deployment Toolkit):
+        * Instalación: debe crearse un servidor de archivos (Windows Server).
+        * Se instala el MDT 2010, en ese servidor de archivos junto con el resto de componentes.
+        * Se crea un recurso compartido de distribución que debe contener el sistema operativo, las aplicaciones, los
+          drivers y la configuración del Windows.
+        * En MDT 2010 indican las instrucciones para la instalación y configuraron de Windows, se crea también en el MDT
+          punto de implementación, establecer una conexión a archivos en el resto de recurso compartido de distribución
+        * Podemos almacenar las imágenes que ha creado el MDT en dispositivo de almacenamiento extraíble.
+
+    * ``User State Migration Tool`` (USMT): automatización de la migración.
+    * ``Herramientas externas`` como “Clonezilla”.
+
+#### 2.1. PROCESO DE ARRANQUE
+
+* 1\. La BIOS accede al MBR indicando cual es la partición activa.
+* 2\. Se accede al sector de arranque de dicha partición (creando al instalar el SO).
+* 3\. Este sector de arranque direcciona al fichero BOOTMGR (en Windows NT, XP y Server 2003 se usa NTLDR “NT Loader”).
+* 4\. BOOTMGR accede al fichero BOOTBCD, es un archivo binario, no editable mediante procesador de textos, se encuentra
+  en la partición de 200MB.
+* 5\. Inicio del sistema ejecutamos el kernel y ubicado en el fichero NTOSKRNL.exe
+
+#### 2.2. NOVEDADES
+
+* Se añaden a los tipos de usuarios ya vistos en Windows XP:
+    * ``Operadores de copia de seguridad``: pueden hacer copias de seguridad y restaurar archivos de un equipo.
+    * ``Replicador``: cuenta de usuario de dominio que se usa para iniciar sesión en servicios de replicador de un
+      controlador de domino.
+    * ``Compartición de carpetas``: permite compartir archivos de las carpetas públicas con otras personas con el mismo
+      equipo y con personas que usen otros equipos en la misma red.
+    * ``Servicios``: se añade un nuevo modo de inicio, Automático (inicio retrasado), retrasa el inicio del servicio
+      hasta después de completarse el proceso de arranque de Windows.
+    * ``Impresoras``: se añaden el formato XPS (XML Paper Specification) y Location-Aware Printing, la impresora por
+      defecto se modifica automáticamente cuando se detecta el cambio de conexión a una nueva red.
+    * Además de trabajar con los tipos de discos ya vistos en Windows XP, también soporta el trabajo
+      con ``dos nuevos tipos de discos``:
+        * ``MBR`` (Master Boot Record): discos tradicionales, en los que se crea una tabla de particiones con un máximo
+          de cuatro, en el primer sector del disco duro.
+        * ``GPT`` (GUID Partition Table): contiene un array de entradas de particiones que indican la dirección del
+          bloque inicial y final de cada partición en el disco.
+
+#### 2.6. MEJORAS DE SEGURIDAD EN WINDOWS 7
+
+* ``User Access Control``: permite controlar los privilegios de los usuarios que hacen uso del sistema cuando se
+  ejecutan tareas administrativas que acceden o modifican archivos críticos del sistema, se activara cuando identifique
+  la necesidad de tareas administrativas por parte de procesos o actualizaciones.
+* ``Supresión de Autoplay``: solo los dispositivos ópticos (CD, DVD...) utilizaran la opción de ejecutar automáticamente
+  archivos al ser insertados (USB deja de utilizarla, pregunta primero).
+* ``Windows Biometric Framework`` (WBF): utilización de dispositivos biométricos de lectura de huellas dactilares.
+
+### 3\. WINDOWS 10 (Windows 10 Home / Windows 10 Pro / Windows 10 Enterprise-Education)
+
+* Introduce una arquitectura de aplicaciones universales (Modern UI), diseñadas para ejecutarse en todas las familias de
+  productos Microsoft.
+* Se introduce la vista de tareas, sistema de escritorio virtual, soporte para huella digital o reconocimiento facial,
+  DirectX 12, WDDM 2.0.
+* La edición Pro añade características adicionales de seguridad y red como BitLocker, Device Guard, Windows Update para
+  empresas y la habilidad de unirse a un dominio.
+
+#### 3.1. SISTEMA Y SEGURIDAD
+
+* Incorpora ``FIDO`` (Fast Identity Online) una tecnología de autenticación en factores múltiples, incluye soporte
+  mejorado para la ``autenticación biométrica`` (Windows Hello), las credenciales se almacenan localmente y están
+  protegidas mediante cifrado asimétrico.
+* La plataforma “Passport” permitirá a las redes, software y sitios web verificar la identidad del usuario mediante un
+  PIN o un inicio de sesión biométrico, los administradores establecen normativas para el cifrado de datos automático y
+  bloquear selectivamente las solicitudes de acceso a datos cifrados.
+* ``Device Guard``, permite a los administradores reforzar la seguridad de un espacio digital, mediante el bloqueo de la
+  ejecución de software que no está firmado digitalmente por un proveedor de confianza o Microsoft, también incluye
+  Sensor de almacenamiento, permite al usuario ver de qué forma la capacidad de almacenamiento de su dispositivo está
+  siendo utilizado por diferentes tipos de archivos.
+
+* > ``SCCM`` (Microsoft System Center Configuration Manager):
+    * > Solución de software de administración que permite gestionar de forma centralizada la configuración de todos los sistemas físicos y virtuales de una organización o grupo de organizaciones permitiendo, entre otras características, control remoto, gestión de actualizaciones y parches, distribución de software, despliegue de sistemas operativos, protección, cumplimiento e inventariado de software y de hardware.
+    * > Desde la versión 1910, se llama ECM (Microsoft Endpoint Configuration Manager).
+
+### 4\. WINDOWS SERVER 2008
+
+* ``Active Directory`` es el nombre utilizado por Microsoft (desde Windows 2000\) como almacén centralizado de
+  información de uno de sus dominios de administración.
+* Un Servicio de Directorio es un depósito estructurado de la información de los diversos objetos que contiene el Active
+  Directory, en este caso podrían ser impresoras, usuarios, equipos...
+* Bajo este nombre se encuentra realmente un esquema (definición de los campos que pueden ser consultados) LDAP versión
+  3, lo cual permite integrar otros sistemas que soporten el protocolo.
+* En este LDAP se almacena información de usuarios, recursos de la red, políticas de seguridad, configuración,
+  asignación de permisos, etc.
+
+* > ``LDAP`` (Lightweight Directory Access Protocol):
+    * > Protocolo a nivel de aplicación que permite el acceso a un servicio de directorio ordenado y distribuido para buscar diversa información en un entorno de red.
+    * > Los despliegues actuales de LDAP tienden a usar DNS para estructurar los niveles más altos de la jerarquía.
+    * > Conforme se desciende en el directorio pueden aparecer entradas que representan personas, unidades organizacionales, impresoras, documentos, grupos de personas o cualquier cosa que representa una entrada dada en el árbol (o múltiples entradas).
+    * > Habitualmente, almacena la información de autenticación (usuario y contraseña) y es utilizado para autenticarse aunque es posible almacenar otra información (datos de contacto del usuario, ubicación de diversos recursos de la red, permisos, certificados, etc).
+    * > A manera de síntesis, LDAP es un protocolo de acceso unificado a un conjunto de información sobre una red.
+
+* Combina el SO del equipo y de red en un mismo sistema, configura un equipo para proporcionar funciones y recursos de
+  servidor a una red y las funciones de cliente de red. Trabaja sobre una modelo de dominio, es una colección de equipos
+  y usuarios que comparten unas políticas de seguridad y una base de datos común (catalogo global).
+
+* Se debe designar un servidor como controlador principal de domino (PDC, Primary Domain Controller).
+* Este servidor mantiene los servicios de directorios y autentifica cualquier usuario que quiera entrar en el sistema.
+* Los servicios de directorios de Windows Server se pueden implementar de varias formas, existen cuatro modelos de
+  domino:
+    * ``Dominio único``: un único servidor mantiene la base de datos de seguridad y de las cuentas.
+    * ``Maestro único``: una red con maestro único puede tener diferentes dominios, pero se designa uno como el maestro
+      y mantiene la base de datos de las cuentas de usuario. Incluye varios roles y la capacidad de transferir roles a
+      cualquier controlador de dominio de la empresa. Dado que un rol de Active Directory no está enlazado a un solo
+      controlador de dominio, se conoce como un rol ``FSMO`` (Flexible Single Master Operations).
+    * Actualmente en Windows hay ``cinco roles`` FSMO:
+        * ``Maestro de esquema``: se encarga de procesar actualizaciones del esquema de directorio. Una vez completada
+          la actualización de esquema, se replica desde el patrón de esquema a todos los demás DCs del directorio.
+        * ``Patrón de nomenclatura de dominio``: se encarga de agregar o quitar un dominio del directorio. También puede
+          agregar o quitar referencias cruzadas a dominios en directorios externos.
+        * ``Patrón de RID``: responsable de quitar un objeto de su dominio y colocarlo en otro dominio durante un
+          movimiento de objeto. Cuando un controlador de dominio crea un objeto de entidad de seguridad, como un usuario
+          o grupo, adjunta un identificador de seguridad (SID, security identifier) único al objeto. Consta de un SID de
+          dominio que es el mismo para todos los SID creados en un dominio y de un RID (relative identifier) que es
+          único para cada SID de entidad de seguridad creado en un dominio.
+        * ``Emulador PDC``: el emulador PDC es necesario para sincronizar el tiempo en una empresa. Windows incluye el
+          servicio de tiempo W32Time, que requiere el protocolo de autenticación Kerberos\*. Se encarga de los cambios
+          de contraseña realizados por otros controladores de dominio en el mismo, se replican de forma preferente en el
+          emulador de PDC, cuando se producen errores de autenticación en un controlador de dominio determinado debido a
+          una contraseña incorrecta, los errores se reenvían al emulador de PDC antes de que se informe al usuario de un
+          mensaje de error de contraseña incorrecto, el bloqueo de cuentas se procesa en el emulador PDC y este realiza
+          todas las funciones.
+
+* > ``Kerberos``:
+    * > Protocolo de autenticación de redes de ordenador, permite a dos ordenadores en una red insegura demostrar su identidad mutuamente de manera segura mediante autenticación mutua:
+        * > tanto cliente como servidor verifican la identidad uno del otro.
+    * > Kerberos se basa en criptografía de clave simétrica y requiere un tercero de confianza.
+    * > Además, existen extensiones del protocolo para poder utilizar criptografía de clave asimétrica.
+
+    * ``Maestro de infraestructura``: cuando otro objeto de otro dominio hace referencia a un objeto de un dominio,
+      representa la referencia mediante el GUID, el SID y el DN del objeto al que se hace referencia. El titular de la
+      función FSMO de infraestructura es el controlador de dominio responsable de actualizar el SID y el nombre
+      distintivo de un objeto en una referencia de objeto entre dominios.
+
+    * ``Maestro múltiple``: incluye diferentes dominios y la base de datos de la cuenta se mantiene en más de un
+      servidor.
+    * ``Confianza completa``: existen varios dominios, ninguno esta designado como maestro, sino que todos confían
+      completamente en el resto.
+    * Sus características principales son:
+        * Gestión mediante la consola de administración MMC.
+        * Servicios de distribución de Windows (WDS), evolución de RIS, para la implementación de los sistemas
+          operativos en múltiples equipos.
+        * Nuevo entorno de Windows PowerShell que permite programar scripts de administración y tener acceso a los
+          recursos de las aplicaciones desde la propia interfaz, es un intérprete de comandos orientado a objetos. La
+          información de entrada y de salida en cada etapa del proceso (cmdlet, "comándulo") es un conjunto de
+          instancias de objeto, a diferencia de lo que ocurre con los intérpretes de comandos tradicionales, que
+          devuelven y reciben texto.
+            * ``get-item``: lista archivos o carpetas
+            * ``get-childitem``: lista los archivos o carpetas de un sistema de archivos
+            * ``get-command``: lista todos los comandos
+            * ``get-process``: lista los procesos activos del equipo local
+            * ``remove-item``: borra archivos o carpetas
+            * ``copy-item``: copia archivos o carpetas
+            * ``set-location``: sitúa el directorio de trabajo en un directorio concreto
+            * ``clear-content``: borra el contenido de un objeto pero no el propio objeto.
+            * ``clear-item``: limpia el contenido de un objeto pero no el propio objeto
+            * ``remove-item``: borra un objeto especifico
+            * ``get-WmiObject``: muestra el listado de software instalado por Windows Installer
+            * ``get-history``: obtiene el historial de comandos introducidos
+            * ``get-service``: lista los servicios en el puesto de usuario
+        * Motor de visualización llamado ``Hyper-V``, utiliza la virtualización por hardware.
+        * Nuevos servicios de terminal server como el ``RemoteApp``, que permite la ejecución remota de aplicaciones
+          desde los equipos cliente sin tener que abrir una sesión.
+        * ``IPAM`` (Internet Protocol Address Management): software que puede planificar, hacer seguimiento y
+          administrar las direcciones IP usadas en una red de computadoras.
+    * ``Versiones``:
+        * ``Web Edition``: servidores WEB fundamentalmente y servidores de aplicaciones, incluye .NET Framework, IIS con
+          ASP.NET, servidor de aplicaciones, carece de servicios como Active Directory y es posible instalar una versión
+          core del mismo. Soportar un máximo de 2 GB de RAM y dos CPU.
+        * ``Standar Edition``: proporcionar servicios básicos y recursos a otros sistemas a través de una red. Soporta
+          hasta 32 GB de memoria en sistemas de 64 bits.
+        * ``Enterprise Edition``: mayor escalabilidad y disponibilidad, dispone de servicios de clustering y Active
+          Directory, soporte para el intercambio de RAM en caliente, soporta un máximo de 2 TB de RAM en sistemas de 64
+          bit.
+        * ``Datacenter Edition``.
+
+#### 4.1. CARACTERÍSTICAS
+
+* Windows Server trabaja con Active Directory, este se centra en la administración de los recursos de la red
+  organizativa, independientemente de la ubicación física de dichos recursos, y de la topología de las redes
+  subyacentes.
+* Los objetos de Active Directory representan usuarios y recursos, como por ejemplo, los ordenadores y las impresoras.
+* La estructura lógica de Active Directory se compone de objetos, clases de objetos, unidades organizativas, dominios,
+  árboles de dominios y bosques:
+    * ``Objetos``: componentes básicos de la estructura lógica. Algunos objetos representan entidades individuales de la
+      red, como un usuario o equipo (hojas) y no pueden contener otros objetos. Sin embargo, para facilitar la
+      administración y simplificar la organización del directorio, se pueden colocar objetos “hoja” dentro de otros
+      objetos denominados objetos contenedor. Los objetos contenedores también pueden contener otros contenedores de
+      forma anidada, o jerárquica. Cada objeto puede definirse mediante unas plantillas o modelos definidos por unos
+      atributos y valores (
+      clases de objetos).
+    * ``Unidades organizativas``: tipo más común de objeto contenedor y se pueden utilizar para organizar otros objetos
+      con propósitos administrativos, por ejemplo dividir una empresa en departamentos. Organizando éstos es más fácil
+      localizar y administrar objetos. También es posible delegar la autoridad para administrar estas unidades
+      organizativas de manera que haya administradores de cada una de ellas.
+    * ``Dominios``: se usan para agrupar objetos relacionados con el fin de reflejar la red de una organización, son
+      colecciones de los objetos administrativos definidos, que comparten en una base de datos común del directorio,
+      políticas de la seguridad y relaciones de confianza con otros dominios. Cada dominio que se crea almacena
+      información acerca de los objetos que contiene. Los dominios proporcionan un límite administrativo para los
+      objetos, medios de administrar la seguridad para los recursos compartidos y una réplica para los objetos.
+    * ``Árbol de dominios``: dominios agrupados en estructuras jerárquicas que permiten el uso compartido de recursos
+      globales. Cuando se agrega un segundo dominio a un árbol, se convierte en hijo del dominio raíz y este a su vez
+      puede tener sus propios hijos, combinándose con el nombre de su padre para formar su propio y único.
+    * ``Bosque``: nivel más alto, pueden agruparse árboles dispares para formar un bosque. Un bosque permite combinar
+      divisiones diferentes en una organización o, incluso, pueden agruparse organizaciones distintas. El primer dominio
+      en el bosque se llama Dominio raíz del bosque y el nombre de ese dominio se refiere al bosque, por ejemplo
+      miempresa.com. Por defecto, la información en Active Directory se comparte solamente dentro del bosque. De esta
+      manera, la seguridad del bosque estará contenida en una sola instancia de Active Directory. Así que la mayoría de
+      las veces nuestra organización será de un sólo dominio (miempresa.com) dentro de un solo bosque.
+
+##
+
+> Importación de usuarios con la herramienta de comando ``CSVDE``: permite la importación/exportación de objetos de AD desde o hacia un archivo de texto (Formato CSV).
+
+##
+
+* Los ``grupos de usuario`` facilitan al administrador las tareas de mantenimiento y gestión de los usuarios, pueden ser
+  organizados en grupos y aplicar sobre ellos actualizaciones de forma simultánea, tres tipos de grupos:
+    * ``Globales``: pueden contener cuentas de usuario y otros grupos globales del mismo dominio, se usan para las
+      tareas más cotidianas de gestión dentro del mismo domino, no se propagan a otros dominios del mismo bosque.
+    * ``Locales``: a los miembros de los grupos locales solo se les pueden asignar permisos dentro de un mismo dominio,
+      los grupos locales pueden contener dentro de ellos cuentas de cualquier domino, grupos globales de cualquier
+      domino, grupos universales de cualquier dominio y grupos locales del mismo dominio.
+    * ``Universales``: contienen cuentas de cualquier dominio del bosque, grupos globales de cualquier dominio del
+      bosque y grupos universales de cualquier dominio del bosque, a estos grupos se le s pueden asignar permisos en
+      cualquier dominio del bosque, son útiles para consolidar grupos que abarquen varios dominios, debe limitarse su
+      uso a casos indispensables.
+
+##### 4.1.1. SERVICIOS
+
+* Con el tiempo, Microsoft ha agregado servicios adicionales bajo el estandarte de Active Directory que proporciona un
+  framework para otros servicios similares.
+    * ``Certificate Server Active Directory`` (AD CS): servicios y funcionalidades que permite que un servidor emita
+      certificados digitales para asegurar los sistemas y las comunicaciones en red.
+    * ``Servicios de Domino de Active Directory`` (AD DS): proporcionar los servicios de directorio en un dominio, emite
+      certificados digitales para asegurar los sistemas y las comunicaciones en red.
+    * ``Servicios de Federación de Active Directory`` (AD FS): complementan las características de autenticación y
+      gestión de acceso que proporciona AD DS, extendiéndolas a la WEB, la gestión de los accesos a los sistemas y
+      recursos desde el exterior, internet.
+    * ``Servicios de directorio activo ligero de Active Directory`` (AD LDS): almacén de datos a las aplicaciones de
+      datos a las aplicaciones basadas en la utilización del directorio, puede ser empleado en grupos de trabajo.
+    * ``Active Directory Rights Management Services`` (AD RMS): capa de seguridad en la protección de la información de
+      la organización, proteger los accesos no autorizados, establecimiento de relaciones de confianza.
+
+> Las impresoras se publican en el almacén de AD como objetos printQueu, estos contienen un subconjunto de la información almacenada en el servidor de impresión. Cualquier impresora compartida se publica en los servicios de AD.
+
+* Herramientas de comandos de AD: permiten gestionar los objetos de AD, son:
+    * ``dsadd``: crea un objeto en el directorio.
+    * ``dsget``: obtiene atributos de un objeto del directorio.
+    * ``dsmod``: modifica atributos.
+    * ``dsmove``: mueve un objeto entre contenedores o OU del directorio.
+    * ``dsrm``: elimina un objeto o todos los objetos de un subárbol bajo un contexto.
+    * ``dsquery``: realiza una consulta y devuelve una lista con los objetos que coinciden con los parámetros de la
+      búsqueda. (“dsquerry:computer”: busca ordenadores en el directorio).
+
+#### 4.2. GESTIÓN DE POLÍTICAS DE GRUPO
+
+* Ofrecen infraestructura, centralizan las configuraciones que se implementan en los usuarios y/o equipos.
+* En un entorno administrativo mediante directivas de grupo todas las configuraciones se realizan a través de objetos de
+  política de grupo (GPO) ejecutando “gpedit.msc”, pueden afectar a una OU, a un sitio o a un domino.
+* Mediante directivas de grupo se puede configurar prácticamente todo desde la configuración de seguridad, la
+  implementación de software, las directivas de contraseñas y auditoría.
+* El método más habitual de delimitar el ámbito de un GPO es vincularlo a un sitio, dominio o OU a través de GPMC. Las
+  GPO se gestionan a través de la Group Policy Management Console (GPMC), puede tener tres estados:
+    * ``No configurada``: el GPO no modificara la configuración existente de esa configuración particular para el
+      usuario o grupo.
+    * ``Habilitada o deshabilitada``: se producirá un cambio en la configuración de usuario so equipos a los que se
+      aplique dicha directiva.
+
+* Las configuraciones de directivas se aplican cuando se inicia una sesión de usuario y después requieren el cierre de
+  sesión, pero es posible forzar la actualización de directivas con comando “gupdate/target:equipo” o “gupdate/target:
+  usuario”.
+* Las Directivas de Grupo se procesan:
+    * ``Sitio``: el ordenador procesa todas las políticas de grupo que se aplican al sitio en el que se encuentra
+      actualmente el equipo.
+    * ``Dominio``: cualesquiera políticas aplicadas en el nivel de dominio (ámbito de la política por defecto) se
+      procesan a continuación.
+    * ``Unidad organizativa``: último grupo de políticas asignado a la unidad organizativa que contiene la computadora o
+      el usuario que se procesan.
+
+* > ``gpresult``: muestra información del conjunto de directivas para un usuario y equipo remotos.
+* > ``gpupdate``: actualiza la configuración de directiva de grupo.
+
+#### 4.3. CARPETAS COMPARTIDAS (ofrece dos modos de compartición de archivos):
+
+* ``Modo estándar``: acceso a recursos de red como archivos, carpetas y unidades, la compartición de una unidad o
+  carpeta se aplica a todas las subcarpetas y archivos contenidos en dicha carpeta y/o unidad, se puede aplicar a discos
+  con formato FAT32, NTFS... Para gestionar se usa la herramienta “administración de almacenamiento y recursos
+  compartidos”, y también con el comando net (net share, net sessions).
+* ``Modelo público``: consiste en copiar o trasladar los archivos a una carpeta pública, estarán accesibles para
+  cualquier usuario que inicie una sesión local en dicha máquina. Si dicha carpeta pública se comparte, existe la
+  posibilidad de establecer permisos de acceso a esta carpeta a través de la red. La carpeta pública está ubicada en
+  %SystemDrive%/Users/Public.
+
+#### 4.3. GESTIÓN DE DISPOSITIVOS
+
+* El almacenamiento local y de red se ha simplificado para el usuario, proporciona soporte tanto para almacenamiento
+  remoto como para almacenamiento local y en medios extraíbles, todo de forma completamente transparente al usuario, el
+  usuario no tiene que preocuparse de sí un programa o archivo se almacena en disco, en cinta o en cualquier parte de
+  internet, solo de que esté disponible cuando sea necesario. La interfaz está basada en la consola de administración  
+  (MMC), permite administrar discos locales y discos remotos en otras computadoras.
+
+#### 4.4. GESTIÓN DE DISCOS
+
+* Windows Server utiliza particiones MBR (Master Boot Record) y GPT (GUID Partition Table) al igual que Windows 7, la
+  herramienta fundamental para la gestión de discos es “diskpart”, se pueden configurar tres tipos de discos:
+    * ``Básico``: pueden dividirse en porciones de almacenamiento más pequeñas denominadas particiones, dos tipos de
+      particiones en un disco básico: primaria y extendida y esta a su vez se puede dividir en particiones lógicas.
+    * ``Dinámico``: da la posibilidad de administrarlo sin la necesidad de reiniciar en la  
+      mayoría de las ocasiones, ampliar un volumen de disco, extender un volumen entre múltiples discos duros, realizar
+      secciones de un volumen para mejorar su  
+      rendimiento, hacer un espejo o añadirlo a un array RAID 5, todo desde MMC y sin tener que reiniciar, la creación
+      inicial o conversión de un disco básico a disco dinámico si necesitara reinicio. Se pueden organizar en simples,
+      stripped y spanned.
+    * ``Extraíble``: propio de unidades de disco extraíble. Se dispone de una herramienta grafica “Administrador de
+      cuotas del administrador de recursos del servidor de archivos”, dos tipos de cuotas:
+        * ``Cuotas de disco NTFS``: se emplean para administrar la utilización del espacio de disco que hacen los
+          usuarios. Se configuran por volumen, es posible configurar mensajes de advertencia, para definir los límites
+          de uso de disco:
+            * denegar espacio de disco a usuarios que excedan el límite de cuota,
+            * limitar espacio de disco,
+            * establecer el nivel de advertencia.
+        * ``Cuotas de disco del administrador de recursos``: permiten gestionar el espacio ocupado por carpetas y
+          volúmenes cuando un usuario se aproxima o exceda la cuota recibirá un aviso.
+
+#### 4.4. GESTIÓN DE IMPRESIÓN EN WINDOWS SERVER
+
+* Está diseñado para la impresión en red, las aplicaciones envían los trabajos de impresión a las impresoras conectadas
+  a un servidor de impresión de Windows Server.
+* Varias configuraciones básicas de clientes, servidores y dispositivos de impresión, dependiendo de si es remoto o no:
+    * ``Dispositivo de impresión local no remoto``: está enchufada a un puerto del ordenador, el controlador de la
+      impresora y la cola de trabajos están en esa computadora que envía los datos a directamente al dispositivo de
+      impresión.
+    * ``Pequeño grupo de equipos que comparten un dispositivo de impresión en red``: una red donde cada ordenador tienen
+      igual acceso al dispositivo de impresión y no hay un control central de impresión o de seguridad, cada equipo
+      tiene su propia cola de trabajos y no puede ver los documentos en la cola en el dispositivo de impresión por otras
+      computadoras.
+    * ``Servidor central de impresión``: el acceso al dispositivo de impresión es a través del servidor que está
+      conectado localmente al dispositivo de impresión, la cola de trabajos se encuentra en el servidor y es visible
+      para cada cliente.
+    * ``Varios clientes que comparten un dispositivo de impresión en un dominio``: el dispositivo de impresión se
+      conecta al servidor a través de la red, permitiendo que un servidor de impresión que administre varios
+      dispositivos de impresión.
+
+* Una página de separación es un archivo que contiene órdenes del dispositivo de impresión, identifica y separar los
+  documentos impresos y cambia entre los modos de impresión (se pueden utilizar páginas de separación para determinar el
+  lenguaje de descripción de página, PostScript o PCL).
+
+* Windows incluye cuatro archivos de páginas de separación de forma predeterminada, pero se pueden crear páginas de
+  separación personalizadas creando un archivo “.sep”:
+    * ``Pcl.sep``: cambia el modo de impresión a PCL.
+    * ``Pscript.sep``: cambia el modo de impresión a PostScript
+    * ``Sysprint.sep``: imprime una página antes de cada documento, compatible con PostScript.
+    * ``Sysprtj.sep``: una versión de “Sysprint.sep” que utiliza caracteres japoneses.
+
+> Para que un servidor de impresión de Windows server soporte páginas web es necesario instalar en el servidor de impresión los servicios de información de internet (IIS Internet Information Services). Se crea un directorio virtual Printers debajo del sitio web predeterminado, este directorio apunta a la carpeta %systemroot%\\web\\printers.
+
+* Un ``grupo de impresoras`` es una impresora que está conectada a múltiples dispositivos de impresión a través de
+  múltiples puertos de un servidor de impresión, pueden ser dispositivos de impresión locales o de red.
+* Cuando se crea un grupo de impresoras, los usuarios pueden imprimir documentos sin tener que averiguar qué dispositivo
+  de impresión está disponible, la impresora busca un puerto disponible; disminuye el tiempo que esperan los documentos
+  en el servidor de impresión y simplifica la administración porque se pueden administrar múltiples dispositivos de
+  impresión desde una sola impresora.
+* Esto hace posible establecer prioridades entre grupos de documentos que se imprimen en el mismo dispositivo de
+  impresión, los críticos siempre se imprimen primero.
+
+#### 4.5. GESTIÓN DE LAS ACTUALIZACIONES DE WINDOWS
+
+* ``WSUS`` (Windows Server Update Services) versión privada del servicio Microsoft Update, desde el que los equipos
+  pueden desplegar actualizaciones automáticamente, se puede emplear para distribuir actualizaciones además es posible
+  mantener un control total sobre las actualizaciones instaladas, supone una conexión del servidor en que está instalado
+  al sitio de Microsoft Update, se descargar la información de las actualizaciones disponibles y se agrega a una lista
+  que posteriormente tiene que aceptar el administrador.
+* El servidor WSUS establece conexión HTTP o HTTPS (80/443) con el sitio web de Windows Update.
+
+#### 4.6. MICROSOFT EXCHANGE SERVER
+
+* Microsoft Exchange Server es un software propietario de colaboración entre usuarios, desarrollado por Microsoft. Es
+  parte de la familia Microsoft Server ya que es una de las aplicaciones destinadas para el uso de servidores.
+    * ``Exchange ActiveSync``: protocolo de sincronización de Exchange, basado en HTTP y XML, permite a los teléfonos
+      móviles acceder a la información (correo electrónico, calendario...) de la organización en un servidor que está
+      ejecutando Microsoft Exchange. Se puede configurar ActiveSync para utilizar cifrado SSL. Puede establecer
+      directivas, iniciar una limpieza remota, ejecutar informes, controlar los tipos de dispositivos móviles mediante
+      reglas de acceso...
+    * Algunos comandos para su administración son:
+        * ``GetBulkRequest``: cuando es requerida una larga transmisión de datos, tal como la recuperación de largas
+          tablas.
+        * ``InformRequest``: transmite un mensaje de este tipo a otro con las mismas características, para notificar
+          información sobre objetos administrados.
+        * ``Trap``: mensajes no solicitados enviados por los agentes al administrador SNMP si ocurre algún evento
+          inesperado.
+
+* > ``DAG`` (Database Availability Group): contiene servidores de buzones de correo que se convierten en miembros del DAG.
+* > Una vez que un servidor de buzones de correo es miembro de un DAG, las bases de datos de buzones de ese servidor se pueden copiar a otros miembros del DAG.
+* > Asumiendo que no haya problemas de replicación y que las bases se encuentren disponibles, dentro de un DAG de Exchange estas pueden encontrarse “Mounted (Activa)” o “Healthy (Pasiva)”.
+* > En ningún caso una misma base de datos puede estar activa en más de un servidor a la vez.
+
+### 5\. NOVEDADES EN WINDOWS SERVER 2012 Y 2016
+
+* ``2012``:
+    * Powershell incluye mayor cantidad de comandos.
+    * PAM (IP Address Management): función de administración de direcciones IP para la búsqueda, monitoreo, auditoria y
+      administración del espacio de direcciones IP usados en la red corporativa.
+    * Mejoras en AD, como un interfaz gráfico.
+    * Hyper-V: incluye soporte para virtualización de redes y copias de seguridad en la nube.
+    * ReFS (Resilient File System): mejora NTFS.
+    * Nueva versión de IIS (IIS 80).
+    * LAPS (Local Administrator Password Solution)
+
+* ``2016``:
+    * Windows Defender.
+    * Soporte para librerías OpenGL y OpenCL.
+    * Failover Clustering: clúster de actualización gradual del sistema operativo con soporte para réplicas de
+      almacenamiento.
+    * Web Aplication Proxy.
+    * ISS 10: soporte para HTTP/2.
+    * Powershell 5.0
+    * “Reinicio Suave”: reinicia solo el software sin tener que inicializar el hardware.
+
+### 6\. SISTEMAS OPERATIVOS PARA DISPOSITIVOS MÓVILES
+
+* Fabricantes de hardware que son los fabricantes de sus propios SO: Apple.
+* Fabricantes de dispositivos que utilizan SO de otras compañías: Android, Windows Mobile.
+
+#### 6.1. ANDROID (construido a partir de la versión 2.6 del kernel de Linux en 2008 (v. 1.0)):
+
+* 1.0 Apple Pie (Alpha).
+* 1.1 Banana Bread (Beta).
+* 1.5 Cupcake.
+* 1.6 Donut.
+* 2.0 Eclair.
+* 2.2 Froyo.
+* 2.3 Gingerbread.
+* 3.0 Honeycomb (sólo para tablets).
+* 4.0 Ice Cream Sandwich / 4.1-4.3 Jelly Bean / 4.4 KitKat.
+* 5.0 Lollipop. (ART).
+* 6.0 Marshmallow. (Adoptable Storage).
+* 7.0 Nougat.
+* 8.0 Oreo.
+* 9.0 Pie.
+* 10 Quince Tart.
+* 11 Red Velvet Cake.
+* 12 Snow Cone.
+* 13 Tiramisú.
+* 14 Upside Down Cake.
+* 15 Vanilla Ice Cream.
+* 16 Baklava.
+
+* Basa el funcionamiento de sus aplicaciones en una máquina virtual Java que ejecuta cada aplicación en un proceso
+  propio, donde se lanza una nueva máquina virtual llamada Dalvik, sustituida por ART (Android Runtime) en Android 5.0.
+* Las aplicaciones se distribuyen en ficheros empaquetados “.apk”, posee un navegador integrado basado en WebKit, los
+  gráficos están optimizados por una librería grafica 2D propia y OpenGL para gráficos 3D, para el almacenamiento de
+  datos utiliza como gestor de bases de datos SQLite.
+
+#### 6.2. IOS
+
+* Esta limitado a la instalación en hardware propietario, la versión más actual es IOS 13.2. Deriva del sistema
+  operativo de ordenadores Mac (OS X), es un sistema UNIX, la pantalla principal (SpringBoard).
+
+* > ``Swift``: lenguaje de programación multiparadigma creado por Apple enfocado en el desarrollo de aplicaciones para iOS y macOS.
+* > ``FileVault``: tecnología que proporciona capacidades de cifrado para todo el sistema de almacenamiento principal de un equipo macOS, usando el método de encriptación AES.
+* > ``Gatekeeper``: es una función de seguridad de macOS. Hace cumplir la firma de código y verifica las aplicaciones descargadas antes de permitir que se ejecuten.
+
+#### 6.3 TIPOS DE APP MÓVILES
+
+* ``Nativas``: se diseñan y desarrollan específicamente para un sistema operativo en particular, empleando un lenguaje
+  de programación específico, son fluidas, estables y permiten obtener el máximo provecho de las funcionalidades del
+  dispositivo.
+* ``Web``: se desarrollan con lenguajes como es el caso de HTML, CSS o Javascrip. Se accede a ellas mediante un
+  navegador web por lo que cualquier dispositivo puede entrar en ellas. PWA “Progressive Web App” páginas web, pero
+  mediante el uso de Service Workers y otras tecnologías se comportan más como aplicaciones normales que como
+  aplicaciones web, es decir, pueden seguir ejecutándose en segundo plano.
+* ``Híbridas``: combinación de los dos tipos de apps descritos con anterioridad, serán desarrolladas con lenguajes de
+  programación típicos de una web, pero su estructura externa estará basada en lenguajes de programación propios del
+  dispositivo móvil.
+
+#### 6.4 TENDENCIAS EN SO
+
+* Uso de sistemas operativos en la nube, ahorro de costes en licencias. Plataformas de virtualización de sistemas
+  operativos y del software de aplicación en las máquinas virtuales.
+* Tipos de servicios Cloud:
+    * ``IaaS`` (Infraestructure as a Service): el consumidor alquila recursos IT, no controla la infraestructura cloud,
+      pero tiene control directo sobre el SO, computación, almacenamiento, deploy de aplicaciones y red. Se realiza a
+      través de virtualización, externalizando todos estos recursos y lo delegan al proveedor de servicios externo (
+      Amazon Web Services, Windows Azure, Rackspace, Openstack).
+    * ``PaaS`` (Platform as a Service): ofrece todo lo necesario para soportar el ciclo de vida completo de
+      desarrollo/construcción y puesta en marcha (deploy) de aplicaciones y servicio web mediante lenguajes o
+      herramientas soportadas por el proveedor (java, phyton...). Proporciona control completo sobre las aplicaciones
+      desplegadas y sobre los ajustes de configuración de estas, es usado principalmente por desarrolladores. (Servicios
+      de Azure, Google App Engine, OpenShift...).
+    * ``SaaS`` (Software as a Service): las aplicaciones del proveedor son accesibles como servicios, el consumidor no
+      controla la infraestructura ni las capacidades de las aplicaciones. (Office 365, Suit de Google...).
+
+    * ``Git`` es un software de control de versiones, eficiencia, confiabilidad y compatibilidad del mantenimiento de
+      versiones de aplicaciones cuando estas tienen un gran número de archivos de código fuente. Comandos GIT:
+        * ``init``: creará un nuevo repositorio local GIT.
+        * ``clone``: se usa para copiar un repositorio
+        * ``add``: agregar archivos al área de preparación.
+        * ``commit``: creará una instantánea de los cambios y la guardará en el directorio git.
+        * ``config``: establecer una configuración específica de usuario, como el email, user...
+        * ``status``: muestra la lista de los archivos que se han cambiado junto con los archivos que están por ser
+          preparados o confirmados.
+        * ``push``: se usa para enviar confirmaciones locales a la rama maestra del repositorio remoto.
+        * ``checkout``: crea ramas y te ayuda a navegar entre ellas.
+        * ``remote``: lista los repositorios remotos.
+        * ``branch``: listar, crear o borrar ramas.
+        * ``pull``: fusiona todos los cambios que se han hecho en el repositorio local con el directorio de trabajo
+          local.
+        * ``merge``: fusionar una rama con otra rama activa.
+        * ``diff``: hacer una lista de conflictos.
+        * ``tag``: marca commits específicos.
+        * ``log``: se usa para ver el historial del repositorio listando ciertos detalles de la confirmación.
+        * ``reset``: sirve para resetear el index y el directorio de trabajo al último estado de confirmación.
+        * ``rm``: remover archivos del index y del directorio de trabajo.
+        * ``stash``: guardará momentáneamente los cambios que no están listos para ser confirmados
+        * ``fetch``: buscar todos los objetos de un repositorio remoto que actualmente no se encuentran en el directorio
+          de trabajo local.
+        * ``show``: mostrar información sobre cualquier objeto git.
+        * ``grep``: permite al usuario buscar frases y palabras específicas en los árboles de confirmación, el
+          directorio de trabajo y en el área de preparación.
+
+##
+
+> ``ownCloud``: aplicación de software libre del tipo Servicio de alojamiento de archivos, que permite el almacenamiento en línea y aplicaciones en línea (cloud computing). ownCloud puede ser instalado dentro de un servidor que disponga de una versión reciente de PHP (mayor o igual a 5.6) y soporte de SQLite (base de datos por defecto), MySQL o PostgreSQL.
+
+##
+
+> ``OpenShift``: producto de computación en la nube de plataforma como servicio de Red Hat. Los desarrolladores pueden usar Git para desplegar sus aplicaciones Web en los diferentes lenguajes de la plataforma. OpenShift se encarga de mantener los servicios subyacentes a la aplicación y la escalabilidad de la aplicación como se necesite. Origin: la versión de código abierto de Open Shift, utiliza Docker para la gestión de contenedores y Kubernetes para la gestión de grupos de contenedores. Todo el código del proyecto está disponible sobre la licencia Apache en GitHub. Azure DevOps: anteriormente Team Foundation Server (TFS), es un producto de Microsoft que proporciona control de versiones, informes, gestión de requisitos, gestión de proyectos, building automatizado y testing.
+
+##
+
+> ``Bitbucket``: servicio de alojamiento basado en web, para los proyectos que utilizan el sistema de control de versiones Mercurial y Git, similar a GitHub.
+
+##
+
+> ``Software MDM`` (mobile device management): es un tipo de software que permite asegurar, monitorizar y administrar dispositivos móviles sin importar el operador de telefonía o proveedor de servicios. La mayoría de las MDM permiten instalar aplicaciones, localizar y rastrear equipos, sincronizar archivos, reportar datos y acceder a dispositivos, todo esto de manera remota. MobileIron: un MDM que permite la seguridad y la gestión de dispositivos móviles como teléfonos inteligentes y tabletas en un entorno empresarial, así como el acceso móvil seguro a los datos empresariales.
+
+##
+
+* ``TIPOS DE SOFTWARE``, en función de su proximidad al hardware:
+    * ``Software de base``: compuesto por programas que interactúan directamente con el hardware del SO.
+    * ``Software de utilidad``: utilizado como herramienta básica en tareas de mantenimiento, soporte y ejecución.
+    * ``Software de aplicación``: realización de tareas específicas, aplicaciones ofimáticas, software educativo,
+      editores de música...
 
 7\. SERVICE-ORIENTED ARCHITECTURES (SOA)  
 Es un estilo de arquitectura de TI que se apoya en la orientación a servicios. Un servicio es una representación lógica
