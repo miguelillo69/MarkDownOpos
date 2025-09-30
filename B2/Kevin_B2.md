@@ -2396,737 +2396,754 @@ memoria de inicio fija).
     * ``Software de aplicación``: realización de tareas específicas, aplicaciones ofimáticas, software educativo,
       editores de música...
 
-7\. SERVICE-ORIENTED ARCHITECTURES (SOA)  
-Es un estilo de arquitectura de TI que se apoya en la orientación a servicios. Un servicio es una representación lógica
-de una actividad de negocio que tiene un resultado de negocio específico. SOA se caracteriza por los principios:  
-``Contrato de servicios estandarizados``: los servicios adhieren a un acuerdo de comunicación, según se define en
-conjunto con uno o más documentos de descripción de servicios.  
-``Acoplamiento débil de sistemas``: los servicios mantienen una relación que minimiza las dependencias y sólo requiere
-que mantengan un conocimiento de uno al otro.  
-``Abstracción de servicios``: más allá de las descripciones del contrato de servicios, los servicios ocultan la lógica a
-los demás.  
-``Reutilización de servicios``: lógica se divide en servicios para promover la reutilización.  
-``Autonomía de servicios``: los servicios tienen control sobre la lógica que encapsulan, desde una perspectiva de diseño
-y ejecución.  
-``Servicios sin-estado``: los servicios minimizan el consumo de recursos aplazando la gestión de la información de
-estado cuando sea necesario.  
-``Descubrimiento de servicios``: los servicios se complementan con los metadatos mediante los cuales se pueden descubrir
-e interpretar la eficacia.  
-``Composición de servicios``: servicios están compuestos por partes eficazmente,  
-independientemente del tamaño y la complejidad de la composición.  
-``Granularidad de servicios``: una consideración de diseño para proporcionar un ámbito óptimo y un correcto nivel
-granular de la funcionalidad del negocio en una operación de servicio.  
-``La normalización de servicios``: los servicios se descomponen a un nivel de forma normal para minimizar la
-redundancia. En algunos casos, los servicios se desnormalizan para fines específicos, como la optimización del
-rendimiento, el acceso y agregación.  
-``Optimización de servicios``: los servicios de alta calidad son preferibles a los de baja calidad.  
-``Relevancia de servicios``: la funcionalidad se presenta en un nivel de granularidad reconocido por el usuario como un
-servicio significativo.  
-``Encapsulación de servicios``: muchos servicios están consolidados para el uso de SOA. A menudo, estos servicios no
-fueron planificados para estar en un SOA.  
-``Transparencia de ubicación de servicios``: se refiere a la capacidad de un consumidor de servicios para invocar a un
-servicio independientemente de su ubicación en la red. Esto también reconoce la propiedad de descubrimiento (uno de los
-principios fundamentales de SOA) y el derecho de un consumidor para acceder al servicio. A menudo, la idea de la
-virtualización de servicios también se refiere a la transparencia de ubicación. Aquí es donde el consumidor simplemente
-llama a un servicio lógico, mientras que un SOA habilita la ejecución del componente de la infraestructura, normalmente
-un bus de servicios, que mapea este servicio lógico y llama al servicio físico.
+### 7\. SERVICE-ORIENTED ARCHITECTURES (SOA)
 
-8\. MICRO SERVICES ARCHITECTURE (MSA):  
-Desarrollo de software que consiste en construir una aplicación como un conjunto de pequeños servicios, que se ejecutan
-en su propio proceso y se comunican normalmente con una API de recursos HTTP. Cada servicio se encarga de implementar
-una funcionalidad, es desplegado de forma independiente y puede estar programado en distintos lenguajes y usar
-diferentes tecnologías. ``Características``:  
-``Cada microservicio tiene un nombre único`` (URL): se usa para resolver su ubicación y debe ser direccionable en
-cualquier lugar donde se ejecute (de la misma manera que DNS resuelve una URL para un equipo en particular, su
-microservicio debe tener un nombre único para que su ubicación actual sea reconocible).  
-``Los servicios son componentes``: están separados y se comunican mediante mecanismos como los servicios web o los RPC
-en lugar de usar llamadas a funciones en memoria.   
-``Organizada en torno a las funcionalidades del negocio``: el sistema se divide en distintos servicios donde cada uno
-está organizado en torno a una capacidad del negocio. Es muy importante limitar la responsabilidad de cada servicio.
-Cada servicio implementa toda la funcionalidad del negocio que agrupa desde la interfaz de usuario, la persistencia en
-el almacenamiento y cualquiera de las colaboraciones externas.  
-``Productos, no proyectos``: se sigue la idea de que un equipo debe estar a cargo de un componente (servicio) durante
-todo el ciclo de vida del mismo, desde la etapa de diseño y construcción, la fase de producción y hasta la de
-mantenimiento. Esta mentalidad se acopla bien con la vinculación a una capacidad del negocio. En lugar de ver el
-software como un conjunto de funcionalidades terminadas se ve como una relación continua, esto es facilitado por el bajo
-nivel de granularidad que ofrecen los microservicios.  
-``Extremos inteligentes, tuberías bobas``: las aplicaciones creadas desde microservicios pretenden ser tan disociadas y
-cohesivas como sea posible, ellas poseen su propia lógica de dominio y actúan como filtros en el clásico sentido UNIX:
-recibe una solicitud, aplica la lógica apropiada y produce una respuesta. Estos pasos son coreografiados usando
-protocolos simples (típicamente HTTP con REST o mensajería liviana como RabbitMQ o ZeroMQ).  
-``Tener gobierno descentralizado`` permite usar tecnologías que se adapten mejor a cada funcionalidad. En un sistema con
-múltiples servicios colaborativos, podemos decidir utilizar diferentes lenguajes de programación y tecnologías dentro de
-cada servicio. De esta forma podemos elegir la herramienta adecuada para cada tipo de trabajo en lugar de tener una
-estandarizada.  
-``Gestión de datos descentralizada``: los microservicios prefieren dejar a cada servicio que gestione su propia base de
-datos, sean estas diferentes instancias de la misma tecnología de base de datos o sistemas de base de datos
-completamente diferentes.
+* Es un estilo de arquitectura de TI que se apoya en la orientación a servicios. Un servicio es una representación
+  lógica de una actividad de negocio que tiene un resultado de negocio específico.
+* SOA se caracteriza por los principios:
+    * ``Contrato de servicios estandarizados``: los servicios adhieren a un acuerdo de comunicación, según se define en
+      conjunto con uno o más documentos de descripción de servicios.
+    * ``Acoplamiento débil de sistemas``: los servicios mantienen una relación que minimiza las dependencias y sólo
+      requiere que mantengan un conocimiento de uno al otro.
+    * ``Abstracción de servicios``: más allá de las descripciones del contrato de servicios, los servicios ocultan la
+      lógica a los demás.
+    * ``Reutilización de servicios``: lógica se divide en servicios para promover la reutilización.
+    * ``Autonomía de servicios``: los servicios tienen control sobre la lógica que encapsulan, desde una perspectiva de
+      diseño y ejecución.
+    * ``Servicios sin-estado``: los servicios minimizan el consumo de recursos aplazando la gestión de la información de
+      estado cuando sea necesario.
+    * ``Descubrimiento de servicios``: los servicios se complementan con los metadatos mediante los cuales se pueden
+      descubrir e interpretar la eficacia.
+    * ``Composición de servicios``: servicios están compuestos por partes eficazmente,  
+      independientemente del tamaño y la complejidad de la composición.
+    * ``Granularidad de servicios``: una consideración de diseño para proporcionar un ámbito óptimo y un correcto nivel
+      granular de la funcionalidad del negocio en una operación de servicio.
+    * ``La normalización de servicios``: los servicios se descomponen a un nivel de forma normal para minimizar la
+      redundancia. En algunos casos, los servicios se desnormalizan para fines específicos, como la optimización del
+      rendimiento, el acceso y agregación.
+    * ``Optimización de servicios``: los servicios de alta calidad son preferibles a los de baja calidad.
+    * ``Relevancia de servicios``: la funcionalidad se presenta en un nivel de granularidad reconocido por el usuario
+      como un servicio significativo.
+    * ``Encapsulación de servicios``: muchos servicios están consolidados para el uso de SOA. A menudo, estos servicios
+      no fueron planificados para estar en un SOA.
+    * ``Transparencia de ubicación de servicios``: se refiere a la capacidad de un consumidor de servicios para invocar
+      a un servicio independientemente de su ubicación en la red. Esto también reconoce la propiedad de descubrimiento (
+      uno de los principios fundamentales de SOA) y el derecho de un consumidor para acceder al servicio. A menudo, la
+      idea de la virtualización de servicios también se refiere a la transparencia de ubicación. Aquí es donde el
+      consumidor simplemente llama a un servicio lógico, mientras que un SOA habilita la ejecución del componente de la
+      infraestructura, normalmente un bus de servicios, que mapea este servicio lógico y llama al servicio físico.
 
-El estilo de microservicios tiene implicaciones en el manejo de las actualizaciones las cuales tradicionalmente han
-usado transacciones para garantizar la consistencia. Las transacciones imponen un acoplamiento temporal lo que se vuelve
-problemático cuando hay varios servicios. Como las transacciones distribuidas son mucho más difíciles de implementar,
-las arquitecturas de microservicios promueven la coordinación no transaccional entre servicios, con el reconocimiento
-explícito que la consistencia puede ser una consistencia eventual y los problemas son compensados operativamente. El
-sistema merece la pena siempre y cuando el costo de solucionar los errores sea menor que el costo de perder negocios por
-una mayor consistencia. Los microservicios no obligan a tener distintas tecnologías de almacenamiento, sólo lo
-permiten.  
-``Diseño tolerante a fallos``: las aplicaciones necesitan ser diseñadas de modo que puedan tolerar las fallas de los
-distintos servicios. Cualquier llamada de servicio puede fallar y el cliente tiene que ser capaz de responder a esto con
-la mayor facilidad y eficacia posible, evitando los muy habituales fallos en cascada de las arquitecturas
-distribuidas.  
-``Automatización de la infraestructura``: la mayoría de los productos y sistemas desarrollados con el enfoque de
-microservicios han sido construidos por equipo que usan entrega continua y su precursor la integración continua.  
-``Diseño evolutivo``: cuando se divide el sistema en servicios hay que tener en cuenta que cada uno tiene que poder ser
-reemplazado o actualizado de forma independiente. Es decir, tiene que permitir una fácil evolución. El diseño del
-servicio tiene que ser de tal forma que evite en lo posible que la evolución de los servicios afecte a sus consumidores.
+### 8\. MICRO SERVICES ARCHITECTURE (MSA):
 
-| AMQ de Red Hat: es una plataforma de mensajería flexible que permite la integración en tiempo real y la conexión a Internet de las cosas (IoT). |
-| :---- |
+* Desarrollo de software que consiste en construir una aplicación como un conjunto de pequeños servicios, que se
+  ejecutan en su propio proceso y se comunican normalmente con una API de recursos HTTP. Cada servicio se encarga de
+  implementar una funcionalidad, es desplegado de forma independiente y puede estar programado en distintos lenguajes y
+  usar diferentes tecnologías.
+* ``Características``:
+    * ``Cada microservicio tiene un nombre único`` (URL): se usa para resolver su ubicación y debe ser direccionable en
+      cualquier lugar donde se ejecute (de la misma manera que DNS resuelve una URL para un equipo en particular, su
+      microservicio debe tener un nombre único para que su ubicación actual sea reconocible).
+    * ``Los servicios son componentes``: están separados y se comunican mediante mecanismos como los servicios web o los
+      RPC en lugar de usar llamadas a funciones en memoria.
+    * ``Organizada en torno a las funcionalidades del negocio``: el sistema se divide en distintos servicios donde cada
+      uno está organizado en torno a una capacidad del negocio. Es muy importante limitar la responsabilidad de cada
+      servicio. Cada servicio implementa toda la funcionalidad del negocio que agrupa desde la interfaz de usuario, la
+      persistencia en el almacenamiento y cualquiera de las colaboraciones externas.
+    * ``Productos, no proyectos``: se sigue la idea de que un equipo debe estar a cargo de un componente (servicio)
+      durante todo el ciclo de vida del mismo, desde la etapa de diseño y construcción, la fase de producción y hasta la
+      de mantenimiento. Esta mentalidad se acopla bien con la vinculación a una capacidad del negocio. En lugar de ver
+      el software como un conjunto de funcionalidades terminadas se ve como una relación continua, esto es facilitado
+      por el bajo nivel de granularidad que ofrecen los microservicios.
+    * ``Extremos inteligentes, tuberías bobas``: las aplicaciones creadas desde microservicios pretenden ser tan
+      disociadas y cohesivas como sea posible, ellas poseen su propia lógica de dominio y actúan como filtros en el
+      clásico sentido UNIX:
+      recibe una solicitud, aplica la lógica apropiada y produce una respuesta. Estos pasos son coreografiados usando
+      protocolos simples (típicamente HTTP con REST o mensajería liviana como RabbitMQ o ZeroMQ).
+    * ``Tener gobierno descentralizado`` permite usar tecnologías que se adapten mejor a cada funcionalidad. En un
+      sistema con múltiples servicios colaborativos, podemos decidir utilizar diferentes lenguajes de programación y
+      tecnologías dentro de cada servicio. De esta forma podemos elegir la herramienta adecuada para cada tipo de
+      trabajo en lugar de tener una estandarizada.
+    * ``Gestión de datos descentralizada``: los microservicios prefieren dejar a cada servicio que gestione su propia
+      base de datos, sean estas diferentes instancias de la misma tecnología de base de datos o sistemas de base de
+      datos completamente diferentes.
 
-TEMA 4 – ESTRUCTURAS, ALGORITMOS Y FORMATOS DE INFORMACIÓN  
-1\. ESTRUCTURAS DE DATOS (tipos de datos más habituales):  
-``Estáticos`` (tamaño de memoria fijo definido en compilación):
+* El estilo de microservicios tiene implicaciones en el manejo de las actualizaciones las cuales tradicionalmente han
+  usado transacciones para garantizar la consistencia.
+* Las transacciones imponen un acoplamiento temporal lo que se vuelve problemático cuando hay varios servicios.
+* Como las transacciones distribuidas son mucho más difíciles de implementar, las arquitecturas de microservicios
+  promueven la coordinación no transaccional entre servicios, con el reconocimiento explícito que la consistencia puede
+  ser una consistencia eventual y los problemas son compensados operativamente.
+* El sistema merece la pena siempre y cuando el costo de solucionar los errores sea menor que el costo de perder
+  negocios por una mayor consistencia.
+* Los microservicios no obligan a tener distintas tecnologías de almacenamiento, sólo lo permiten.
+    * ``Diseño tolerante a fallos``: las aplicaciones necesitan ser diseñadas de modo que puedan tolerar las fallas de
+      los distintos servicios. Cualquier llamada de servicio puede fallar y el cliente tiene que ser capaz de responder
+      a esto con la mayor facilidad y eficacia posible, evitando los muy habituales fallos en cascada de las
+      arquitecturas distribuidas.
+    * ``Automatización de la infraestructura``: la mayoría de los productos y sistemas desarrollados con el enfoque de
+      microservicios han sido construidos por equipo que usan entrega continua y su precursor la integración continua.
+    * ``Diseño evolutivo``: cuando se divide el sistema en servicios hay que tener en cuenta que cada uno tiene que
+      poder ser reemplazado o actualizado de forma independiente. Es decir, tiene que permitir una fácil evolución. El
+      diseño del servicio tiene que ser de tal forma que evite en lo posible que la evolución de los servicios afecte a
+      sus consumidores.
 
-* ``Valores lógicos`` (boolean): Almacenan “true” o “false”.
-* ``Números enteros``: valores numéricos enteros en formato de punto fijo.
-* ``Números reales``: valores numéricos reales (que pueden tener parte decimal) en formato de punto flotante.
-* ``Caracteres``: letras, símbolos ASCII.
-* ``Punteros o referencias``: números enteros que hacen referencia a direcciones de memoria, donde se supone que se
-  almacenan otras estructuras.
-* ``Vectores`` (arrays): conjuntos formados por datos del mismo tipo, estructuras de datos contiguas, cada dato
-  individual se denomina celda y se identifica mediante un índice. Destacan los vectores de caracteres llamados “String”
-  se utilizan para representar textos.
-* ``Registros``: conjuntos formados por datos que pueden ser de distintos tipos, cada dato individual se denominan campo
-  y se identifica mediante un nombre.
+> ``AMQ`` de Red Hat: es una plataforma de mensajería flexible que permite la integración en tiempo real y la conexión a Internet de las cosas (IoT).
 
-``Dinámicos``:
+## TEMA 4 – ESTRUCTURAS, ALGORITMOS Y FORMATOS DE INFORMACIÓN
 
-* ``Lista``: tipo de datos compuesto que permite almacenar elementos simples o compuestos todos del mismo tipo, cada
-  elemento va seguido de otro del mismo tipo o de ninguno y sus componentes.
-* ``Pila`` (LIFO: Last In First Out): almacena datos y recuperarlos de forma invertida.
-* ``Cola`` (FIFO: First In First Out): almacena datos de forma ordenada, se recupera la información guardada en el orden
-  en que se almacenó.
-* ``Árbol``: organiza datos jerárquicamente, cada dato (llamado nodo) padre tiene asociados un conjunto de datos (nodos)
-  hijos.
-* ``Grafos``: parecidos a los árboles, pero cada nodo puede estar asociado con cualquier otro nodo o nodos y consigo
-  mismo.
+### 1\. ESTRUCTURAS DE DATOS (tipos de datos más habituales):
 
-Todas estas estructuras se utilizan para almacenar información en la memoria principal, para guardar la información en
-los discos se utilizan unas estructuras llamadas ficheros y tienen la misma estructura que la memoria principal.
+* ``Estáticos`` (tamaño de memoria fijo definido en compilación):
+    * ``Valores lógicos`` (boolean): Almacenan “true” o “false”.
+    * ``Números enteros``: valores numéricos enteros en formato de punto fijo.
+    * ``Números reales``: valores numéricos reales (que pueden tener parte decimal) en formato de punto flotante.
+    * ``Caracteres``: letras, símbolos ASCII.
+    * ``Punteros o referencias``: números enteros que hacen referencia a direcciones de memoria, donde se supone que se
+      almacenan otras estructuras.
+    * ``Vectores`` (arrays): conjuntos formados por datos del mismo tipo, estructuras de datos contiguas, cada dato
+      individual se denomina celda y se identifica mediante un índice. Destacan los vectores de caracteres llamados
+      “String” se utilizan para representar textos.
+    * ``Registros``: conjuntos formados por datos que pueden ser de distintos tipos, cada dato individual se denominan
+      campo y se identifica mediante un nombre.
 
-2\. TIPOS ABSTRACTOS DE DATOS  
-Los tipos de datos abstractos (TDA) son una arquitectura de información compuesta por la abstracción de datos y
-procesos (llamado implementación de los mismos). Son una colección de operaciones definidas sobre un conjunto de datos
-para el modelo de datos, creadas a partir de arrays. Estas estructuras se dividen en:  
-``Lista``: estructura de datos secuencial, sus datos se ordenan de forma consecutiva. Se clasifican, por la manera de
-acceder al siguiente elemento en:
+* ``Dinámicos``:
+    * ``Lista``: tipo de datos compuesto que permite almacenar elementos simples o compuestos todos del mismo tipo, cada
+      elemento va seguido de otro del mismo tipo o de ninguno y sus componentes.
+    * ``Pila`` (LIFO: Last In First Out): almacena datos y recuperarlos de forma invertida.
+    * ``Cola`` (FIFO: First In First Out): almacena datos de forma ordenada, se recupera la información guardada en el
+      orden en que se almacenó.
+    * ``Árbol``: organiza datos jerárquicamente, cada dato (llamado nodo) padre tiene asociados un conjunto de datos (
+      nodos)
+      hijos.
+    * ``Grafos``: parecidos a los árboles, pero cada nodo puede estar asociado con cualquier otro nodo o nodos y consigo
+      mismo.
 
-* ``Densa``: la propia estructura determina cual es el siguiente elemento de la lista.
-* ``Enlazada``: la posición del siguiente elemento de la estructura la determina el elemento actual, es dinámica, su
-  tamaño cambia durante la ejecución del programa. Es, a su vez, un elemento de información y un enlace hacia una
-  lista (un nodo).
+* Todas estas estructuras se utilizan para almacenar información en la memoria principal, para guardar la información en
+  los discos se utilizan unas estructuras llamadas ficheros y tienen la misma estructura que la memoria principal.
 
-``Pila`` (LIFO: Last In First Out): estructura de datos secuencial de acceso restrictivo a sus elementos, la recesividad
-de simula en un ordenador con la ayuda de una pila.  
-``Cola`` (FIFO: First In First Out): estructura de datos secuencia l de acceso restrictivo, el primero que llegue será
-el primeo en entrar.  
-``Árbol``: estructura de datos no secuencial, un elemento o clave de información con (nodo) más un numero finito de
-estructuras tipo árbol llamadas subárboles, si cada nodo tiene un número de hijos igual o inferior a 2, será un árbol
-binario y si las alturas de los dos subárboles de todo nodo difieren a lo sumo en 1 será
-un ``árbol binario balanceado`` (AVL). Por el contrario si no tienen ningún nodo se llama ``árbol vacío o nulo``
-. ``Conceptos``:
+### 2\. TIPOS ABSTRACTOS DE DATOS
 
-* ``Raíz``: nodo superior de un árbol (no tiene antecesor).
-* ``Hijo``: nodo conectado directamente con otro superior a través de una rama.
-* ``Padre``: nodo conectado directamente con otro inferior a través de una rama.
-* ``Hoja``: nodo que no tiene hijos.
-* ``Nodo interno``: aquel que tiene al menos un hijo.
-* ``Grado de un nodo``: número de hijos directos que tiene.
-* ``Altura de un nodo``: número de ramas en el camino más largo entre ese nodo y una hoja.
-* ``Grado de un árbol``: igual al grado del nodo con más hijos.
-* ``Altura de un árbol``: igual a la altura de su raíz.
-* ``Nivel``: 1 \+ (el número de ramas entre el nodo y la raíz).
-* ``Anchura``: el mayor valor del número de nodos que hay en un nivel.
+* Los tipos de datos abstractos (TDA) son una arquitectura de información compuesta por la abstracción de datos y
+  procesos (llamado implementación de los mismos).
+* Son una colección de operaciones definidas sobre un conjunto de datos para el modelo de datos, creadas a partir de
+  arrays. Estas estructuras se dividen en:
+    * ``Lista``: estructura de datos secuencial, sus datos se ordenan de forma consecutiva. Se clasifican, por la manera
+      de acceder al siguiente elemento en:
+        * ``Densa``: la propia estructura determina cual es el siguiente elemento de la lista.
+        * ``Enlazada``: la posición del siguiente elemento de la estructura la determina el elemento actual, es
+          dinámica, su tamaño cambia durante la ejecución del programa. Es, a su vez, un elemento de información y un
+          enlace hacia una lista (un nodo).
 
-``Recorridos`` en árboles binarios:
+    * ``Pila`` (LIFO: Last In First Out): estructura de datos secuencial de acceso restrictivo a sus elementos, la
+      recesividad de simula en un ordenador con la ayuda de una pila.
+    * ``Cola`` (FIFO: First In First Out): estructura de datos secuencia l de acceso restrictivo, el primero que llegue
+      será el primeo en entrar.
+    * ``Árbol``: estructura de datos no secuencial, un elemento o clave de información con (nodo) más un numero finito
+      de estructuras tipo árbol llamadas subárboles, si cada nodo tiene un número de hijos igual o inferior a 2, será un
+      árbol binario y si las alturas de los dos subárboles de todo nodo difieren a lo sumo en 1 será
+      un ``árbol binario balanceado`` (AVL). Por el contrario si no tienen ningún nodo se llama ``árbol vacío o nulo``.
+        * ``Conceptos``:
+            * ``Raíz``: nodo superior de un árbol (no tiene antecesor).
+            * ``Hijo``: nodo conectado directamente con otro superior a través de una rama.
+            * ``Padre``: nodo conectado directamente con otro inferior a través de una rama.
+            * ``Hoja``: nodo que no tiene hijos.
+            * ``Nodo interno``: aquel que tiene al menos un hijo.
+            * ``Grado de un nodo``: número de hijos directos que tiene.
+            * ``Altura de un nodo``: número de ramas en el camino más largo entre ese nodo y una hoja.
+            * ``Grado de un árbol``: igual al grado del nodo con más hijos.
+            * ``Altura de un árbol``: igual a la altura de su raíz.
+            * ``Nivel``: 1 \+ (el número de ramas entre el nodo y la raíz).
+            * ``Anchura``: el mayor valor del número de nodos que hay en un nivel.
+        * ``Recorridos`` en árboles binarios:
+            * ``Preorden``: procesar primero la raiz, después procesar el subárbol izquierdo y por último el subárbol
+              derecho.
+            * ``Inorden``: procesa el subárbol izquierdo hacia arriba, con su raiz, y después el subárbol derecho hacia
+              abajo con su raíz.
+            * ``Postorden``: primero el subárbol izquierdo, después el subárbol derecho, y por último el nodo actual.
+              Permite borrar el árbol de forma consistente.
 
-* ``Preorden``: procesar primero la raiz, después procesar el subárbol izquierdo y por último el subárbol derecho.
-* ``Inorden``: procesa el subárbol izquierdo hacia arriba, con su raiz, y después el subárbol derecho hacia abajo con su
-  raíz.
-* ``Postorden``: primero el subárbol izquierdo, después el subárbol derecho, y por último el nodo actual. Permite borrar
-  el árbol de forma consistente.
+    * ``Grafo``: conjunto de elementos llamados vértices o nodos que se encuentran unidos entre si mediante enlaces
+      llamadas aristas. Terminología:
+        * ``Camino``: lista de vértices en la que dos elementos sucesivos están conectados por una arista del grafo.
+        * ``Grafo conexo``: existe un camino desde cualquier nodo del grafo hasta cualquier otro.
+        * ``Camino simple``: camino entre dos nodos en el que ningún nodo ser repite, si tiene como primer y último nodo
+          el mismo se denomina ciclo.
+        * ``Grafo completo``: Grafo que cuenta con todas las aristas posibles, si le falta poco para ser completo será
+          un grafo denso mientras que si tiene pocas aristas será disperso.
+        * ``Grafo dirigido``: las aristas llevan asociado un sentido de desplazamiento, cuando la arista se puede
+          recorrer en cualquier sentido, hablamos de grafos no dirigidos.
+        * ``Grafo ponderado``: las aristas tienen un coste asociado denominado peso.
 
-``Grafo``: conjunto de elementos llamados vértices o nodos que se encuentran unidos entre si mediante enlaces llamadas
-aristas. Terminología:
+##
 
-* ``Camino``: lista de vértices en la que dos elementos sucesivos están conectados por una arista del grafo.
-* ``Grafo conexo``: existe un camino desde cualquier nodo del grafo hasta cualquier otro.
-* ``Camino simple``: camino entre dos nodos en el que ningún nodo ser repite, si tiene como primer y último nodo el
-  mismo se denomina ciclo.
-* ``Grafo completo``: Grafo que cuenta con todas las aristas posibles, si le falta poco para ser completo será un grafo
-  denso mientras que si tiene pocas aristas será disperso.
-* ``Grafo dirigido``: las aristas llevan asociado un sentido de desplazamiento, cuando la arista se puede recorrer en
-  cualquier sentido, hablamos de grafos no dirigidos.
-* ``Grafo ponderado``: las aristas tienen un coste asociado denominado peso.
+* > Árbol recubridor (o árbol de expansión):
+    * > Dado un grafo conexo y no dirigido, es un subgrafo que tiene que ser un árbol y contener todos los nodos (vertices) del grafo inicial.
+* > Kruskal:
+    * > Algoritmo de la teoría de grafos para encontrar un árbol recubridor mínimo en un grafo conexo y ponderado.
 
-| Árbol recubridor (o árbol de expansión): dado un grafo conexo y no dirigido, es un subgrafo que tiene que ser un árbol y contener todos los nodos (vertices) del grafo inicial. Kruskal: algoritmo de la teoría de grafos para encontrar un árbol recubridor mínimo en un grafo conexo y ponderado. |
-| :---- |
+##
 
-3\. ORGANIZACIONES DE FICHEROS  
-3.1. CONCEPTOS Y DEFINICIONES  
-``Memoria principal``: poca capacidad de almacenamiento, volátil y de acceso rápido.  
-``Memoria secundaria``: capacidad de almacenamiento ilimitada, la información esta almacenada permanentemente y el
-acceso es lento, ya que la información tiene que ser transportada desde el dispositivo externo hasta la memoria
-principal, el área de memoria principal destinada a recibir esta información se llama “Buffer”.  
-``Registro lógico``: colección de información relativa a una entidad particular va a contener a todos aquellos campos
-lógicamente relacionados referentes a una determinada entidad.  
-``Archivo o fichero``: colección de registro relacionad entre si con aspectos en común y organizados. Los datos en los
-archivos deben estar organizado de tal forma que puedan ser recuperado fácilmente actualizaos o borrados.  
-``Base de datos``: colección de archivos a los que puede accederse por un conjunto de programas y contiene todos ellos
-datos relacionados.  
-``Clave``: campo o conjunto de campos de dato que identifica al registro y lo diferencia del resto de registros del
-fichero.  
-``Registro activo``: registro lógico que va a procesarse en la siguiente operación del fichero.  
-``Apuntador``: marca interna que siempre apunta al registro activo.  
-``Registro físico o bloque``: la cantidad más pequeña de datos que puede transferirse en una operación de
-entrada/salida. La adaptación consiste en empaquetar en cada bloque tantos registros lógicos como se pueda, el
-empaquetamiento puede ser de tipo fuerte o débil, según se permita o no aprovechar el sobrante de un bloque, situando
-registros a caballo entre dos bloques contiguos.  
-``Factor de bloqueo``: el número de registros lógicos que puede contener un registro físico.
+### 3\. ORGANIZACIONES DE FICHEROS
 
-3.2. CLASIFICACIÓN DE FICHEROS  
-``Ficheros permanentes``: contiene datos relevantes para una aplicación.
+#### 3.1. CONCEPTOS Y DEFINICIONES
 
-* ``Ficheros maestros``: estado actual de los datos (fichero de clientes actuales de un banco).
-* ``Ficheros constantes``: datos fijos para la aplicación (el fichero de códigos postales).
-* ``Ficheros históricos``: datos que fueron actuales en el pasado (fichero de clientes que se han dado de baja).
+* ``Memoria principal``: poca capacidad de almacenamiento, volátil y de acceso rápido.
+* ``Memoria secundaria``: capacidad de almacenamiento ilimitada, la información esta almacenada permanentemente y el
+  acceso es lento, ya que la información tiene que ser transportada desde el dispositivo externo hasta la memoria
+  principal, el área de memoria principal destinada a recibir esta información se llama “Buffer”.
+* ``Registro lógico``: colección de información relativa a una entidad particular va a contener a todos aquellos campos
+  lógicamente relacionados referentes a una determinada entidad.
+* ``Archivo o fichero``: colección de registro relacionad entre si con aspectos en común y organizados. Los datos en los
+  archivos deben estar organizado de tal forma que puedan ser recuperado fácilmente actualizaos o borrados.
+* ``Base de datos``: colección de archivos a los que puede accederse por un conjunto de programas y contiene todos ellos
+  datos relacionados.
+* ``Clave``: campo o conjunto de campos de dato que identifica al registro y lo diferencia del resto de registros del
+  fichero.
+* ``Registro activo``: registro lógico que va a procesarse en la siguiente operación del fichero.
+* ``Apuntador``: marca interna que siempre apunta al registro activo.
+* ``Registro físico o bloque``: la cantidad más pequeña de datos que puede transferirse en una operación de
+  entrada/salida. La adaptación consiste en empaquetar en cada bloque tantos registros lógicos como se pueda, el
+  empaquetamiento puede ser de tipo fuerte o débil, según se permita o no aprovechar el sobrante de un bloque, situando
+  registros a caballo entre dos bloques contiguos.
+* ``Factor de bloqueo``: el número de registros lógicos que puede contener un registro físico.
 
-``Ficheros temporales``: datos relevantes para un proceso so programa, se utilizan para actualizar los ficheros
-permanentes.
+#### 3.2. CLASIFICACIÓN DE FICHEROS
 
-* ``Ficheros de movimiento``: almacenan resultados de un programa que han de ser utilizados por otro, dentro de una
-  misma tarea.
-* ``Ficheros de maniobras``: almacenar datos propios de un programa que este no puede conservar en memoria principal,
-  por falta de espacio en esta (programas de cálculo, editores...).
-* ``Ficheros de resultados``: almacenar datos elaborados que van a ser transferidos a un dispositivo de salida.
+* ``Ficheros permanentes``: contiene datos relevantes para una aplicación.
+    * ``Ficheros maestros``: estado actual de los datos (fichero de clientes actuales de un banco).
+    * ``Ficheros constantes``: datos fijos para la aplicación (el fichero de códigos postales).
+    * ``Ficheros históricos``: datos que fueron actuales en el pasado (fichero de clientes que se han dado de baja).
 
-3.3. ORGANIZACIÓN Y ACCESO  
-La manera en que los datos son estructurados y almacenados internamente en el fichero se establece durante la fase de
-creación del mismo, muy dependiente del soporte físico. Hay dos tipos de soportes:  
-``Soportes secuenciales``: los registros están dispuestos físicamente uno a continuación de otro, se necesita pasar por
-todos los anteriores a él.  
-``Soportes direccionables``: localizan a un registro directamente por su información (clave) sin tener que pasar por
-todos los anteriores.
+* ``Ficheros temporales``: datos relevantes para un proceso so programa, se utilizan para actualizar los ficheros
+  permanentes.
+    * ``Ficheros de movimiento``: almacenan resultados de un programa que han de ser utilizados por otro, dentro de una
+      misma tarea.
+    * ``Ficheros de maniobras``: almacenar datos propios de un programa que este no puede conservar en memoria
+      principal, por falta de espacio en esta (programas de cálculo, editores...).
+    * ``Ficheros de resultados``: almacenar datos elaborados que van a ser transferidos a un dispositivo de salida.
 
-El ``acceso`` es el procedimiento necesario que debemos seguir para situarnos sobre un registro, ``dos tipos`` de
-acceso:  
-``Acceso secuencial``: acceso a un archivo según el orden de almacenamiento.  
-``Acceso directo``: acceso a un registro determinado sin que ello implique la consulta de los registros precedentes.
+#### 3.3. ORGANIZACIÓN Y ACCESO
 
-3.3.1. TIPOS DE ORGANIZACIONES FUNDAMENTALES  
-``Organización secuencial``: ficheros caracterizados porque los registros que lo forman se escriben o graban sobre el
-soporte de almacenamiento en posiciones de memoria físicamente contiguas, sin dejar huecos o espacio libres entre ellos,
-el acceso a los datos en este tipo de ficheros es siempre secuencial. Variantes:
+* La manera en que los datos son estructurados y almacenados internamente en el fichero se establece durante la fase de
+  creación del mismo, muy dependiente del soporte físico. Hay dos tipos de soportes:
+    * ``Soportes secuenciales``: los registros están dispuestos físicamente uno a continuación de otro, se necesita
+      pasar por todos los anteriores a él.
+    * ``Soportes direccionables``: localizan a un registro directamente por su información (clave) sin tener que pasar
+      por todos los anteriores.
 
-* ``Organización secuencial encadenada``: junto a cada registro se almacena un puntero a la dirección del registro
-  siguiente. Desventajas:
-    * Los ficheros se almacenan secuencialmente según el orden de llegada, sin ninguna secuencia lógica.
-* Eliminaciones de registros se efectúan marcando el registro de manera que sea ignorando, aunque siga existiendo, lo
-  que deteriora progresivamente el fichero.
-* ``Organización secuencial indexada``: la información se gestiona mediante tablas, que contienen las direcciones de los
-  datos a los que se puede acceder secuencialmente, formado por tres zonas, denominadas áreas primaria, de índices y de
-  excedentes:
-    * En el área primaria se encuentran los registros ordenados según el valor de su clave. El acceso a cada registro se
-      realiza en una doble operación que consiste en:
+* El ``acceso`` es el procedimiento necesario que debemos seguir para situarnos sobre un registro, ``dos tipos`` de
+  acceso:
+    * ``Acceso secuencial``: acceso a un archivo según el orden de almacenamiento.
+    * ``Acceso directo``: acceso a un registro determinado sin que ello implique la consulta de los registros
+      precedentes.
 
-1\. Acceder directamente al segmento donde se ubica el registro buscado.  
-2\. Una vez localizado, accedemos secuencialmente a los registros contenidos en él.
+##### 3.3.1. TIPOS DE ORGANIZACIONES FUNDAMENTALES
 
-* El área de índices tiene la misma estructura que un fichero secuencial puto done cada registro contiene dos campos, el
-  primer campo contiene la clave del último registro de cada segmento y el segundo campo contiene la dirección de
-  entrada a cada uno de los segmentos.
-* El área de excedentes alberga todos aquellos registros que no han tenido cabida en el área primaria.
+* ``Organización secuencial``: ficheros caracterizados porque los registros que lo forman se escriben o graban sobre el
+  soporte de almacenamiento en posiciones de memoria físicamente contiguas, sin dejar huecos o espacio libres entre
+  ellos, el acceso a los datos en este tipo de ficheros es siempre secuencial. Variantes:
+    * ``Organización secuencial encadenada``: junto a cada registro se almacena un puntero a la dirección del registro
+      siguiente.
+    * Desventajas:
+        * Los ficheros se almacenan secuencialmente según el orden de llegada, sin ninguna secuencia lógica.
+        * Eliminaciones de registros se efectúan marcando el registro de manera que sea ignorando, aunque siga
+          existiendo, lo que deteriora progresivamente el fichero.
+    * ``Organización secuencial indexada``: la información se gestiona mediante tablas, que contienen las direcciones de
+      los datos a los que se puede acceder secuencialmente, formado por tres zonas, denominadas áreas primaria, de
+      índices y de excedentes:
+        * En el área primaria se encuentran los registros ordenados según el valor de su clave. El acceso a cada
+          registro se realiza en una doble operación que consiste en:
+            * 1\. Acceder directamente al segmento donde se ubica el registro buscado.
+            * 2\. Una vez localizado, accedemos secuencialmente a los registros contenidos en él.
+        * El área de índices tiene la misma estructura que un fichero secuencial puto done cada registro contiene dos
+          campos, el primer campo contiene la clave del último registro de cada segmento y el segundo campo contiene la
+          dirección de entrada a cada uno de los segmentos.
+        * El área de excedentes alberga todos aquellos registros que no han tenido cabida en el área primaria.
+        * El proceso a seguir para realizar una consulta por clave sin necesidad de leer los registros que le anteceden
+          es:
+            * 1\. Leer secuencialmente las claves en la zona de índices hasta encontrar una mayor o igual a la del
+              registro a buscar.
+            * 2\. Leer secuencialmente el área primaria a partir de la dirección obtenida hasta encontrar el registro
+              buscado.
+                * ``Ventajas``:
+                    * Especialmente útil cuando se debe combinar consultas a registros concretos y el procesamiento
+                      secuencial de todo el archivo.
+                * ``Desventajas``:
+                    * Imposibilidad de realizar actualizaciones, no permite la inserción de nuevos registros en el área
+                      primaria después de la creación del fichero.
+    * ``Organización directa o aleatoria``: los registros se sitúan en el fichero y se accede a ellos a través de un
+      identificativo o clave que indica la posición del registro dentro del fichero y la posición de memoria donde está
+      ubicado. No necesita área de desbordamiento.
+        * Ventajas:
+            * Cada posición solamente puede ser ocupada por un registro.
+            * Es muy rápido el acceso a los registros individuales.
+        * Desventajas:
+            * Gran cantidad de huecos dentro del fichero (desaprovechamiento).
+            * Para la consulta total de un fichero hay que analizar todas las posiciones de memoria, aunque algunas
+              estén vacías.
 
-El proceso a seguir para realizar una consulta por clave sin necesidad de leer los registros que le anteceden es:  
-1\. Leer secuencialmente las claves en la zona de índices hasta encontrar una mayor o igual a la del registro a
-buscar.  
-2\. Leer secuencialmente el área primaria a partir de la dirección obtenida hasta encontrar el registro buscado.  
-``Ventajas``:  
-Especialmente útil cuando se debe combinar consultas a registros concretos y el procesamiento secuencial de todo el
-archivo.  
-``Desventajas``:  
-Imposibilidad de realizar actualizaciones, no permite la inserción de nuevos registros en el área primaria después de la
-creación del fichero.
+#### 3.4. ÍNDICES
 
-* ``Organización directa o aleatoria``: los registros se sitúan en el fichero y se accede a ellos a través de un
-  identificativo o clave que indica la posición del registro dentro del fichero y la posición de memoria donde está
-  ubicado. No necesita área de desbordamiento.
+* Un índice para un archivo funciona como el catálogo de libros de una biblioteca. Donde si se quiere buscar algún libro
+  se busca por el índice deseado. De este modo, podremos mirar directamente en ese índice sin necesidad de recorrer
+  completamente todos los libros de la biblioteca.
+* Tipos básicos de índices:
+    * ``Índices ordenados``: Estos índices están basados en una disposición ordenada de los valores.
+        * ``Índices primarios``: todos los archivos están ordenados secuencialmente según el campo clave (se denominan
+          archivos secuenciales indexados). Estos los empleamos en aquellas aplicaciones que demandan un procesamiento
+          secuencial del archivo completo, así como un acceso directo a sus registros.
+        * ``Índice denso``: en el cual aparece un registro índice para cada valor de la clave búsqueda en el archivo. El
+          registro índice contiene el valor de la clave y un puntero al primer registro con ese valor de la clave de
+          búsqueda.
+        * ``Índice disperso``: solo se crea un registro índice para algunos de los valores. Al igual que en los índices
+          densos, cada registro índice contiene un valor de la clave de búsqueda yun puntero al primer registro con ese
+          valor de la clave. Para localizar un registro se busca la entrada del índice con el valor más grande que sea
+          menor o igual que el valor que se está buscando.
 
-Ventajas:
-
-* Cada posición solamente puede ser ocupada por un registro.
-* Es muy rápido el acceso a los registros individuales.
-
-Desventajas:
-
-* Gran cantidad de huecos dentro del fichero (desaprovechamiento).
-* Para la consulta total de un fichero hay que analizar todas las posiciones de memoria, aunque algunas estén vacías.
-
-3.4. ÍNDICES  
-Un índice para un archivo funciona como el catálogo de libros de una biblioteca. Donde si se quiere buscar algún libro
-se busca por el índice deseado. De este modo, podremos mirar directamente en ese índice sin necesidad de recorrer
-completamente todos los libros de la biblioteca. Tipos básicos de índices:  
-``Índices ordenados``: Estos índices están basados en una disposición ordenada de los valores.
-
-* ``Índices primarios``: todos los archivos están ordenados secuencialmente según el campo clave (se denominan archivos
-  secuenciales indexados). Estos los empleamos en aquellas aplicaciones que demandan un procesamiento secuencial del
-  archivo completo, así como un acceso directo a sus registros.
-* ``Índice denso``: en el cual aparece un registro índice para cada valor de la clave búsqueda en el archivo. El
-  registro índice contiene el valor de la clave y un puntero al primer registro con ese valor de la clave de búsqueda.
-* ``Índice disperso``: solo se crea un registro índice para algunos de los valores. Al igual que en los índices densos,
-  cada registro índice contiene un valor de la clave de búsqueda yun puntero al primer registro con ese valor de la
-  clave. Para localizar un registro se busca la entrada del índice con el valor más grande que sea menor o igual que el
-  valor que se está buscando.
-
-A pesar de ser más rápido localizar un registro si se usa un índice denso, a veces es mejor utilizar el esquema de
-índice disperso para utilizar un espacio más reducido y un mantenimiento adicional menor para las inserciones y
-borrados.
+* A pesar de ser más rápido localizar un registro si se usa un índice denso, a veces es mejor utilizar el esquema de
+  índice disperso para utilizar un espacio más reducido y un mantenimiento adicional menor para las inserciones y
+  borrados.
 
 * ``Índices multinivel``: incluso si se usan índices dispersos, el propio índice podría ser demasiado grande para un
   procesamiento eficiente.
+* ``Índices secundarios``: un índice secundario sobre una clave candidata es como un indice denso primario, excepto que
+  los registros apuntados apuntados por los sucesivos valores del indice no estan almacenados secuencialmente. En este
+  esquema, debemos usar un nivel adicional de indireccion para implementar los indices secundarios sobre claves de
+  busqueda que no sean claves candidatas. Los punteros a estos indices no apuntan directamente al archivo. En vez de
+  eso, cada puntero apunta a un cajon que contiene punteros al archivo.
+* ``Índices asociativos`` (hash): Estos índices están basados en una distribución uniforme de los valores a través de
+  una serie de cajones. El valor asignado a cada cajón está determinado por una función de hashing.
 
-``Índices secundarios``: un índice secundario sobre una clave candidata es como un indice denso primario, excepto que
-los registros apuntados apuntados por los sucesivos valores del indice no estan almacenados secuencialmente. En este
-esquema, debemos usar un nivel adicional de indireccion para implementar los indices secundarios sobre claves de
-busqueda que no sean claves candidatas. Los punteros a estos indices no apuntan directamente al archivo. En vez de eso,
-cada puntero apunta a un cajon que contiene punteros al archivo.  
-``Índices asociativos`` (hash): Estos índices están basados en una distribución uniforme de los valores a través de una
-serie de cajones. El valor asignado a cada cajón está determinado por una función de hashing.
+### 4\. ALGORITMOS
 
-4\. ALGORITMOS
+> ``Complejidad algorítmica``: cantidad de recursos que necesita un algoritmo para resolver un problema.
 
-| Complejidad algorítmica: cantidad de recursos que necesita un algoritmo para resolver un problema. |
-| :---- |
+* ``Algoritmos de búsqueda``: se emplean para la localización de los datos, existe un conjunto de datos sobre donde nos
+  interesara realizar una consulta o modificación y debemos obtener la posición.
+* Principales algoritmos de búsqueda:
+    * ``Secuencial``: recorrer y examinar cada uno de los elementos del array hasta encontrar el elemento buscado.
+    * ``Binaria o dicotómica``: para utilizar este algoritmo el array debe estar ordenado, la búsqueda consiste en
+      dividir el array por su elemento medio en dos subarrays más pequeños y comprar el elemento con el del centro, si
+      coinciden la búsqueda termina, si el elemento es menor debe estar en la mitad izquierda, si es mayor en la
+      derecha.
+    * ``Indirecta``: búsqueda de otro objeto intermedio que mantenga una relación espacial con el objeto buscado,
+      demostrando una mayor eficiencia.
+    * ``Mediante transformación de claves`` (hashing): aumenta la velocidad de búsqueda, no requiere que los elemento
+      estén ordenaos, consiste en asignar a cada elemento un índice mediante una transformación del elemento, ser
+      realiza mediante una función de conversión llamada hash.
 
-``Algoritmos de búsqueda``: se emplean para la localización de los datos, existe un conjunto de datos sobre donde nos
-interesara realizar una consulta o modificación y debemos obtener la posición. Principales algoritmos de búsqueda:
+* ``Algoritmos de ordenación``: Organizar ciertos datos (normalmente arrays o ficheros) mediante una regla prefijada,
+  puede ser:
+    * ``Selección``: consiste en buscar el elemento más pequeño del array y ponerlo en primera posición; luego, entre
+      los restantes, sed busca el elemento más pequeño y se coloca en segundo lugar y así sucesivamente.
+    * ``Inserción directa``: sublista ordenada de elementos del array, insertando el resto en el lugar adecuado para que
+      la sublista no pierda el orden.
+    * ``Inserción binaria``: mismo método que la inserción directa, excepto la búsqueda del orden de un elemento en la
+      sublista ordenad se realiza mediante una búsqueda binaria.
+    * ``Shell``: mejora del método de inserción directa, utilizando cuando el array tiene un gran número de elementos.
+      No se compra a cada elemento con el de su izquierda, como en el de inserción, sino con el que está un cierto
+      número de lugares (llamado salto). Se van dando pasadas hasta que el salto vale 1\.
+    * ``Burbuja`` (Bubblesort): revisando cada elemento de la lista que va a ser ordenada con el siguiente,
+      intercambiándolos de posición si están en el orden equivocado. Es necesario revisar varias veces toda la lista
+      hasta que no se necesiten más intercambios. También conocido como método del intercambio directo dado que solo usa
+      comparaciones para operar elementos, se lo considera un algoritmo de comparación.
+    * ``Ordenamiento rápido`` (Quicksort): el algoritmo elije un elemento del conjunto a ordenar al que llama pivote, a
+      partir de él resitúa los demás elementos a cada lado del mismo, de manera que a un lado queden lo menores que él y
+      al otro los mayores, se repite este proceso de forma recursiva para cada sublista mientras éstas contengan más de
+      un elemento. Una vez terminado este proceso todos los elementos estarán ordenados.
+    * ``Ordenamiento Radix`` (Radix sort): se basa en la clasificación de los datos que queremos ordenar por una clave.
+      Dicha clave ha de ser una característica de cada dato que pueda ser descompuesta en elementos más pequeños que
+      permitan clasificar los elementos poco a poco (unidades, decenas, centenas...). Para ordenar los elementos tenemos
+      que crear un número finito de urnas, de forma que en cada urna los elementos estén relacionados por la clave y que
+      así podamos separarlos.
 
-* ``Secuencial``: recorrer y examinar cada uno de los elementos del array hasta encontrar el elemento buscado.
-* ``Binaria o dicotómica``: para utilizar este algoritmo el array debe estar ordenado, la búsqueda consiste en dividir
-  el array por su elemento medio en dos subarrays más pequeños y comprar el elemento con el del centro, si coinciden la
-  búsqueda termina, si el elemento es menor debe estar en la mitad izquierda, si es mayor en la derecha.
-* ``Indirecta``: búsqueda de otro objeto intermedio que mantenga una relación espacial con el objeto buscado,
-  demostrando una mayor eficiencia.
-* ``Mediante transformación de claves`` (hashing): aumenta la velocidad de búsqueda, no requiere que los elemento estén
-  ordenaos, consiste en asignar a cada elemento un índice mediante una transformación del elemento, ser realiza mediante
-  una función de conversión llamada hash.
+* ``Algoritmos de compresión``: pueden ser “sin perdida” (procedimiento de codificación que tenga como objetivo
+  representar cierta cantidad de información utilizando u ocupando un espacio menor, siendo posible una reconstrucción
+  exacta de los datos originales) o “con perdida” (procedimiento de codificación que tenga como objetivo representar
+  cierta cantidad de información utilizando una menor cantidad de la misma, siendo imposible una reconstrucción exacta
+  de los datos originales).
+    * ``TDC`` (Codificación por transformación): es un tipo de compresión de datos con pérdida para datos "naturales"
+      como señales de audio o imágenes fotográficas.
+    * ``Codificación Huffman``: es un algoritmo usado para compresión de datos sin pérdida. El término se refiere al uso
+      de una tabla de códigos de longitud variable para codificar un determinado símbolo (como puede ser un carácter en
+      un archivo), donde la tabla ha sido rellenada de una manera específica basándose en la probabilidad estimada de
+      aparición de cada posible valor de dicho símbolo.
+    * ``LZW`` (Lempel-Ziv-Welch): un algoritmo de compresión sin pérdida, se basa en crear sobre la marcha, de manera
+      automática y en una única pasada un diccionario de cadenas que se encuentren dentro del texto a comprimir mientras
+      al mismo tiempo se procede a su codificación.
+    * ``RLE`` (Run-length encoding): es una forma muy simple de compresión de datos en la que secuencias de datos con el
+      mismo valor consecutivas son almacenadas como un único valor más su recuento.
 
-``Algoritmos de ordenación``: Organizar ciertos datos (normalmente arrays o ficheros) mediante una regla prefijada,
-puede ser:
+### 5\. FORMATOS DE INFORMACIÓN
 
-* ``Selección``: consiste en buscar el elemento más pequeño del array y ponerlo en primera posición; luego, entre los
-  restantes, sed busca el elemento más pequeño y se coloca en segundo lugar y así sucesivamente.
-* ``Inserción directa``: sublista ordenada de elementos del array, insertando el resto en el lugar adecuado para que la
-  sublista no pierda el orden.
-* ``Inserción binaria``: mismo método que la inserción directa, excepto la búsqueda del orden de un elemento en la
-  sublista ordenad se realiza mediante una búsqueda binaria.
-* ``Shell``: mejora del método de inserción directa, utilizando cuando el array tiene un gran número de elementos. No se
-  compra a cada elemento con el de su izquierda, como en el de inserción, sino con el que está un cierto número de
-  lugares (llamado salto). Se van dando pasadas hasta que el salto vale 1\.
-* ``Burbuja`` (Bubblesort): revisando cada elemento de la lista que va a ser ordenada con el siguiente,
-  intercambiándolos de posición si están en el orden equivocado. Es necesario revisar varias veces toda la lista hasta
-  que no se necesiten más intercambios. También conocido como método del intercambio directo dado que solo usa
-  comparaciones para operar elementos, se lo considera un algoritmo de comparación.
-* ``Ordenamiento rápido`` (Quicksort): el algoritmo elije un elemento del conjunto a ordenar al que llama pivote, a
-  partir de él resitúa los demás elementos a cada lado del mismo, de manera que a un lado queden lo menores que él y al
-  otro los mayores, se repite este proceso de forma recursiva para cada sublista mientras éstas contengan más de un
-  elemento. Una vez terminado este proceso todos los elementos estarán ordenados.
-* ``Ordenamiento Radix`` (Radix sort): se basa en la clasificación de los datos que queremos ordenar por una clave.
-  Dicha clave ha de ser una característica de cada dato que pueda ser descompuesta en elementos más pequeños que
-  permitan clasificar los elementos poco a poco (unidades, decenas, centenas...). Para ordenar los elementos tenemos que
-  crear un número finito de urnas, de forma que en cada urna los elementos estén relacionados por la clave y que así
-  podamos separarlos.
+* ``Ficheros con información de texto``: solo contienen ASCII estándar, no presentan problemas de presentación, los más
+  notables son los ficheros readme, léame... se incluyen los formatos de la web (HTML) que son también texto ASCII.
+    * ``.pfx`` (Personal Information Exchange): se utiliza en los servidores de Windows para los archivos que contienen
+      tanto los archivos de clave pública (sus archivos de certificados SSL) y su clave privada que corresponde a sus
+      certificados (generado por el servidor).
+    * ``.csv`` (comma-separated values): tipo de documento en formato abierto sencillo para representar datos en forma
+      de tabla, en las que las columnas se separan por comas y las filas por saltos de línea.
+    * ``Texto formateado``: el contenido es principalmente ASCII, pero acompañado de múltiples caracteres específicos de
+      control de formato y presentación (docx, pdf, xls,...).
+* ``Ficheros con información de imagen``: ficheros con imágenes estáticas o animadas y formatos para diseño gráfico, dos
+  formas básicas para almacenar imágenes: ráster y vectorial.
+    * ``Ráster``: consiste en descomponer la imagen en una serie de puntos y almacenar el color y brillo de cada uno de
+      estos puntos, más definición cuanto mayor sea el número de puntos (JPG, PNG, ICO, JNG, MNG...).
+        * ``JPEG``: algoritmo de compresión con perdida, flexibilidad a la hora de ajustar el grado de compresión.
+          Convierte la imagen desde su modelo de color RGB a otro llamado YCbCr. Puede reducirse la información
+          cromática a la mitad, 4:2:2 (reducir en un factor de 2 en dirección horizontal), con lo que el color tiene la
+          mitad de resolución (en horizontal) y el brillo sigue intacto. Otro método, muy usado, es reducir el color a
+          la cuarta parte, 4:2:0, en el que el color se reduce en un factor de 2 en ambas direcciones, horizontal y
+          vertical. Si la imagen de partida estaba en escala de grises (blanco y negro), puede eliminarse por completo
+          la información de color, quedando como 4:0:0.
+        * ``HSB`` (Hue, Saturation, Brightness – Matiz, Saturación, Brillo).
+        * ``Resolución``: La resolución de una imagen es el número de píxeles por pulgada que contiene. Ésta se expresa
+          en PPP (
+          puntos por pulgada en español) o DPI (dots per inch en inglés).
+        * ``Profundidad de color``: o bits por píxel (bpp) es un concepto de la computación gráfica que se refiere a la
+          cantidad de bits de información necesarios para representar el color de un píxel en una imagen digital.
+            * ``PNG``: nivel de compresión que casi no presenta perdidas (predicción del valor de pixel), permite el uso
+              de transparencias.
+            * ``TIFF``: manejar imágenes y datos en un solo archivo, sin pérdidas.
+            * ``GIF``: baja calidad y ofrece una escasa profundidad de colores, permite unir varios cuadros para formar
+              una animación.
+            * ``EXIF`` (Exchangeable Image File Format): es una especificación para formatos de archivos de imagen usado
+              por las cámaras digitales.
+            * ``HEIF`` (High Efficiency Image File Format): es un formato de archivo informático para almacenar imágenes
+              y secuencias de estas. Realmente es un contenedor flexible de imágenes con compresión, considerado
+              actualmente uno de los posibles sustitutos de JPG.
+    * ``Vectorial``: cada elemento es definido por sus propiedades matemáticas, una línea entre dos puntos puede ser
+      definida como una recta, usadas para dibujo de tipo técnico, mapas geográficos (DWG, DWF,...).
+        * .swf (Small Web Format): es un formato de archivo de gráficos vectoriales, pueden ser creados por Flash o por
+          aplicaciones de software libre. Son ejecutados sobre el navegador mediante el plugin de Flash player.
+        * SVG (Scalable Vector Graphics): es un lenguaje usado para dibujar y representar gráficos vectoriales
+          escalables, imágenes y logotipos, o sea que son gráficos que pueden manipularse con CSS y JavaScript.
 
-``Algoritmos de compresión``: pueden ser “sin perdida” (procedimiento de codificación que tenga como objetivo
-representar cierta cantidad de información utilizando u ocupando un espacio menor, siendo posible una reconstrucción
-exacta de los datos originales) o “con perdida” (procedimiento de codificación que tenga como objetivo representar
-cierta cantidad de información utilizando una menor cantidad de la misma, siendo imposible una reconstrucción exacta de
-los datos originales).
+* ``Ficheros con información compuesta``: documentos que integran texto con imágenes o gráficos (PostScript, PDF,...).
+* ``Ficheros con información comprimida``: se desarrollaron distintos algoritmos de compresión (ZIP, RAR,...).
+* ``Ficheros de audio``: multitud de “códecs” (MP3, MIDI,...).
+* ``Ficheros ejecutables``: pueden ser ejecutados directamente en el ordenador, alguno tiene la sola finalidad de
+  desempaquetar un cierto contenido que vienen incluido en el propio fichero (EXE, COM,...).
 
-* ``TDC`` (Codificación por transformación): es un tipo de compresión de datos con pérdida para datos "naturales" como
-  señales de audio o imágenes fotográficas.
-* ``Codificación Huffman``: es un algoritmo usado para compresión de datos sin pérdida. El término se refiere al uso de
-  una tabla de códigos de longitud variable para codificar un determinado símbolo (como puede ser un carácter en un
-  archivo), donde la tabla ha sido rellenada de una manera específica basándose en la probabilidad estimada de aparición
-  de cada posible valor de dicho símbolo.
-* ``LZW`` (Lempel-Ziv-Welch): un algoritmo de compresión sin pérdida, se basa en crear sobre la marcha, de manera
-  automática y en una única pasada un diccionario de cadenas que se encuentren dentro del texto a comprimir mientras al
-  mismo tiempo se procede a su codificación.
-* ``RLE`` (Run-length encoding): es una forma muy simple de compresión de datos en la que secuencias de datos con el
-  mismo valor consecutivas son almacenadas como un único valor más su recuento.
+> ``“.ods”`` extensión del equivalente a Excel en Oracle.
 
-5\. FORMATOS DE INFORMACIÓN  
-``Ficheros con información de texto``: solo contienen ASCII estándar, no presentan problemas de presentación, los más
-notables son los ficheros readme, léame... se incluyen los formatos de la web (HTML) que son también texto ASCII.
+## TEMA 5 – MODELO CONCEPTUAL, REGLAS DE MODELIZACIÓN Y DFD
 
-* ``.pfx`` (Personal Information Exchange): se utiliza en los servidores de Windows para los archivos que contienen
-  tanto los archivos de clave pública (sus archivos de certificados SSL) y su clave privada que corresponde a sus
-  certificados (generado por el servidor).
-* ``.csv`` (comma-separated values): tipo de documento en formato abierto sencillo para representar datos en forma de
-  tabla, en las que las columnas se separan por comas y las filas por saltos de línea.
+### 1\. DIAGRAMAS DE FLUJO DE DATOS Y LENGUAJES DE BASES DE DATOS
 
-``Texto formateado``: el contenido es principalmente ASCII, pero acompañado de múltiples caracteres específicos de
-control de formato y presentación (docx, pdf, xls,...).   
-``Ficheros con información de imagen``: ficheros con imágenes estáticas o animadas y formatos para diseño gráfico, dos
-formas básicas para almacenar imágenes: ráster y vectorial.
+#### 1.1 DIAGRAMAS DE FLUJO DE DATOS
 
-* ``Ráster``: consiste en descomponer la imagen en una serie de puntos y almacenar el color y brillo de cada uno de
-  estos puntos, más definición cuanto mayor sea el número de puntos (JPG, PNG, ICO, JNG, MNG...).
-    * ``JPEG``: algoritmo de compresión con perdida, flexibilidad a la hora de ajustar el grado de compresión. Convierte
-      la imagen desde su modelo de color RGB a otro llamado YCbCr. Puede reducirse la información cromática a la mitad,
-      4:2:2 (reducir en un factor de 2 en dirección horizontal), con lo que el color tiene la mitad de resolución (en
-      horizontal) y el brillo sigue intacto. Otro método, muy usado, es reducir el color a la cuarta parte, 4:2:0, en el
-      que el color se reduce en un factor de 2 en ambas direcciones, horizontal y vertical. Si la imagen de partida
-      estaba en escala de grises (blanco y negro), puede eliminarse por completo la información de color, quedando como
-      4:0:0.
-* ``HSB`` (Hue, Saturation, Brightness – Matiz, Saturación, Brillo).
-* ``Resolución``: La resolución de una imagen es el número de píxeles por pulgada que contiene. Ésta se expresa en PPP (
-  puntos por pulgada en español) o DPI (dots per inch en inglés).
-* ``Profundidad de color``: o bits por píxel (bpp) es un concepto de la computación gráfica que se refiere a la cantidad
-  de bits de información necesarios para representar el color de un píxel en una imagen digital.
-    * ``PNG``: nivel de compresión que casi no presenta perdidas (predicción del valor de pixel), permite el uso de
-      transparencias.
-    * ``TIFF``: manejar imágenes y datos en un solo archivo, sin pérdidas.
-    * ``GIF``: baja calidad y ofrece una escasa profundidad de colores, permite unir varios cuadros para formar una
-      animación.
-    * ``EXIF`` (Exchangeable Image File Format): es una especificación para formatos de archivos de imagen usado por las
-      cámaras digitales.
-    * ``HEIF`` (High Efficiency Image File Format): es un formato de archivo informático para almacenar imágenes y
-      secuencias de estas. Realmente es un contenedor flexible de imágenes con compresión, considerado actualmente uno
-      de los posibles sustitutos de JPG.
-* ``Vectorial``: cada elemento es definido por sus propiedades matemáticas, una línea entre dos puntos puede ser
-  definida como una recta, usadas para dibujo de tipo técnico, mapas geográficos (DWG, DWF,...).
-    * .swf (Small Web Format): es un formato de archivo de gráficos vectoriales, pueden ser creados por Flash o por
-      aplicaciones de software libre. Son ejecutados sobre el navegador mediante el plugin de Flash player.
-* SVG (Scalable Vector Graphics): es un lenguaje usado para dibujar y representar gráficos vectoriales escalables,
-  imágenes y logotipos, o sea que son gráficos que pueden manipularse con CSS y JavaScript.
+* Representan gráficamente los límites del sistema y la lógica de los procesos, estableciendo qué funciones hay que
+  desarrollar. Además, muestra el flujo o movimiento de los datos a través del sistema y sus transformaciones como
+  resultado de la ejecución de los procesos.
+* El diagrama de flujo de datos se compone de los siguientes elementos:
+    * ``Proceso``:
+    * Representa una funcionalidad que tiene que llevar a cabo el sistema para transformar o manipular datos.
+    * El proceso debe ser capaz de generar los flujos de datos de salida a partir de los de entrada, más una información
+      constante o variable al proceso.
+    * El proceso nunca es el origen ni el final de los datos, puede transformar un flujo de datos de entrada en varios
+      de salida y siempre es necesario como intermediario entre una entidad externa y un almacén de datos.
+    * Un proceso actualiza o consulta un almacen, pero nunca controla un almacén.
 
-``Ficheros con información compuesta``: documentos que integran texto con imágenes o gráficos (PostScript, PDF,...).  
-``Ficheros con información comprimida``: se desarrollaron distintos algoritmos de compresión (ZIP, RAR,...).  
-``Ficheros de audio``: multitud de “códecs” (MP3, MIDI,...).  
-``Ficheros ejecutables``: pueden ser ejecutados directamente en el ordenador, alguno tiene la sola finalidad de
-desempaquetar un cierto contenido que vienen incluido en el propio fichero (EXE, COM,...).
+> ``Proceso primitivo``: es un proceso que no necesita descomposición, solo se detalla su entrada y su salida.
 
-| “.ods” extensión del equivalente a Excel en Oracle. |
-| :---- |
+* ``Almacén de datos``: representa la información en reposo utilizada por el sistema, independientemente del sistema de
+  gestión de datos (un fichero, base de datos, archivador...). Contiene la información necesaria para la ejecución del
+  proceso.  
+  El almacén no puede crear, transformar o destruir datos, no puede estar comunicado con otro almacén o entidad externa
+  y aparecerá por primera vez en aquel nivel en que dos o más procesos accedan a él.
+* ``Entidad externa``: representa un ente ajeno al sistema que proporciona o recibe información del mismo. Puede hacer
+  referencia a departamentos, personas, máquinas, recursos u otros sistemas. Puede aparecer varias veces en un mismo
+  diagrama, así ́ como en los distintos niveles del DFD para mejorar la claridad del diagrama.
+* ``Flujo de datos``: representa el movimiento de los datos, y establece la comunicación entre los procesos y los
+  almacenes de datos o las entidades externas. Un flujo de datos entre dos procesos solo es posible cuando la
+  información es síncrona, es decir, el proceso destino comienza cuando el proceso origen finaliza su función. Los
+  flujos de datos que comunican procesos con almacenes pueden ser de los tipos:
+    * ``De consulta``: representan la utilización de los valores de uno o más campos de un almacén o la comprobación de
+      que los valores de los campos seleccionados cumplen unos criterios determinados.
+    * ``De actualización``: representan la alteración de los datos de un almacén como consecuencia de la creación de un
+      nuevo elemento, por eliminación o modificación de otros ya existentes.
+    * ``De diálogo``: es un flujo entre un proceso y un almacén que representa una consulta y una actualización.
 
-TEMA 5 – MODELO CONCEPTUAL, REGLAS DE MODELIZACIÓN Y DFD  
-1\. DIAGRAMAS DE FLUJO DE DATOS Y LENGUAJES DE BASES DE DATOS  
-1.1 DIAGRAMAS DE FLUJO DE DATOS  
-Representan gráficamente los límites del sistema y la lógica de los procesos, estableciendo qué funciones hay que
-desarrollar. Además, muestra el flujo o movimiento de los datos a través del sistema y sus transformaciones como
-resultado de la ejecución de los procesos. El diagrama de flujo de datos se compone de los siguientes elementos:  
-``Proceso``: representa una funcionalidad que tiene que llevar a cabo el sistema  
-para transformar o manipular datos. El proceso debe ser capaz de generar los  
-flujos de datos de salida a partir de los de entrada, más una información  
-constante o variable al proceso.  
-El proceso nunca es el origen ni el final de los datos, puede transformar un flujo de datos de entrada en varios de
-salida y siempre es necesario como intermediario entre una entidad externa y un almacén de datos. Un proceso actualiza o
-consulta un almacen, pero nunca controla un almacén.
+* Existen sistemas que precisan de información orientada al control de datos y requieren flujos y procesos de control,
+  así ́ como los mecanismos que desencadenan su ejecución. Para que resulte adecuado el análisis de estos sistemas, se
+  ha ampliado la notación de los diagramas de flujo de datos incorporando los siguientes elementos:
+    * ``Proceso de control``: representa procesos que coordinan y sincronizan las actividades de otros procesos del
+      diagrama de flujo de datos.
+    * ``Flujo de control``: representa el flujo entre un proceso de control y otro proceso. El flujo de control que sale
+      de un proceso de control activa al proceso que lo recibe y el que entra le informa de la situación de un proceso.
+      A diferencia de los flujos tradicionales, que pueden considerarse como procesadores de datos porque reflejan el
+      movimiento y transformación de los mismos, los flujos de control no representan datos con valores, sino que en
+      cierto modo, se trata de eventos que activan los procesos (señales o interrupciones).
 
-| Proceso primitivo: es un proceso que no necesita descomposición, solo se detalla su entrada y su salida. |
-| :---- |
+* La descomposición por niveles se realiza de arriba abajo (top-down), es decir, se comienza en el nivel más general y
+  se termina en el más detallado, pasando por los niveles intermedios necesarios. De este modo se dispondrá́ de un
+  conjunto de particiones del sistema que facilitaran su estudio y su desarrollo.
 
-``Almacén de datos``: representa la información en reposo utilizada por el  
-sistema, independientemente del sistema de gestión de datos (un fichero,  
-base de datos, archivador...). Contiene la información necesaria para la  
-ejecución del proceso.  
-El almacén no puede crear, transformar o destruir datos, no puede estar comunicado con otro almacén o entidad externa y
-aparecerá por primera vez en aquel nivel en que dos o más procesos accedan a él.  
-``Entidad externa``: representa un ente ajeno al sistema que proporciona o  
-recibe información del mismo. Puede hacer referencia a departamentos,  
-personas, máquinas, recursos u otros sistemas. Puede aparecer varias veces  
-en un mismo diagrama, así ́ como en los distintos niveles del DFD para  
-mejorar la claridad del diagrama.  
-``Flujo de datos``: representa el movimiento de los datos, y establece la comunicación entre los procesos y los
-almacenes de datos o las entidades externas. Un flujo de datos entre dos procesos solo es posible cuando la información
-es síncrona, es decir, el proceso destino comienza cuando el proceso origen finaliza su función. Los flujos de datos que
-comunican procesos con almacenes pueden ser de los tipos:
+* La explosión de un proceso de un DFD origina otro DFD y es necesario comprobar que se mantiene la consistencia de
+  información entre ellos, es decir, que la información de entrada y de salida de un proceso cualquiera se corresponde
+  con la información de entrada y de salida del diagrama de flujo de datos en el que se descompone, para ello se debe
+  comprobar:
+    * No falten flujos de datos de entrada o salida que acompañaban al proceso del nivel superior.
+    * No aparezca algún flujo que no estuviese ya asociado al proceso de nivel superior.
+    * Todos los elementos del DFD resultante deben estar conectados directa o indirectamente con los flujos del proceso
+      origen.
 
-* ``De consulta``: representan la utilización de los valores de uno o más campos de un almacén o la comprobación de que
-  los valores de los campos seleccionados cumplen unos criterios determinados.
-* ``De actualización``: representan la alteración de los datos de un almacén como consecuencia de la creación de un
-  nuevo elemento, por eliminación o modificación de otros ya existentes.
-* ``De diálogo``: es un flujo entre un proceso y un almacén que representa una consulta y una actualización.
+#### 1.2. NIVELES DE UN DFD
 
-Existen sistemas que precisan de información orientada al control de datos y requieren flujos y procesos de control, así
-́ como los mecanismos que desencadenan su ejecución. Para que resulte adecuado el análisis de estos sistemas, se ha
-ampliado la notación de los diagramas de flujo de datos incorporando los siguientes elementos:  
-``Proceso de control``: representa procesos que coordinan y sincronizan las actividades de otros procesos del diagrama
-de flujo de datos.  
-``Flujo de control``: representa el flujo entre un proceso de control y otro proceso. El flujo de control que sale de un
-proceso de control activa al proceso que lo recibe y el que entra le informa de la situación de un proceso. A diferencia
-de los flujos tradicionales, que pueden considerarse como procesadores de datos porque reflejan el movimiento y
-transformación de los mismos, los flujos de control no representan datos con valores, sino que en cierto modo, se trata
-de eventos que activan los procesos (señales o interrupciones).
+* ``Nivel 0`` ``“diagrama de contexto”``: se caracterizan todas las interacciones que realiza un sistema con su
+  entorno (
+  entidades externas), estas pueden ser otros sistemas, sectores internos a la organización, o factores externos a la
+  misma. Se dibuja un solo proceso que representa al sistema en cuestión y se escribe su nombre en dicha burbuja como un
+  sustantivo común más adjetivos. De él solamente parten los flujos de datos que denotan las interrelaciones entre el
+  sistema y sus agentes externos, no admitiéndose otros procesos ni almacenamientos en el dibujo, ya que estos son
+  procesos estructurados y ordenados,además posee una cardinalidad que varía según la función que desempeñe cada
+  diagrama.
+* ``Nivel 1`` ``“diagrama de nivel superior”``: se plasman todos los procesos que describen al proceso principal. En
+  este nivel los procesos no suelen interrelacionarse directamente, sino que entre ellos debe existir algún
+  almacenamiento o entidad externa que los una. Esta regla de construcción sirve como ayuda al analista para contemplar
+  que en un nivel tan elevado de abstracción es altamente probable que la información que se maneja requiera ser
+  almacenada en el sistema.
+* ``Nivel 2`` ``“diagrama de detalle o expansión”``: comienzan a explotarse las excepciones a los caminos principales de
+  la información dado que aumenta progresivamente el nivel de detalle. De aquí en adelante se permiten los flujos entre
+  procesos. Puede considerarse el máximo para ser validado en forma conjunta con el usuario dado que en los niveles
+  posteriores el alto grado de complejidad del diagrama.
 
-La descomposición por niveles se realiza de arriba abajo (top-down), es decir, se comienza en el nivel más general y se
-termina en el más detallado, pasando por los niveles intermedios necesarios. De este modo se dispondrá́ de un conjunto
-de particiones del sistema que facilitaran su estudio y su desarrollo.
+#### 1.2. DISEÑO DE UNA BASE DE DATOS / DISEÑO DE UN SGBD
 
-La explosión de un proceso de un DFD origina otro DFD y es necesario comprobar que se mantiene la consistencia de
-información entre ellos, es decir, que la información de entrada y de salida de un proceso cualquiera se corresponde con
-la información de entrada y de salida del diagrama de flujo de datos en el que se descompone, para ello se debe
-comprobar:
+* ``Diseño de una base de datos``:
+    * ``Conceptual``: se confecciona a partir de la especificación de requerimientos y su resultado es el esquema
+      conceptual de la base de datos (una descripción de alto nivel de la estructura de la base de datos, independiente
+      del software que se use para manipularla).
+    * ``Lógico``: se confecciona a partir del diseño conceptual y da como resultado una descripción de la estructura de
+      la base de datos que puede procesar el software DBMS.
+    * ``Físico``: se confecciona a partir del esquema lógico y da como resultado una descripción de la implementación de
+      una base de datos en la memoria secundaria, describe la estructura de almacenamiento y los métodos usados para
+      tener un acceso efectivo a los datos.
 
-* No falten flujos de datos de entrada o salida que acompañaban al proceso del nivel superior.
-* No aparezca algún flujo que no estuviese ya asociado al proceso de nivel superior.
-* Todos los elementos del DFD resultante deben estar conectados directa o indirectamente con los flujos del proceso
-  origen.
+* ``Diseño de un Sistema Gestor de Bases de Datos`` (el objetivo de la arquitectura de tres niveles es separar la vista
+  de los usuarios, y así ocultar la complejidad de la base en tres niveles):
+    * ``Nivel interno`` (Almacenamiento Físico): implica la forma en que la base de datos se representa físicamente en
+      el sistema informático. En él se describe cómo los datos se almacenan en la base de datos y en el hardware del
+      equipo.
+    * ``Nivel conceptual``: forma de describir los datos que se almacenan dentro de la base de datos y cómo los datos
+      están relacionados entre sí. Describe la estructura de todos los usuarios y es independiente de hardware y
+      software.
+    * ``Nivel externo`` (Vistas de usuario): describe una parte de la base de datos que es relevante para un usuario en
+      particular. Excluye datos irrelevantes, así como los datos que el usuario no está autorizado a acceder.
 
-1.2. NIVELES DE UN DFD  
-``Nivel 0`` “diagrama de contexto”: se caracterizan todas las interacciones que realiza un sistema con su entorno (
-entidades externas), estas pueden ser otros sistemas, sectores internos a la organización, o factores externos a la
-misma. Se dibuja un solo proceso que representa al sistema en cuestión y se escribe su nombre en dicha burbuja como un
-sustantivo común más adjetivos. De él solamente parten los flujos de datos que denotan las interrelaciones entre el
-sistema y sus agentes externos, no admitiéndose otros procesos ni almacenamientos en el dibujo, ya que estos son
-procesos estructurados y ordenados,además posee una cardinalidad que varía según la función que desempeñe cada
-diagrama.  
-``Nivel 1`` “diagrama de nivel superior”: se plasman todos los procesos que describen al proceso principal. En este
-nivel los procesos no suelen interrelacionarse directamente, sino que entre ellos debe existir algún almacenamiento o
-entidad externa que los una. Esta regla de construcción sirve como ayuda al analista para contemplar que en un nivel tan
-elevado de abstracción es altamente probable que la información que se maneja requiera ser almacenada en el sistema.  
-``Nivel 2`` “diagrama de detalle o expansión”: comienzan a explotarse las excepciones a los caminos principales de la
-información dado que aumenta progresivamente el nivel de detalle. De aquí en adelante se permiten los flujos entre
-procesos. Puede considerarse el máximo para ser validado en forma conjunta con el usuario dado que en los niveles
-posteriores el alto grado de complejidad del diagrama.
+### 2\. MODELO ENTIDAD/RELACIÓN
 
-1.2. DISEÑO DE UNA BASE DE DATOS / DISEÑO DE UN SGBD  
-``Diseño de una base de datos``:  
-``Conceptual``: se confecciona a partir de la especificación de requerimientos y su resultado es el esquema conceptual
-de la base de datos (una descripción de alto nivel de la estructura de la base de datos, independiente del software que
-se use para manipularla).  
-``Lógico``: se confecciona a partir del diseño conceptual y da como resultado una descripción de la estructura de la
-base de datos que puede procesar el software DBMS.  
-``Físico``: se confecciona a partir del esquema lógico y da como resultado una descripción de la implementación de una
-base de datos en la memoria secundaria, describe la estructura de almacenamiento y los métodos usados para tener un
-acceso efectivo a los datos.
+* Es una herramienta para el modelo de datos, la cual facilita la representación de entidades de una base de datos y las
+  relaciones entre ellas. Se suele desarrollar en dos fases:
+    * 1\. Se elabora el diagrama entidad/relación.
+    * 2\. Se completa el modelo con listas de atributos y una descripción de otras restricciones que no se pueden
+      reflejar en el diagrama.
 
-``Diseño de un Sistema Gestor de Bases de Datos`` (el objetivo de la arquitectura de tres niveles es separar la vista de
-los usuarios, y así ocultar la complejidad de la base en tres niveles):  
-``Nivel interno`` (Almacenamiento Físico): implica la forma en que la base de datos se representa físicamente en el
-sistema informático. En él se describe cómo los datos se almacenan en la base de datos y en el hardware del equipo.  
-``Nivel conceptual``: forma de describir los datos que se almacenan dentro de la base de datos y cómo los datos están
-relacionados entre sí. Describe la estructura de todos los usuarios y es independiente de hardware y software.  
-``Nivel externo`` (Vistas de usuario): describe una parte de la base de datos que es relevante para un usuario en
-particular. Excluye datos irrelevantes, así como los datos que el usuario no está autorizado a acceder.
+* El modelo está basado en una colección de objetos básicos (llamados entidades), de relaciones entre esos objetos y de
+  atributos los mismos.
+    * ``Entidad``: representa un “objeto” del mundo real con existencia independiente, es decir, se diferencia
+      únicamente de otro objeto o cosa, incluso siendo del mismo tipo o una misma entidad (Ejemplo: una persona se
+      diferencia de cualquier otra persona, incluso siendo gemelos). Todos los valores que toman los atributos de la
+      entidad deben tener las mismas propiedades. Existen dos clases de entidades:
+        * ``Fuertes``: tienen existencia por sí mismos.
+        * ``Débiles``: su existencia depende de otro tipo de entidad, si desaparece la entidad de la que dependen,
+          también desaparece la entidad débil.
 
-2\. MODELO ENTIDAD/RELACIÓN  
-Es una herramienta para el modelo de datos, la cual facilita la representación de entidades de una base de datos y las
-relaciones entre ellas. Se suele desarrollar en dos fases:  
-1\. Se elabora el diagrama entidad/relación.  
-2\. Se completa el modelo con listas de atributos y una descripción de otras restricciones que no se pueden reflejar en
-el diagrama.
+    * ``Relación``: asociación entre entidades de la misma naturaleza (Ejemplo: dados los conjuntos de entidades "
+      Habitación" y "Huésped", todas las relaciones de la forma habitación-huésped, permiten obtener la información de
+      los huéspedes y sus respectivas habitaciones, es decir, participan en el conjunto). Las relaciones se caracterizan
+      por tres propiedades:
+        * ``Grado``: número de entidades participantes en la relación. (Si relacionan una entidad consigo misma se
+          llaman reflexivas).
+        * ``Cardinalidad``: número de entidades con la cual otra entidad puede asociar mediante una relación binaria,
+          pueden ser de tres tipos: 1-1, 1-N y N-N.
+    * Se dice que una ``relación`` es ``exclusiva`` cuando la existencia de una relación entre dos tipos de entidades
+      implica la no existencia de las otras relaciones.
 
-El modelo está basado en una colección de objetos básicos (llamados entidades), de relaciones entre esos objetos y de
-atributos los mismos.  
-``Entidad``: representa un “objeto” del mundo real con existencia independiente, es decir, se diferencia únicamente de
-otro objeto o cosa, incluso siendo del mismo tipo o una misma entidad (Ejemplo: una persona se diferencia de cualquier
-otra persona, incluso siendo gemelos). Todos los valores que toman los atributos de la entidad deben tener las mismas
-propiedades. Existen dos clases de entidades:
+    * ``Atributos``: unidad básica de información, características que definen o identifican a una entidad, cada entidad
+      tiene valores específicos asignados para cada uno de sus atributos, de esta forma, es posible su identificación
+      unívoca. (
+      Ejemplo: a la colección de entidades “alumnos”, con el siguiente conjunto de atributos en común, (id, nombre,
+      edad, semestre), pertenecen las entidades:
+        * (1, Ana, 15 años, 2), (2, María, 19 años, 5), ...
+    * Los atributos identificativos permiten diferenciar a una instancia de la entidad de otra distinta (en el ejemplo,
+      el ID de cada alumno). Para cada atributo, existe un dominio del mismo, este hace referencia al tipo de datos que
+      será almacenado a restricciones en los valores que el atributo puede tomar. ``Tipos`` de atributos:
+        * ``Univaluados``: distingue de manera única una ocurrencia de entidad del resto de ocurrencias de entidad (su
+          nombre aparece subrayado).
+        * ``Multivaluados``: pueden tomar más de un valor.
+        * ``Compuestos``: su valor se puede calcular a partir de valores de atributos relacionados y a su vez puede
+          descomponerse en varios atributos.
 
-* ``Fuertes``: tienen existencia por sí mismos.
-* ``Débiles``: su existencia depende de otro tipo de entidad, si desaparece la entidad de la que dependen, también
-  desaparece la entidad débil.
+### 3\. MODELO RELACIONAL
 
-``Relación``: asociación entre entidades de la misma naturaleza (Ejemplo: dados los conjuntos de entidades "Habitación"
-y "Huésped", todas las relaciones de la forma habitación-huésped, permiten obtener la información de los huéspedes y sus
-respectivas habitaciones, es decir, participan en el conjunto). Las relaciones se caracterizan por tres propiedades:
+* Un SBDRelacional se caracteriza por presentar sus datos siguiendo las Reglas de Codd:
+    * ``Regla 0`` (fundación): Cualquier sistema que se proclame como relacional, debe ser capaz de gestionar sus bases
+      de datos enteramente mediante sus capacidades relacionales.
+    * ``Regla 1`` (información): la información en la base de datos es representada  
+      unidireccionalmente por valores en posiciones de las columnas dentro de filas de tablas. Toda la información en
+      una base de datos relacional se representa explícitamente en el nivel lógico exactamente de una manera: con
+      valores en tablas.
+    * ``Regla 2`` (acceso garantizado): Todos los datos deben ser accesibles sin ambigüedad. Cada valor escalar
+      individual en la base de datos debe ser lógicamente direccionable  
+      especificando el nombre de la tabla, la columna que lo contiene y la clave primaria.
+    * ``Regla 3`` (tratamiento sistematico de valores nulos): el SGBD debe permitir que haya campos nulos. Debe tener
+      una representación de la «información que falta y de la información inaplicable» que sea sistemática y distinta de
+      todos los valores regulares.
+    * ``Regla 4`` (catálogo dinámico): El sistema debe soportar un catálogo en línea, el catálogo relacional, que da
+      acceso a la estructura de la base de datos y que debe ser accesible a los usuarios autorizados. El catálogo de
+      sistema es una colección de tablas especiales en una base de datos que son propiedad, están creadas y son
+      mantenidas por el propio DBMS. Estas tablas del sistema contienen datos que describen la estructura de la base de
+      datos.
+    * ``Regla 5`` (sublenguaje global de datos): El sistema debe soportar por lo menos un lenguaje relacional que tenga
+      una sintaxis lineal, pueda ser utilizado de manera interactiva y tenga soporte de operaciones de definición de
+      datos, operaciones de manipulación de datos (actualización así como la recuperación), de control de la seguridad e
+      integridad y operaciones de administración de transacciones.
+    * ``Regla 6`` (actualización de vistas): Todas las vistas que son teóricamente actualizables deben poder ser
+      actualizadas por el sistema.
+    * ``Regla 7`` (alto nivel de inserción, actualización y borrado): los datos no solo se pueden recuperar de una base
+      de datos relacional a partir de filas múltiples y/o de tablas múltiples,sino que también pueden realizarse
+      inserciones, actualizaciones y borrados sobre varias tuplas y/o tablas al mismo tiempo y no solo sobre registros
+      individuales.
+    * ``Regla 8`` (independencia física de los datos): Los programas de aplicación y actividades del terminal permanecen
+      inalterados a nivel lógico aunque se realicen cambios en las representaciones de almacenamiento o métodos de
+      acceso.
+    * ``Regla 9`` (independencia lógica de los datos): Los programas de aplicación, actividades del terminal y vistas,
+      permanecen inalterados a nivel lógico aunque se realicen cambios a las tablas base que preserven la información.
+    * ``Regla 10`` (independencia de la integridad): Las reglas de integridad\* se deben especificar por separado de los
+      programas de aplicación y almacenarse en la base de datos. Debe ser posible cambiar esas restricciones sin afectar
+      innecesariamente a las aplicaciones existentes.
+    * ``Regla 11`` (independencia de la distribución): La distribución de porciones de base de datos en distintas
+      localizaciones debe ser transparente para los usuarios de la base de datos.
+    * ``Regla 12`` (no subversión): Si el sistema proporciona una interfaz de bajo nivel de registro, aparte de una
+      interfaz relacional, esa interfaz de bajo nivel no debe permitir su utilización para subvertir el sistema. Por
+      ejemplo para sortear las reglas de seguridad relacional o las restricciones de integridad (no puede tener
+      backdoors).
 
-* ``Grado``: número de entidades participantes en la relación. (Si relacionan una entidad consigo misma se llaman
-  reflexivas).
-* ``Cardinalidad``: número de entidades con la cual otra entidad puede asociar mediante una relación binaria, pueden ser
-  de tres tipos: 1-1, 1-N y N-N.
-* Se dice que una ``relación`` es ``exclusiva`` cuando la existencia de una relación entre dos tipos de entidades
-  implica la no existencia de las otras relaciones.
+#### 3.1 CONCEPTOS DEL MODELO RELACIONAL
 
-``Atributos``: unidad básica de información, características que definen o identifican a una entidad, cada entidad tiene
-valores específicos asignados para cada uno de sus atributos, de esta forma, es posible su identificación unívoca. (
-Ejemplo: a la colección de entidades “alumnos”, con el siguiente conjunto de atributos en común, (id, nombre, edad,
-semestre), pertenecen las entidades:
+* ``Relación``: en una BDR, todos los datos se almacenan y se accede a ellos por medio de relaciones previamente
+  establecidas, las relaciones que almacenan datos son llamadas relaciones base y su implementación es llamada "tabla",
+  para que una tabla sea considerada como una relación tiene que cumplir con algunas restricciones:
+    * Cada tabla debe tener un solo tipo de filas.
+    * Todos los datos en una columna deben ser del mismo tipo (dominio).
+    * Nunca habrá valores multivaluados (el valor individual de la intersección de una fila y una columna será único).
 
-* (1, Ana, 15 años, 2), (2, María, 19 años, 5), ...
+* ``Dominio``: describe un conjunto de posibles valores para cierto atributo.
+* ``Atributo``: es una etiqueta de una relación (tabla), deben estar explícitamente relacionados con un nombre en todas
+  las operaciones.
+* ``Grado``: número de atributos de una relación.
+* ``Cardinalidad``: número de tuplas (filas) de la relación.
 
-Los atributos identificativos permiten diferenciar a una instancia de la entidad de otra distinta (en el ejemplo, el ID
-de cada alumno). Para cada atributo, existe un dominio del mismo, este hace referencia al tipo de datos que será
-almacenado a restricciones en los valores que el atributo puede tomar. ``Tipos`` de atributos:
+#### 3.2. REGLAS DE INTEGRIDAD
 
-* ``Univaluados``: distingue de manera única una ocurrencia de entidad del resto de ocurrencias de entidad (su nombre
-  aparece subrayado).
-* ``Multivaluados``: pueden tomar más de un valor.
-* ``Compuestos``: su valor se puede calcular a partir de valores de atributos relacionados y a su vez puede
-  descomponerse en varios atributos.
+* La extensión de las relaciones (es decir, las tuplas que contienen las relaciones) deben tener valores que reflejen la
+  realidad correctamente (en la relación de esquema EMPLEADOS(DNI, nombre, apellido, sueldo), una tupla que tiene un
+  valor de –1.000 para el sueldo probablemente no tiene sentido, porque los sueldos no pueden ser negativos). En
+  general, las condiciones que garantizan la integridad de los datos pueden ser de dos tipos:
+    * ``Restricciones de integridad de usuario``: condiciones específicas de una base de datos concreta; es decir, son
+      las que se deben cumplir en una base de datos particular con unos usuarios concretos, pero que no son
+      necesariamente relevantes en otra base de datos.
+    * ``Reglas de integridad de modelo``: son condiciones más generales, propias de un modelo de datos, y se deben
+      cumplir en toda base de datos que siga dicho modelo.
+        * ``Regla de integridad de unicidad de la clave primaria``: establece que toda clave primaria que se elija para
+          una relación no debe tener valores repetidos.
+        * ``Regla de integridad de entidad de la clave primaria``: dispone que los atributos de la clave primaria de una
+          relación no pueden tener valores nulos.
+        * ``Regla de integridad referencial``: está relacionada con el concepto de clave foránea. Concretamente,
+          determina que todos los valores que toma una clave foránea deben ser valores nulos o valores que existen en la
+          clave primaria que referencia.
+        * ``Regla de integridad de dominio``: implica que todos los valores no nulos que contiene la base de datos para
+          un determinado atributo deben ser del dominio declarado para dicho atributo (enteros, string,...).
 
-3\. MODELO RELACIONAL  
-Un SBDRelacional se caracteriza por presentar sus datos siguiendo las Reglas de Codd:  
-``Regla 0`` (fundación): Cualquier sistema que se proclame como relacional, debe ser capaz de gestionar sus bases de
-datos enteramente mediante sus capacidades relacionales.  
-``Regla 1`` (información): la información en la base de datos es representada  
-unidireccionalmente por valores en posiciones de las columnas dentro de filas de tablas. Toda la información en una base
-de datos relacional se representa explícitamente en el nivel lógico exactamente de una manera: con valores en tablas.  
-``Regla 2`` (acceso garantizado): Todos los datos deben ser accesibles sin ambigüedad. Cada valor escalar individual en
-la base de datos debe ser lógicamente direccionable  
-especificando el nombre de la tabla, la columna que lo contiene y la clave primaria.  
-``Regla 3`` (tratamiento sistematico de valores nulos): el SGBD debe permitir que haya campos nulos. Debe tener una
-representación de la «información que falta y de la información inaplicable» que sea sistemática y distinta de todos los
-valores regulares.  
-``Regla 4`` (catálogo dinámico): El sistema debe soportar un catálogo en línea, el catálogo relacional, que da acceso a
-la estructura de la base de datos y que debe ser accesible a los usuarios autorizados. El catálogo de sistema es una
-colección de tablas especiales en una base de datos que son propiedad, están creadas y son mantenidas por el propio
-DBMS. Estas tablas del sistema contienen datos que describen la estructura de la base de datos.  
-``Regla 5`` (sublenguaje global de datos): El sistema debe soportar por lo menos un lenguaje relacional que tenga una
-sintaxis lineal, pueda ser utilizado de manera interactiva y tenga soporte de operaciones de definición de datos,
-operaciones de manipulación de datos (actualización así como la recuperación), de control de la seguridad e integridad y
-operaciones de administración de transacciones.  
-``Regla 6`` (actualización de vistas): Todas las vistas que son teóricamente actualizables deben poder ser actualizadas
-por el sistema.  
-``Regla 7`` (alto nivel de inserción, actualización y borrado): los datos no solo se pueden recuperar de una base de
-datos relacional a partir de filas múltiples y/o de tablas múltiples,sino que también pueden realizarse inserciones,
-actualizaciones y borrados sobre varias tuplas y/o tablas al mismo tiempo y no solo sobre registros individuales.  
-``Regla 8`` (independencia física de los datos): Los programas de aplicación y actividades del terminal permanecen
-inalterados a nivel lógico aunque se realicen cambios en las representaciones de almacenamiento o métodos de acceso.  
-``Regla 9`` (independencia lógica de los datos): Los programas de aplicación, actividades del terminal y vistas,
-permanecen inalterados a nivel lógico aunque se realicen cambios a las tablas base que preserven la información.  
-``Regla 10`` (independencia de la integridad): Las reglas de integridad\* se deben especificar por separado de los
-programas de aplicación y almacenarse en la base de datos. Debe ser posible cambiar esas restricciones sin afectar
-innecesariamente a las aplicaciones existentes.  
-``Regla 11`` (independencia de la distribución): La distribución de porciones de base de datos en distintas
-localizaciones debe ser transparente para los usuarios de la base de datos.  
-``Regla 12`` (no subversión): Si el sistema proporciona una interfaz de bajo nivel de registro, aparte de una interfaz
-relacional, esa interfaz de bajo nivel no debe permitir su utilización para subvertir el sistema. Por ejemplo para
-sortear las reglas de seguridad relacional o las restricciones de integridad (no puede tener backdoors).
+* Asociado al concepto de integridad, se define el concepto de clave:
+    * Clasificación de Claves: cada relación puede tener uno o más campos cuyos valores identifican de forma única cada
+      registro de dicha tabla, es decir, no pueden existir dos o más registros diferentes cuyos valores en dichos campos
+      sean idénticos. Este conjunto de campos se llama clave única. Pueden existir varias claves únicas en una
+      determinada tabla, y a cada una de estas suele llamársele candidata a clave primaria.
+        * ``Clave primaria``: una clave primaria es una clave única (puede estar conformada por uno o más campos de la
+          tabla)
+          elegida entre todas las candidatas que define unívocamente a todos los demás atributos de la tabla para
+          especificar los datos que serán relacionados con las demás tablas. La forma de hacer esto (relación entre
+          tablas) es por medio de claves foráneas.
+        * ``Clave externa o foránea``: una clave foránea es una referencia a una clave en otra tabla, determina la
+          relación existente en dos tablas. Las claves foráneas no necesitan ser claves únicas en la tabla donde están (
+          por lo que una de ellas puede ser nula) y sí a donde están referenciadas. Por ejemplo, el código de
+          departamento puede ser una clave foránea en la tabla de empleados. Se permite que haya varios empleados en un
+          mismo departamento, pero habrá uno y solo un departamento por cada clave distinta de departamento en la tabla
+          de departamentos.
+        * ``Clave índice``: las claves índice surgen con la necesidad de tener un acceso más rápido a los datos. Los
+          índices pueden ser creados con cualquier combinación de campos de una tabla. Las consultas que filtran
+          registros por medio de estos campos, pueden encontrar los registros de forma no secuencial usando la clave
+          índice. Las bases de datos relacionales incluyen múltiples técnicas de ordenamiento, cada una de ellas es
+          óptima para cierta distribución de datos y tamaño de la relación.
 
-3.1 CONCEPTOS DEL MODELO RELACIONAL  
-``Relación``: en una BDR, todos los datos se almacenan y se accede a ellos por medio de relaciones previamente
-establecidas, las relaciones que almacenan datos son llamadas relaciones base y su implementación es llamada "tabla",
-para que una tabla sea considerada como una relación tiene que cumplir con algunas restricciones:
+* Los índices generalmente no se consideran parte de la base de datos, pues son un detalle agregado. Sin embargo, las
+  claves índices son desarrolladas por el mismo grupo de programadores que las otras partes de la base de datos.
 
-* Cada tabla debe tener un solo tipo de filas.
-* Todos los datos en una columna deben ser del mismo tipo (dominio).
-* Nunca habrá valores multivaluados (el valor individual de la intersección de una fila y una columna será único).
+### 4\. MODELO ORIENTADO A OBJETOS
 
-``Dominio``: describe un conjunto de posibles valores para cierto atributo.  
-``Atributo``: es una etiqueta de una relación (tabla), deben estar explícitamente relacionados con un nombre en todas
-las operaciones.  
-``Grado``: número de atributos de una relación.  
-``Cardinalidad``: número de tuplas (filas) de la relación.
+* ``Características del modelo de programación orientado a objetos``:
+    * ``Abstracción``: consiste en aislar un elemento en su contexto de sus elementos que lo acompañan.
+    * ``Encapsulamiento``: poder separar la interfaz de una clase de su implementación o dicho en otras palabras no es
+      necesario conocer los detalles de cómo están implementados las propiedades para poder utilizarlas.
+    * ``Herencia``: es una propiedad que permite que los objetos sean creados a partir de otros ya existentes,
+      obteniendo características (métodos y atributos) similares a los ya existentes.
+    * ``Polimorfismo``: hace referencia a un conjunto de métodos con el mismo nombre e igual número de parámetros y
+      tipos, pero que se encuentran definidos en diferentes clases.
+    * ``Sobrecarga``: capacidad de un lenguaje de programación, que permite definir dos o más métodos con el mismo
+      nombre pero parámetros diferentes en cantidad y/o tipo.
+    * ``Modularidad``: una opción importante para la escalabilidad y comprensión de programas, además de ahorrar trabajo
+      y tiempo en el desarrollo.
+    * ``Relación``: una relación o vínculo entre dos o más entidades describe alguna interacción entre las mismas.
 
-3.2. REGLAS DE INTEGRIDAD  
-La extensión de las relaciones (es decir, las tuplas que contienen las relaciones) deben tener valores que reflejen la
-realidad correctamente (en la relación de esquema EMPLEADOS(DNI, nombre, apellido, sueldo), una tupla que tiene un valor
-de –1.000 para el sueldo probablemente no tiene sentido, porque los sueldos no pueden ser negativos). En general, las
-condiciones que garantizan la integridad de los datos pueden ser de dos tipos:  
-``Restricciones de integridad de usuario``: condiciones específicas de una base de datos concreta; es decir, son las que
-se deben cumplir en una base de datos particular con unos usuarios concretos, pero que no son necesariamente relevantes
-en otra base de datos.  
-``Reglas de integridad de modelo``: son condiciones más generales, propias de un modelo de datos, y se deben cumplir en
-toda base de datos que siga dicho modelo.
+### 4\. NORMALIZACIÓN
 
-* ``Regla de integridad de unicidad de la clave primaria``: establece que toda clave primaria que se elija para una
-  relación no debe tener valores repetidos.
-* ``Regla de integridad de entidad de la clave primaria``: dispone que los atributos de la clave primaria de una
-  relación no pueden tener valores nulos.
-* ``Regla de integridad referencial``: está relacionada con el concepto de clave foránea. Concretamente, determina que
-  todos los valores que toma una clave foránea deben ser valores nulos o valores que existen en la clave primaria que
-  referencia.
-* ``Regla de integridad de dominio``: implica que todos los valores no nulos que contiene la base de datos para un
-  determinado atributo deben ser del dominio declarado para dicho atributo (enteros, string,...).
+* La ``normalización`` de bases de datos es un proceso que consiste en aplicar una serie de reglas a las relaciones (
+  tablas) obtenidas tras el paso del modelo entidad-relación al modelo relacional.
+* Con objeto de minimizar la redundancia de datos, facilitando su gestión posterior para:
+    * Minimizar la redundancia de los datos.
+    * Disminuir problemas de actualización de los datos en las tablas.
+    * Proteger la integridad de datos.
 
-Asociado al concepto de integridad, se define el concepto de clave:  
-Clasificación de Claves: cada relación puede tener uno o más campos cuyos valores identifican de forma única cada
-registro de dicha tabla, es decir, no pueden existir dos o más registros diferentes cuyos valores en dichos campos sean
-idénticos. Este conjunto de campos se llama clave única. Pueden existir varias claves únicas en una determinada tabla, y
-a cada una de estas suele llamársele candidata a clave primaria.
+* El proceso de normalización se basa en relaciones de dependencia entre los datos:
+    * ``Dependencia funcional reflexiva``: a partir de cualquier atributo o conjunto de atributos siempre puede
+      deducirse él mismo (A-\>B). Si la dirección o el nombre de una persona están incluidos en el DNI, entonces con el
+      DNI podemos determinar la dirección o su nombre.
+    * ``Dependencia funcional aumentativa/completa``: si A-\>B, entonces AC-\>BC (si con el DNI se determina el nombre
+      de una persona, entonces con el DNI más la dirección también se determina el nombre y su dirección).
+    * ``Dependencia funcional transitiva``: si A-\>B-\>C, entonces A-\>C (entonces entendemos que FechaDeNacimiento
+      determina a Edad y la Edad determina a Conducir, indirectamente podemos saber a través de FechaDeNacimiento a
+      Conducir).
 
-* ``Clave primaria``: una clave primaria es una clave única (puede estar conformada por uno o más campos de la tabla)
-  elegida entre todas las candidatas que define unívocamente a todos los demás atributos de la tabla para especificar
-  los datos que serán relacionados con las demás tablas. La forma de hacer esto (relación entre tablas) es por medio de
-  claves foráneas.
-* ``Clave externa o foránea``: una clave foránea es una referencia a una clave en otra tabla, determina la relación
-  existente en dos tablas. Las claves foráneas no necesitan ser claves únicas en la tabla donde están (por lo que una de
-  ellas puede ser nula) y sí a donde están referenciadas. Por ejemplo, el código de departamento puede ser una clave
-  foránea en la tabla de empleados. Se permite que haya varios empleados en un mismo departamento, pero habrá uno y solo
-  un departamento por cada clave distinta de departamento en la tabla de departamentos.
-* ``Clave índice``: las claves índice surgen con la necesidad de tener un acceso más rápido a los datos. Los índices
-  pueden ser creados con cualquier combinación de campos de una tabla. Las consultas que filtran registros por medio de
-  estos campos, pueden encontrar los registros de forma no secuencial usando la clave índice. Las bases de datos
-  relacionales incluyen múltiples técnicas de ordenamiento, cada una de ellas es óptima para cierta distribución de
-  datos y tamaño de la relación.
+#### 4.1. FORMAS NORMALES
 
-Los índices generalmente no se consideran parte de la base de datos, pues son un detalle agregado. Sin embargo, las
-claves índices son desarrolladas por el mismo grupo de programadores que las otras partes de la base de datos.
+* ``1FN``: una entidad está en 1FN si no tiene grupos repetitivos, es decir, un atributo solo puede tomar un único valor
+  de un domino simple. Debe cumplir:
+    * No hay orden de arriba a abajo en las filas.
+    * No hay orden de izquierda a derecha en las columnas.
+    * No hay filas duplicadas.
+    * Cada intersección de fila y columna contiene exactamente un valor del dominio aplicable (y nada más).
+    * Todas las columnas son regulares, es decir, las filas no tienen componentes como IDs de fila, IDs de objeto, o
+      timestamps ocultos.
 
-4\. MODELO ORIENTADO A OBJETOS  
-``Características del modelo de programación orientado a objetos``:  
-``Abstracción``: consiste en aislar un elemento en su contexto de sus elementos que lo acompañan.  
-``Encapsulamiento``: poder separar la interfaz de una clase de su implementación o dicho en otras palabras no es
-necesario conocer los detalles de cómo están implementados las propiedades para poder utilizarlas.  
-``Herencia``: es una propiedad que permite que los objetos sean creados a partir de otros ya existentes, obteniendo
-características (métodos y atributos) similares a los ya existentes.  
-``Polimorfismo``: hace referencia a un conjunto de métodos con el mismo nombre e igual número de parámetros y tipos,
-pero que se encuentran definidos en diferentes clases.  
-``Sobrecarga``: capacidad de un lenguaje de programación, que permite definir dos o más métodos con el mismo nombre pero
-parámetros diferentes en cantidad y/o tipo.  
-``Modularidad``: una opción importante para la escalabilidad y comprensión de programas, además de ahorrar trabajo y
-tiempo en el desarrollo.  
-``Relación``: una relación o vínculo entre dos o más entidades describe alguna interacción entre las mismas.
+* ``2FN``: una entidad está en 2FN si está en 1FN y todos los atributos que no forman parte de las claves candidatas
+  tienen dependencia funcional completa respecto de estas, es decir, una tabla 1NF está en 2NF si y solo si, dada una
+  clave primaria y cualquier atributo que no sea un constituyente de la clave primaria, el atributo no clave depende de
+  toda la clave.
+* ``3FN``: una entidad está en 3FN si está en 2FN y todos sus atributos no principales depende directamente de la clave
+  primaria, es decir, no hay dependencias funcionales transitivas de atributos no principales respecto de las claves.
+    * ``FN Boyce-Codd``: es una versión de la 3FN, está en FNBC si solo existen dependencias funcionales elementales que
+      dependan de la clave primaria o de cualquier alternativa, es decir, si la clave primaria está formada por un
+      atributo y ya está en 3FN, también estará en FNBC.
 
-4\. NORMALIZACIÓN  
-La ``normalización`` de bases de datos es un proceso que consiste en aplicar una serie de reglas a las relaciones (
-tablas) obtenidas tras el paso del modelo entidad-relación al modelo relacional. Con objeto de minimizar la redundancia
-de datos, facilitando su gestión posterior para:
+* ``4FN``: una entidad está en 4FN, si está en 3FN y no tiene dependencias funcionales  
+  multivaluadas no triviales.
+* ``5FN``: una entidad está en 5FN, si está en 4NF y cada dependencia de unión (join) en ella es implicada por las
+  claves candidatas.
 
-* Minimizar la redundancia de los datos.
-* Disminuir problemas de actualización de los datos en las tablas.
-* Proteger la integridad de datos.
-
-El proceso de normalización se basa en relaciones de dependencia entre los datos:  
-``Dependencia funcional reflexiva``: a partir de cualquier atributo o conjunto de atributos siempre puede deducirse él
-mismo (A-\>B). Si la dirección o el nombre de una persona están incluidos en el DNI, entonces con el DNI podemos
-determinar la dirección o su nombre.  
-``Dependencia funcional aumentativa/completa``: si A-\>B, entonces AC-\>BC (si con el DNI se determina el nombre de una
-persona, entonces con el DNI más la dirección también se determina el nombre y su dirección).  
-``Dependencia funcional transitiva``: si A-\>B-\>C, entonces A-\>C (entonces entendemos que FechaDeNacimiento determina
-a Edad y la Edad determina a Conducir, indirectamente podemos saber a través de FechaDeNacimiento a Conducir).
-
-4.1. FORMAS NORMALES  
-``1FN``: una entidad está en 1FN si no tiene grupos repetitivos, es decir, un atributo solo puede tomar un único valor
-de un domino simple. Debe cumplir:
-
-* No hay orden de arriba a abajo en las filas.
-* No hay orden de izquierda a derecha en las columnas.
-* No hay filas duplicadas.
-* Cada intersección de fila y columna contiene exactamente un valor del dominio aplicable (y nada más).
-* Todas las columnas son regulares, es decir, las filas no tienen componentes como IDs de fila, IDs de objeto, o
-  timestamps ocultos.
-
-``2FN``: una entidad está en 2FN si está en 1FN y todos los atributos que no forman parte de las claves candidatas
-tienen dependencia funcional completa respecto de estas, es decir, una tabla 1NF está en 2NF si y solo si, dada una
-clave primaria y cualquier atributo que no sea un constituyente de la clave primaria, el atributo no clave depende de
-toda la clave.  
-``3FN``: una entidad está en 3FN si está en 2FN y todos sus atributos no principales depende directamente de la clave
-primaria, es decir, no hay dependencias funcionales transitivas de atributos no principales respecto de las claves.
-
-* ``FN Boyce-Codd``: es una versión de la 3FN, está en FNBC si solo existen dependencias funcionales elementales que
-  dependan de la clave primaria o de cualquier alternativa, es decir, si la clave primaria está formada por un atributo
-  y ya está en 3FN, también estará en FNBC.
-
-``4FN``: una entidad está en 4FN, si está en 3FN y no tiene dependencias funcionales  
-multivaluadas no triviales.  
-``5FN``: una entidad está en 5FN, si está en 4NF y cada dependencia de unión (join) en ella es implicada por las claves
-candidatas.
-
-5\. TRANSFORMACION DEL MODELO E/R A RELACIONAL
+### 5\. TRANSFORMACION DEL MODELO E/R A RELACIONAL
 
 | ELEMENTO DEL MODELO E/R | TRANSFORMACIÓN AL MODELO RELACIONAL |
 | :---- | :---- |
@@ -3142,635 +3159,737 @@ candidatas.
 | Atributos derivados | No se representan. |
 | Atributos multivaluados | Para cada atributo multivaluado se crea una relación (tabla). Los atributos de la relación serán la clave primaria de la entidad a la que pertenece el atributo multivaluado más los atributos correspondientes al atributo multivaluado. La clave primaria de la relación será la clave primaria de la entidad más los atributos correspondientes al atributo multivaluado. |
 
-TEMA 6 \- DFD, MODELO E/R Y SGBD (RELACIONALES, OBJETOS Y NOSQL)  
-1\. GESTIÓN DE BASES DE DATOS  
-Una base de datos es una colección de datos relacionados que pueden registrarse y que tienen un significado implícito (
-nombres, números de teléfono, direcciones...). Tiene una fuente de la cual provienen los datos, grado de interacción con
-los sucesos del mundo real, y audiencia que esta activamente interesada en el contenido, puede tener cualquier tamaño y
-complejidad, puede crearse y mantenerse bien mediante un conjunto de programas de aplicación diseñados específicamente
-para dicha tarea o bien mediante un sistema de gestión de base de datos.
+## TEMA 6 \- DFD, MODELO E/R Y SGBD (RELACIONALES, OBJETOS Y NOSQL)
 
-1.1 DBMS (DataBase Management System)  
-Es una colección de programas que permiten a los usuarios crear y mantener una base de datos, es un software de
-propósito general que facilita los procesos de definición, construcción y manipulación de bases de datos. El enfoque de
-bases de datos, la estructura y organización detallada de cada fichero se almacena en el catálogo, y el DMBS extrae del
-catálogo los detalles de la organización cuando estos son requeridos por el software DBMS.
+### 1\. GESTIÓN DE BASES DE DATOS
 
-La característica que permite la independencia de programas-datos y de programas-operaciones se llama abstracción de
-datos, un DBMS ofrece a los usuario una representación conceptual de los datos, un modelo de datos es un tipo de
-abstracción de datos que se utiliza para proporcionar esta representación conceptual, el modelo de datos utiliza
-conceptos lógicos como las propiedades e interrelaciones de objetos, el modelo de datos oculta los detalles de
-almacenamiento e implementación que no interesan a la mayoría de usuario de la base de datos. El objetivo de esta
-abstracción es separar las aplicaciones del usuario y la base de datos física:  
-``Nivel interno``: esquema interno que describe la estructura física de almacenamiento de la base de datos, emplea un
-modelo de datos físico y describe todos los detalles para su almacenamiento, así como los camios de acceso para la base
-de datos.  
-``Nivel conceptual``: esquema conceptual que describe la estructura de datos completa para una comunidad de usuarios,
-oculta los detalles de las estructuras físicas de almacenamiento y se concentra en describir detalles entidades, tipos
-de datos, vínculos, operaciones de los usuarios y restricciones.  
-``Nivel externo``: “de visitas”, varios esquemas externos o vistas de usuario. Cada esquema externo describe la parte de
-la base de datos que interesa a un grupo de usuarios y oculta a ese grupo el resto de la base de datos, modelo de datos
-de alto nivel o uno de implementación.
+* Una base de datos es una colección de datos relacionados que pueden registrarse y que tienen un significado
+  implícito (nombres, números de teléfono, direcciones...).
+* Tiene una fuente de la cual provienen los datos, grado de interacción con los sucesos del mundo real, y audiencia que
+  esta activamente interesada en el contenido, puede tener cualquier tamaño y complejidad, puede crearse y mantenerse
+  bien mediante un conjunto de programas de aplicación diseñados específicamente para dicha tarea o bien mediante un
+  sistema de gestión de base de datos.
 
-Los tres esquemas no son más que descripciones de los datos, que existen realmente y están en el nivel físico, el DBMS
-debe transformar una solicitud expresada en términos de un esquema externo en una solicitud expresada en términos del
-esquema conceptual y luego en una solicitud en el esquema interno. El proceso de trasformar solicitudes y resultados de
-un nivel a otros denomina correspondencia o transformación (mapping).
+#### 1.1 DBMS (DataBase Management System)
 
-1.2. COMPARTIMIENTO DE DATOS Y PROCESAMIENTO DE TRANSACCIONES MULTIUSUARIOS   
-Todo DBMS debe permitir a varios usuarios tener acceso simultaneo a la base de datos, el DBMS debe incluir software de
-control de concurrencia para asegurar que cuando varios usuarios intenten actualizar los mismos datos lo hagan de manera
-controlada, los DBMS deben asegurar que todas las transacciones que se hagan sobre los datos, una vez finalizadas,
-tengan (ACID):  
-``Atomicity``: asegurar que la transacción realizada este completa sin que exista la posibilidad de que haya quedado a
-media debido al algún fallo.  
-``Consistency``: si la base de datos estaba en un estado correcto antes del inicio de la transacción debe acabar la
-transacción en un estado correcto.  
-``Isolation``: si se están ejecutando varias transacciones simultáneamente, el sistema debe asegurar que se realizan de
-manera independiente unas de otras.  
-``Durability``: terminada la transacción, se debe asegurar que los resultados quedan registrados en la base de datos.
+* Es una colección de programas que permiten a los usuarios crear y mantener una base de datos, es un software de
+  propósito general que facilita los procesos de definición, construcción y manipulación de bases de datos.
+* El enfoque de bases de datos, la estructura y organización detallada de cada fichero se almacena en el catálogo, y el
+  DMBS extrae del catálogo los detalles de la organización cuando estos son requeridos por el software DBMS.
+* La característica que permite la independencia de programas-datos y de programas-operaciones se llama abstracción de
+  datos, un DBMS ofrece a los usuario una representación conceptual de los datos, un modelo de datos es un tipo de
+  abstracción de datos que se utiliza para proporcionar esta representación conceptual, el modelo de datos utiliza
+  conceptos lógicos como las propiedades e interrelaciones de objetos, el modelo de datos oculta los detalles de
+  almacenamiento e implementación que no interesan a la mayoría de usuario de la base de datos. El objetivo de esta
+  abstracción es separar las aplicaciones del usuario y la base de datos física:
+    * ``Nivel interno``: esquema interno que describe la estructura física de almacenamiento de la base de datos, emplea
+      un modelo de datos físico y describe todos los detalles para su almacenamiento, así como los camios de acceso para
+      la base de datos.
+    * ``Nivel conceptual``: esquema conceptual que describe la estructura de datos completa para una comunidad de
+      usuarios, oculta los detalles de las estructuras físicas de almacenamiento y se concentra en describir detalles
+      entidades, tipos de datos, vínculos, operaciones de los usuarios y restricciones.
+    * ``Nivel externo``: “de visitas”, varios esquemas externos o vistas de usuario. Cada esquema externo describe la
+      parte de la base de datos que interesa a un grupo de usuarios y oculta a ese grupo el resto de la base de datos,
+      modelo de datos de alto nivel o uno de implementación.
 
-1.3. CARACTERÍSTICAS Y COMPONENTES  
-Los actuales paquetes de DBMS tienen un diseño modular, arquitectura cliente-servidor, en una arquitectura
-cliente-servidor básica la funcionalidad del sistema se distribuye entre dos tipos de módulos, el módulo cliente se
-suele ejecutar sobre una estación de trabajo del usuario, el módulo servidor maneja el almacenamiento, acceso, búsqueda
-de datos y otras funciones. La capacidad para modificar el esquema en un nivel del sistema de base de datos sin tener
-que modificar el esquema del nivel inmediato superior se denomina:  
-``Independencia lógica``: capacidad de modificar el esquema conceptual sin tener que alterar los esquemas externos ni
-los programas de aplicación. Podemos modificar el esquema conceptual para ampliar la base de datos o para reducir la
-base de datos, la modificación no deberá afectar a los esquemas externos que solo se refiera a los datos restantes. Si
-el DBMS se cuenta con independencia lógica de datos, solo será preciso modificar la definición de la vista y las
-correspondencias.  
-``Independencia física``: es la capacidad de modificar el esquema interno sin tener que alterar el esquema conceptual (o
-los externos). Si la base de datos aun contiene los mismos datos, no será necesario modificar el esquema conceptual.  
-Todo DBMS incluye información sobre como establecer la correspondencia entre las solicitudes y los datos entre los
-diversos niveles, el DBMS utiliza software adiciónales para realizar correspondencias haciendo referencia a la
-información de correspondencia que se encuentra en el catálogo.
+* Los tres esquemas no son más que descripciones de los datos, que existen realmente y están en el nivel físico, el DBMS
+  debe transformar una solicitud expresada en términos de un esquema externo en una solicitud expresada en términos del
+  esquema conceptual y luego en una solicitud en el esquema interno. El proceso de trasformar solicitudes y resultados
+  de un nivel a otros denomina correspondencia o transformación (mapping).
 
-1.4. LENGUAJES E INTERFACES DE BASES DE DATOS  
-Una vez que se ha completado el diseño de una base de datos y se ha elegido un DBMS para su implementación, el primer
-paso será especificar los esquemas conceptual e interno de la base de datos y cualquier correspondencia existente entre
-ambos:  
-``Leguaje de definición de datos`` (LDD): El DBMS contará con un compilador de LDD cuya función será procesar las
-sentencias para identificar las descripciones de los elementos de los esquemas y almacenar la descripción del esquema en
-el catálogo del DMBS, también sirve para definir ambos esquemas en DBMS donde no se separen claramente los niveles.  
-``Lenguaje de definición de almacenamiento`` (LDA): En sistemas que separan claramente los niveles para especificar el
-esquema interno se utiliza este lenguaje.  
-``Lenguaje de definición de vistas`` (LDV): sirve para especificar las vistas del usuario y sus correspondencias con el
-esquema conceptual.  
-``Lenguaje de manipulación de datos`` (LMD): los usuarios requerirán algún mecanismo para manipularla, las operaciones
-de manipulación más comunes son la recuperación, la inserción, la eliminación y la modificación de los datos.
+#### 1.2. COMPARTIMIENTO DE DATOS Y PROCESAMIENTO DE TRANSACCIONES MULTIUSUARIOS
 
-* ``LMD de alto nivel``: se pueden utilizar de manera independiente para especificar operaciones complejas de base de
-  datos en forma concisa, como SQL, pueden especificar y recuperar muchos registros con una sola instrucción de LMD,
-  suelen especificar qué datos hay que obtener y no como obtenerlos, se denominan también declarativos.
-* ``LMD de bajo nivel``: deben estar embebidos en un lenguaje de programación de propósito general, recupera registros u
-  objetos individuales de la base de datos y los procesa por separado, necesita utilizar elementos de lenguajes de
-  programación, como los bucles, para recuperar y procesar cada registro individual de un conjunto de registros.
+* Todo DBMS debe permitir a varios usuarios tener acceso simultaneo a la base de datos, el DBMS debe incluir software de
+  control de concurrencia para asegurar que cuando varios usuarios intenten actualizar los mismos datos lo hagan de
+  manera controlada, los DBMS deben asegurar que todas las transacciones que se hagan sobre los datos, una vez
+  finalizadas, tengan (ACID):
+    * ``Atomicity``: asegurar que la transacción realizada este completa sin que exista la posibilidad de que haya
+      quedado a media debido al algún fallo.
+    * ``Consistency``: si la base de datos estaba en un estado correcto antes del inicio de la transacción debe acabar
+      la transacción en un estado correcto.
+    * ``Isolation``: si se están ejecutando varias transacciones simultáneamente, el sistema debe asegurar que se
+      realizan de manera independiente unas de otras.
+    * ``Durability``: terminada la transacción, se debe asegurar que los resultados quedan registrados en la base de
+      datos.
 
-``Lenguaje de datos relacionales SQL``: en los actuales DBMS se utiliza un amplio lenguaje integrado que cuenta con
-elementos para definir esquemas conceptuales, definir vistas, manipular datos y definir su almacenamiento, representa
-una combinación de LDD, LDV y LMD, así como sentencias para especificación de restricciones y evolución del esquema.
+#### 1.3. CARACTERÍSTICAS Y COMPONENTES
 
-1.5 HERRAMIENTAS  
-``CASE`` (Computer Aided Software Engineering): aplicaciones informáticas o programas informáticos destinadas a aumentar
-el balance en el desarrollo de software reduciendo el costo de las mismas en términos de tiempo y de dinero.  
-``Powerbuilder``: entorno para desarrollar aplicaciones de gestión de bases de datos. Puede trabajar con las bases de
-datos más utilizadas (Oracle, MySQL, MS SQL Server...). Además, dispone de un lenguaje propio que permite programar en
-la propia BD llamado Powerscript.
+* Los actuales paquetes de DBMS tienen un diseño modular, arquitectura cliente-servidor, en una arquitectura
+  cliente-servidor básica la funcionalidad del sistema se distribuye entre dos tipos de módulos, el módulo cliente se
+  suele ejecutar sobre una estación de trabajo del usuario, el módulo servidor maneja el almacenamiento, acceso,
+  búsqueda de datos y otras funciones. La capacidad para modificar el esquema en un nivel del sistema de base de datos
+  sin tener que modificar el esquema del nivel inmediato superior se denomina:
+    * ``Independencia lógica``: capacidad de modificar el esquema conceptual sin tener que alterar los esquemas externos
+      ni los programas de aplicación. Podemos modificar el esquema conceptual para ampliar la base de datos o para
+      reducir la base de datos, la modificación no deberá afectar a los esquemas externos que solo se refiera a los
+      datos restantes. Si el DBMS se cuenta con independencia lógica de datos, solo será preciso modificar la definición
+      de la vista y las correspondencias.
+    * ``Independencia física``: es la capacidad de modificar el esquema interno sin tener que alterar el esquema
+      conceptual (o los externos). Si la base de datos aun contiene los mismos datos, no será necesario modificar el
+      esquema conceptual.  
+      Todo DBMS incluye información sobre como establecer la correspondencia entre las solicitudes y los datos entre los
+      diversos niveles, el DBMS utiliza software adiciónales para realizar correspondencias haciendo referencia a la
+      información de correspondencia que se encuentra en el catálogo.
 
-2\. CLASIFICACIÓN DE LOS SISTEMAS DE GESTION DE BASE DE DATOS  
-Toda base de datos soportada por un SGBD debe tener unos esquemas modelados adecuadamente. Coincidiendo con la evolución
-histórica de las bases de datos, estas han utilizado distintos modelos. Los SGBD esperan un modelo determinado para
-poder acceder de forma simple a la base de datos. Estos modelos son:  
-``Jerárquicos``: usada en los SGBD de los primeros mainframes. Las relaciones entre registros forman una estructura en
-árbol. Esta estructura es simple e inflexible, permite representar relaciones “padre/hijo” donde cada padre puede tener
-varios hijos, pero cada hijo ha de venir de solo un padre (las conocidas como relaciones 1:N).  
-``En red``: contiene relaciones más complejas que las jerárquicas. Admite relaciones de cada registro con varios que se
-pueden seguir por distintos caminos. En otras palabras, el modelo permite relaciones N:N. Está concebido como un modo
-flexible de representar objetos y sus relaciones.  
-``Relacionales``: cumple con el modelo relacional, es la más extendida hoy en día. Se usa en mainframes, computadoras
-medias y microcomputadoras. Almacena los datos en filas (tuplas) y columnas (atributos). Estas tablas pueden estar
-conectadas entre sí por claves comunes. Todos los sistemas de bases de datos relacionales utilizan SQL (Structured Query
-Language) para consultar y mantener la base de datos. Características comunes:
+#### 1.4. LENGUAJES E INTERFACES DE BASES DE DATOS
 
-* Se compone de varias tablas, denominadas relaciones.
-* La relación entre una tabla padre y un hijo se lleva a cabo por medio de las llaves primarias y llaves foráneas (o
-  ajenas).
-* Las llaves primarias son la clave principal de un registro dentro de una tabla y estas deben cumplir con la integridad
-  de datos.
-* Las llaves ajenas se colocan en la tabla hija, contienen el mismo valor que la llaveprimaria del registro padre; por
-  medio de estas se hacen las formas relacionales.
+* Una vez que se ha completado el diseño de una base de datos y se ha elegido un DBMS para su implementación, el primer
+  paso será especificar los esquemas conceptual e interno de la base de datos y cualquier correspondencia existente
+  entre ambos:
+    * ``Leguaje de definición de datos`` (LDD): El DBMS contará con un compilador de LDD cuya función será procesar las
+      sentencias para identificar las descripciones de los elementos de los esquemas y almacenar la descripción del
+      esquema en el catálogo del DMBS, también sirve para definir ambos esquemas en DBMS donde no se separen claramente
+      los niveles.
+    * ``Lenguaje de definición de almacenamiento`` (LDA): En sistemas que separan claramente los niveles para
+      especificar el esquema interno se utiliza este lenguaje.
+    * ``Lenguaje de definición de vistas`` (LDV): sirve para especificar las vistas del usuario y sus correspondencias
+      con el esquema conceptual.
+    * ``Lenguaje de manipulación de datos`` (LMD): los usuarios requerirán algún mecanismo para manipularla, las
+      operaciones de manipulación más comunes son la recuperación, la inserción, la eliminación y la modificación de los
+      datos.
+        * ``LMD de alto nivel``: se pueden utilizar de manera independiente para especificar operaciones complejas de
+          base de datos en forma concisa, como SQL, pueden especificar y recuperar muchos registros con una sola
+          instrucción de LMD, suelen especificar qué datos hay que obtener y no como obtenerlos, se denominan también
+          declarativos.
+        * ``LMD de bajo nivel``: deben estar embebidos en un lenguaje de programación de propósito general, recupera
+          registros u objetos individuales de la base de datos y los procesa por separado, necesita utilizar elementos
+          de lenguajes de programación, como los bucles, para recuperar y procesar cada registro individual de un
+          conjunto de registros.
+    * ``Lenguaje de datos relacionales SQL``: en los actuales DBMS se utiliza un amplio lenguaje integrado que cuenta
+      con elementos para definir esquemas conceptuales, definir vistas, manipular datos y definir su almacenamiento,
+      representa una combinación de LDD, LDV y LMD, así como sentencias para especificación de restricciones y evolución
+      del esquema.
 
-Ejemplos de bases de datos relacionales: SQL Server, Oracle, Ingres, MySQL, MariaDB (evolución de MySQL), PostgreSQL,
-DB2, Heidi, SQLite, Firebird...  
-``Orientado a Objetos``: diseñada siguiendo el paradigma de los lenguajes orientados a objetos. De este modo soporta los
-tipos de datos gráficos, imágenes, voz y texto de manera natural. Un Sistema de Gestión de Bases de Datos Orientado a
-Objetos debe cumplir las siguientes características:
+#### 1.5 HERRAMIENTAS
 
-* ``Persistencia``: los datos deben mantenerse después de que la aplicación que los creo haya finalizado el proceso que
-  los creó.
-* ``Concurrencia``: debe controlar la interacción entre las transacciones concurrentes para evitar que se destruya la
-  consistencia.
-* ``Recuperación``: proveer mecanismos de recuperación de la información como mínimo al nivel de los SGBD relacionales.
-* ``Independencia lógica y física``: debe evitar que los programadores tengan que escribir programa para mantener
-  índices y asignar almacenamiento en disco.
-* ``Identidad del objeto``: los objetos deben tener un identificador independiente de los valores de sus atributos.
-* ``Soporta objetos complejos``: debe ser posible construir objetos complejos aplicando constructores a objetos básicos.
-* ``Encapsulamiento``: los programadores solo tienen acceso a la especificación de interfaz de los métodos, los datos de
-  implementación de estos métodos están ocultos en los objetos.
-* ``Tipos o clases``: esquema de una BDOO contiene un conjunto de clases o tipos y deben ser capaz de heredar de sus
-  supertipos o superclases los atributos y métodos (estos soportan sobrecarga ,es decir, deben poder aplicarse a
-  diferentes tipos).
-    * ``Clase``: es una plantilla para la creación de objetos de datos según un modelo predefinido. Las clases se
-      utilizan para representar entidades o conceptos, como los sustantivos en el lenguaje. Cada clase es un modelo que
-      define un conjunto de variables y métodos apropiados para operar con dichos datos. Cada objeto creado a partir de
-      la clase se denomina instancia de la clase.
-* ``Superclases y subclases``: las clases pueden derivar desde otras clases. La clase derivada (la clase que proviene de
-  otra clase) se llama subclase. La clase de la que está derivada se denomina superclase.
-* ``Clase abstracta``: funcionan como una clase que declara la existencia de métodos pero no su implementación. No puede
-  tener métodos privados, y uno de sus métodos debe ser abstracto, pero no todos.
-* ``Métodos``: procedimientos y funciones que se invocan para actuar sobre los objetos y especifican cómo se ejecuta un
-  mensaje. Los campos y métodos de una clase pueden definirse de tipo public, protected y private, por defecto son
-  públicos.
-* ``Interfaces``: definen un comportamiento, son clases completamente abstractas que contiene sólo una colección de
-  métodos abstractos y propiedades constantes. Si se desea utilizar un método que no ha implementado el usuario se
-  utiliza una interfaz.
+* ``CASE`` (Computer Aided Software Engineering): aplicaciones informáticas o programas informáticos destinados a
+  aumentar el balance en el desarrollo de software reduciendo el costo de las mismas en términos de tiempo y de dinero.
+* ``Powerbuilder``: entorno para desarrollar aplicaciones de gestión de bases de datos. Puede trabajar con las bases de
+  datos más utilizadas (Oracle, MySQL, MS SQL Server...). Además, dispone de un lenguaje propio que permite programar en
+  la propia BD llamado Powerscript.
 
-``Lenguajes de datos``:  
-``ODL`` (Object Description Language): es empleado para facilitar la portabilidad de los esquemas de las bases de datos,
-no es un lenguaje de programación completo, define las propiedades y lo prototipo de las operaciones de los tipos, pero
-no los métodos que implementan esas operaciones, intentan definir tipos que puedan implementarse en diversos lenguajes,
-no está ligado a la sintaxis concreta de un lenguaje de programación particular, es una extensión de IDL (Interface
-Definition Languaje).  
-``OML`` (Object Manipulation Language): es empleado para la elaboración de  
-programas que permitan crear, modificar y borrar datos que constituyen la base de datos.  
-``OQL`` (Object Query Language): es el equivalente a SQL, presenta las siguientes  
-características:
+### 2\. CLASIFICACIÓN DE LOS SISTEMAS DE GESTION DE BASE DE DATOS
 
-* Las consultas pueden invocar métodos: los métodos escritos en cualquier lenguaje de programación pueden incluir
-  consultas.
-* Sintaxis abstracta.
-* Semántica formal puede definirse fácilmente.
-* Acceso declarativo a los objetos.
-* Sintaxis concreta al estilo SQL.
-* No proporciona operadores explícitos para la modificación.
-* Proporciona primitivas de alto nivel para tratar con conjuntos de objetos
+* Toda base de datos soportada por un SGBD debe tener unos esquemas modelados adecuadamente. Coincidiendo con la
+  evolución histórica de las bases de datos, estas han utilizado distintos modelos. Los SGBD esperan un modelo
+  determinado para poder acceder de forma simple a la base de datos. Estos modelos son:
+    * ``Jerárquicos``: usada en los SGBD de los primeros mainframes. Las relaciones entre registros forman una
+      estructura en árbol. Esta estructura es simple e inflexible, permite representar relaciones “padre/hijo” donde
+      cada padre puede tener
+    * varios hijos, pero cada hijo ha de venir de solo un padre (las conocidas como relaciones 1:N).  
+      ``En red``: contiene relaciones más complejas que las jerárquicas. Admite relaciones de cada registro con varios
+      que se pueden seguir por distintos caminos. En otras palabras, el modelo permite relaciones N:N. Está concebido
+      como un modo flexible de representar objetos y sus relaciones.
+    * ``Relacionales``: cumple con el modelo relacional, es la más extendida hoy en día. Se usa en mainframes,
+      computadoras medias y microcomputadoras. Almacena los datos en filas (tuplas) y columnas (atributos). Estas tablas
+      pueden estar conectadas entre sí por claves comunes. Todos los sistemas de bases de datos relacionales utilizan
+      SQL (Structured Query Language) para consultar y mantener la base de datos. Características comunes:
+        * Se compone de varias tablas, denominadas relaciones.
+        * La relación entre una tabla padre y un hijo se lleva a cabo por medio de las llaves primarias y llaves
+          foráneas (o ajenas).
+        * Las llaves primarias son la clave principal de un registro dentro de una tabla y estas deben cumplir con la
+          integridad de datos.
+        * Las llaves ajenas se colocan en la tabla hija, contienen el mismo valor que la llaveprimaria del registro
+          padre; por medio de estas se hacen las formas relacionales.
 
-| Ventajas de las BDOO: Flexibilidad y soporte para el manejo de tipos de datos complejos. Puede ajustarse a userbase siempre el espacio sea los campos son necesarios: eliminando espacio desperdiciado en registros con campos que nunca se usan. Rendimiento: permiten que los objetos hagan referencia directamente a otro mediante apuntadores, colocando cerca las estructuras relacionadas entre sí en el espacio de almacenamiento en disco, lo que hace que pasen más rápido del objeto A al objeto B que las Bases de Datos Relacionales, las cuales deben usar comandos “JOIN” para logar esto. Desventajas: No están tan avanzadas como la relacionales: no tienen la abundancia de herramientas, fiabilidad de administración y rendimiento de estas últimas. Son incompatibles entre sí mismas: esto hace imposible migrar una aplicación desde una base de datos orientada a objetos a otra (obliga a depender de un único proveedor). Falta de estándares en la industria orientada a objetos. |
-| :---- |
+* Ejemplos de bases de datos relacionales: SQL Server, Oracle, Ingres, MySQL, MariaDB (evolución de MySQL), PostgreSQL,
+  DB2, Heidi, SQLite, Firebird...
+    * ``Orientado a Objetos``: diseñada siguiendo el paradigma de los lenguajes orientados a objetos. De este modo
+      soporta los tipos de datos gráficos, imágenes, voz y texto de manera natural. Un Sistema de Gestión de Bases de
+      Datos Orientado a Objetos debe cumplir las siguientes características:
 
-Ejemplos de bases de datos orientadas a objetos: ObjectDB, Zope, DB40, Gemstone...
+        * ``Persistencia``: los datos deben mantenerse después de que la aplicación que los creo haya finalizado el
+          proceso que los creó.
+        * ``Concurrencia``: debe controlar la interacción entre las transacciones concurrentes para evitar que se
+          destruya la consistencia.
+        * ``Recuperación``: proveer mecanismos de recuperación de la información como mínimo al nivel de los SGBD
+          relacionales.
+        * ``Independencia lógica y física``: debe evitar que los programadores tengan que escribir programa para
+          mantener índices y asignar almacenamiento en disco.
+        * ``Identidad del objeto``: los objetos deben tener un identificador independiente de los valores de sus
+          atributos.
+        * ``Soporta objetos complejos``: debe ser posible construir objetos complejos aplicando constructores a objetos
+          básicos.
+        * ``Encapsulamiento``: los programadores solo tienen acceso a la especificación de interfaz de los métodos, los
+          datos de implementación de estos métodos están ocultos en los objetos.
+        * ``Tipos o clases``: esquema de una BDOO contiene un conjunto de clases o tipos y deben ser capaz de heredar de
+          sus supertipos o superclases los atributos y métodos (estos soportan sobrecarga ,es decir, deben poder
+          aplicarse a diferentes tipos).
+            * ``Clase``: es una plantilla para la creación de objetos de datos según un modelo predefinido. Las clases
+              se utilizan para representar entidades o conceptos, como los sustantivos en el lenguaje. Cada clase es un
+              modelo que define un conjunto de variables y métodos apropiados para operar con dichos datos. Cada objeto
+              creado a partir de la clase se denomina instancia de la clase.
+        * ``Superclases y subclases``: las clases pueden derivar desde otras clases. La clase derivada (la clase que
+          proviene de otra clase) se llama subclase. La clase de la que está derivada se denomina superclase.
+        * ``Clase abstracta``: funcionan como una clase que declara la existencia de métodos pero no su implementación.
+          No puede tener métodos privados, y uno de sus métodos debe ser abstracto, pero no todos.
+        * ``Métodos``: procedimientos y funciones que se invocan para actuar sobre los objetos y especifican cómo se
+          ejecuta un mensaje. Los campos y métodos de una clase pueden definirse de tipo public, protected y private,
+          por defecto son públicos.
+        * ``Interfaces``: definen un comportamiento, son clases completamente abstractas que contiene sólo una colección
+          de métodos abstractos y propiedades constantes. Si se desea utilizar un método que no ha implementado el
+          usuario se utiliza una interfaz.
 
-``NoSQL``: surgen por problemas debidos a la cantidad masiva de información (Big Data) que supone la generalización de
-internet, que experimentan los DBMS tradicionales: lentitud de accesos, problemas de bloqueos, dificultad para mantener
-bases de datos distribuidas geográficamente. Los datos almacenados no requieren estructuras fijas como tablas,
-normalmente no soportan operaciones JOIN, ni garantizan completamente ACID y habitualmente escalan bien
-horizontalmente.   
-A menudo, las bases de datos NoSQL se clasifican según su forma de almacenar los datos:
+* ``Lenguajes de datos``:
+    * ``ODL`` (Object Description Language): es empleado para facilitar la portabilidad de los esquemas de las bases de
+      datos, no es un lenguaje de programación completo, define las propiedades y lo prototipo de las operaciones de los
+      tipos, pero no los métodos que implementan esas operaciones, intentan definir tipos que puedan implementarse en
+      diversos lenguajes, no está ligado a la sintaxis concreta de un lenguaje de programación particular, es una
+      extensión de IDL (Interface Definition Languaje).
+    * ``OML`` (Object Manipulation Language): es empleado para la elaboración de  
+      programas que permitan crear, modificar y borrar datos que constituyen la base de datos.
+    * ``OQL`` (Object Query Language): es el equivalente a SQL, presenta las siguientes  
+      características:
+        * Las consultas pueden invocar métodos: los métodos escritos en cualquier lenguaje de programación pueden
+          incluir consultas.
+        * Sintaxis abstracta.
+        * Semántica formal puede definirse fácilmente.
+        * Acceso declarativo a los objetos.
+        * Sintaxis concreta al estilo SQL.
+        * No proporciona operadores explícitos para la modificación.
+        * Proporciona primitivas de alto nivel para tratar con conjuntos de objetos
 
-* ``Clave-valor``: funcionan con una clave indexada asociada a un valor, que desde el punto de vista de la base de datos
-  es información opaca (asociada a la clave) que simplemente almacena y recupera. Están diseñadas para escalar
-  masivamente manteniendo un tiempo de respuesta muy rápido y disponibilidad total. Se suelen usar para almacenar
-  información de sesión, preferencias o perfiles de usuario, carritos de la compra y en general como cachés de cualquier
-  conjunto de información que se pueda recuperar por una clave. Ejemplos: Cassandra, DynamoDB, Redis, Riak o Aerospike
-* ``Orientadas a documentos``: el concepto principal es el de documento, mayoritariamente en formato JSON para almacenar
-  y consultar información, cada base de datos puede utilizar distintas codificaciones para los documentos, el
-  direccionamiento de los documentos se realizará a través de una clave que identificará de forma única al mismo.
-  Permiten gestionar información con complejas estructuras jerárquicas, y ofrecen índices secundarios y completos
-  lenguajes de consulta y agregación de datos. Ejemplos: MongoDB (puerto 27017), CouchDB o CouchBase
-* ``Orientadas a grafos``: la información se almacena en los nodos de un grafo (entidades), representando las relaciones
-  mediante las aristas. Tanto las entidades (nodos del grado), como las relaciones (aristas) pueden además tener
-  atributos. Recorrer las uniones entre entidades a través de estas relaciones es el fuerte de las bases de datos
-  orientadas a grafos, y permiten hacerlo con gran velocidad, independientemente del volumen de datos (caso de uso más
-  conocido de este tipo de bases de datos son las redes sociales). Ejemplos: Neo4j (cypher: lenguaje de consulta para BD
-  Neo4j), OrientDB o Titan
-* ``Orientadas a columnas``: similares a una tabla en las bases de datos relacionales, se definen familias de columnas
-  antes de cargar los datos, la estructura de estos datos debe ser conocida con anterioridad. Organizan los datos de una
-  forma distinta al modelo relacional, los datos están organizados penando en operaciones de columna para ejecutar
-  operaciones de agregación o realizar búsquedas de registro a través de múltiples columnas, cada registro no requiere
-  un único valor por columna, en su lugar, se pueden modelar familias de columnas. No requiere que los campos siempre
-  estén presentes, aunque almacene valores nulos, si es información que no existe, no se incluye. Ejemplos: Hbase.
+##
 
-| Las bases de datos NoSQL no cumplen el modelo ACID, en su caso, se cumple el modelo BASE, un enfoque similar pero perdiendo la consistencia y el aislamiento a favor de la disponibilidad la degradación y el rendimiento: Basic Availability: sistema funciona incluso cuando alguna parte falla debido a que el almacenamiento sigue los principios de distribución y replicación. Soft State: los nodos no tienen por qué ser consistentes. Eventual Consistency: la consistencia se produce de forma eventual. |
-| :---- |
+* > Ventajas de las BDOO:
+    * > Flexibilidad y soporte para el manejo de tipos de datos complejos.
+    * > Puede ajustarse a userbase siempre el espacio sea los campos son necesarios:
+    * > eliminando espacio desperdiciado en registros con campos que nunca se usan.
+    * > Rendimiento: permiten que los objetos hagan referencia directamente a otro mediante apuntadores, colocando cerca las estructuras relacionadas entre sí en el espacio de almacenamiento en disco, lo que hace que pasen más rápido del objeto A al objeto B que las Bases de Datos Relacionales, las cuales deben usar comandos “JOIN” para logar esto.
+    * > Desventajas: No están tan avanzadas como la relacionales: no tienen la abundancia de herramientas, fiabilidad de administración y rendimiento de estas últimas.
+    * > Son incompatibles entre sí mismas: esto hace imposible migrar una aplicación desde una base de datos orientada a objetos a otra (obliga a depender de un único proveedor).
+    * > Falta de estándares en la industria orientada a objetos.
 
-2.1. TEOREMA DE CAP (BREWER)  
-En un sistema distribuido no se puede garantizar de forma simultánea la consistencia, la disponibilidad y la tolerancia
-al particionado, solo una combinación de dos de ellas:  
-``Consistency``: garantizar que la información almacenada en los nodos sea la misma.  
-``Availability``: garantizar que la información almacenada en los nodos este siempre disponible.  
-``Partition tolerance``: garantizar que el sistema distribuido sigue funcionando, aunque algún nodo falle.
+##
 
-3\. SGBD (SISTEMA GESTOR DE BASE DE DATOS)  
-El sistema gestor de base de datos actúa de interfaz entre el usuario y la información almacenada, el usuario nunca
-accede a los datos directamente, siempre lo hace a través del gestor. La mayoría de operaciones sobre una base de dato
-se puede realizar mediante consultas. El usuario podrá realizar determinadas consultas en función de la autorización que
-el administrador de bases de datos le proporcione. Se pueden definir las consultas como operaciones que se efectúan
-sobre los datos de una base de datos.
+* Ejemplos de bases de datos orientadas a objetos: ObjectDB, Zope, DB40, Gemstone...
 
-3.1. SQL   
-Las consultas se hacen en un lenguaje definido para el acceso a la base de datos llamado SQL (Standard Query Language):
-es un lenguaje de dominio específico utilizado en programación, diseñado para administrar, y recuperar información de
-sistemas de gestión de bases de datos relacionales. Efectúa consultas con el fin de recuperar, de forma sencilla,
-información de bases de datos, así como realizar cambios en ellas. SQL usa los siguientes “dialectos”:  
-``DDL`` (Data Definition Language): además, proporciona comandos para la definición de esquemas de relación, borrado de
-relaciones, modificaciones de los esquemas de relación, comandos para especificar las restricciones de integridad que
-deben cumplir los datos almacenados y comandos para la definición de vistas, también incluye comandos para especificar
-los derechos de acceso a las relaciones y a las vistas.
+* ``NoSQL``: surgen por problemas debidos a la cantidad masiva de información (Big Data) que supone la generalización de
+  internet, que experimentan los DBMS tradicionales:
+    * lentitud de accesos,
+    * problemas de bloqueos,
+    * dificultad para mantener bases de datos distribuidas geográficamente.
+* Los datos almacenados no requieren estructuras fijas como tablas, normalmente no soportan operaciones JOIN, ni
+  garantizan completamente ACID y habitualmente escalan bien horizontalmente.
+* A menudo, las bases de datos NoSQL se clasifican según su forma de almacenar los datos:
+    * ``Clave-valor``: funcionan con una clave indexada asociada a un valor, que desde el punto de vista de la base de
+      datos es información opaca (asociada a la clave) que simplemente almacena y recupera. Están diseñadas para escalar
+      masivamente manteniendo un tiempo de respuesta muy rápido y disponibilidad total. Se suelen usar para almacenar
+      información de sesión, preferencias o perfiles de usuario, carritos de la compra y en general como cachés de
+      cualquier conjunto de información que se pueda recuperar por una clave. Ejemplos: Cassandra, DynamoDB, Redis, Riak
+      o Aerospike
+    * ``Orientadas a documentos``: el concepto principal es el de documento, mayoritariamente en formato JSON para
+      almacenar y consultar información, cada base de datos puede utilizar distintas codificaciones para los documentos,
+      el direccionamiento de los documentos se realizará a través de una clave que identificará de forma única al mismo.
+      Permiten gestionar información con complejas estructuras jerárquicas, y ofrecen índices secundarios y completos
+      lenguajes de consulta y agregación de datos. Ejemplos: MongoDB (puerto 27017), CouchDB o CouchBase
+    * ``Orientadas a grafos``: la información se almacena en los nodos de un grafo (entidades), representando las
+      relaciones mediante las aristas. Tanto las entidades (nodos del grado), como las relaciones (aristas) pueden
+      además tener atributos. Recorrer las uniones entre entidades a través de estas relaciones es el fuerte de las
+      bases de datos orientadas a grafos, y permiten hacerlo con gran velocidad, independientemente del volumen de
+      datos (caso de uso más conocido de este tipo de bases de datos son las redes sociales). Ejemplos: Neo4j (cypher:
+      lenguaje de consulta para BD Neo4j), OrientDB o Titan
+    * ``Orientadas a columnas``: similares a una tabla en las bases de datos relacionales, se definen familias de
+      columnas antes de cargar los datos, la estructura de estos datos debe ser conocida con anterioridad. Organizan los
+      datos de una forma distinta al modelo relacional, los datos están organizados penando en operaciones de columna
+      para ejecutar operaciones de agregación o realizar búsquedas de registro a través de múltiples columnas, cada
+      registro no requiere un único valor por columna, en su lugar, se pueden modelar familias de columnas. No requiere
+      que los campos siempre estén presentes, aunque almacene valores nulos, si es información que no existe, no se
+      incluye. Ejemplos: Hbase.
 
-* ``CREATE``: crear una base de datos, tabla, vistas...
-* ``ALTER``: modificar la estructura, añadir o borrar columnas.
-* ``DROP``: eliminar objetos de la estructura. (CASCADE: borra el usuario y todos los objetos que tenga creados).
+##
 
-``DML`` (Data Manipulation Language): permite a los usuarios introducir datos para posteriormente realizar tareas de
-consultas o modificación de los datos.
+* > Las bases de datos NoSQL no cumplen el modelo ACID, en su caso, se cumple el modelo BASE, un enfoque similar pero perdiendo la consistencia y el aislamiento a favor de la disponibilidad la degradación y el rendimiento:
+    * > Basic Availability: sistema funciona incluso cuando alguna parte falla debido a que el almacenamiento sigue los principios de distribución y replicación.
+    * > Soft State: los nodos no tienen por qué ser consistentes.
+    * > Eventual Consistency: la consistencia se produce de forma eventual.
 
-* ``SELECT``: realizar consultas sobre tuplas / DISTINCT: devuelve solo valores distintos.
-* ``INSERT``: insertar los valores / UPDATE: modificar valores.
-* ``DELETE``: eliminar filas de una tabla.
-* ``GROUP BY``: agrupa las filas de mismos valores en filas de resumen.
-* ``WHERE``: condición que debe cumplirse para que los datos sean devueltos.
-* ``LIKE``: se usa junto a un WHERE para buscar un patrón específico en una columna.
-* ``HAVING``: condición que debe cumplirse para que los datos sean devueltos. Su funcionamiento es similar al de “WHERE”
-  pero aplicado al conjunto de resultados devueltos por la consulta. Debe aplicarse siempre junto a “GROUP BY” y la
-  condición debe estar referida a los campos contenidos en ella.
-* ``COUNT``(): cuenta el número de filas que coincide con un criterio específico.
-* ``AVG``() / ``SUM``(): devuelve el valor promedio / suma total de una columna numérica.
+##
 
-``DCL`` (Data Control Language): controlar el acceso a usuarios mediante la asignación de permisos o roles para realizar
-determinadas tareas.
+#### 2.1. TEOREMA DE CAP (BREWER)
 
-* ``GRANT``: otorga permisos.
-* ``REVOKE``: eliminar permisos.
+* En un sistema distribuido no se puede garantizar de forma simultánea la consistencia, la disponibilidad y la
+  tolerancia al particionado, solo una combinación de dos de ellas:
+    * ``Consistency``: garantizar que la información almacenada en los nodos sea la misma.
+    * ``Availability``: garantizar que la información almacenada en los nodos este siempre disponible.
+    * ``Partition tolerance``: garantizar que el sistema distribuido sigue funcionando, aunque algún nodo falle.
 
-``TCL`` (Transaction Control Language): una transacción es una unidad en la ejecución de un programa, un conjunto de
-sentencias de acceso a la BD. En la práctica suele consistir en la agrupación de consultas SQL y su ejecución como parte
-de una transacción. Los pasos para realizar una transacción en MySQL son:
+### 3\. SGBD (SISTEMA GESTOR DE BASE DE DATOS)
 
-* Indicar que vamos a realizar una transacción con la sentencia START TRANSACTION, BEGIN o BEGIN WORK.
-* Realizar operaciones de manipulación de datos sobre la base datos (insertar, borrar...).
-* Si las operaciones se han realizado correctamente y queremos que los cambios se apliquen de forma permanente sobre la
-  base de datos usaremos la sentencia COMMIT. Sin embargo, si durante las operaciones ocurre algún error y no queremos
-  aplicar los cambios realizados podemos deshacerlos con la sentencia ROLLBACK.
+* El sistema gestor de base de datos actúa de interfaz entre el usuario y la información almacenada, el usuario nunca
+  accede a los datos directamente, siempre lo hace a través del gestor.
+* La mayoría de operaciones sobre una base de dato se puede realizar mediante consultas.
+* El usuario podrá realizar determinadas consultas en función de la autorización que el administrador de bases de datos
+  le proporcione.
+* Se pueden definir las consultas como operaciones que se efectúan sobre los datos de una base de datos.
 
-El proceso de definición de tablas implica indicarlas columnas y el tipo de datos de cada una, algunos de los tipos de
-datos básicos de SQL son:
+* 3.1. SQL
+    * Las consultas se hacen en un lenguaje definido para el acceso a la base de datos llamado SQL (Standard Query
+      Language):
+      es un lenguaje de dominio específico utilizado en programación, diseñado para administrar, y recuperar información
+      de sistemas de gestión de bases de datos relacionales.
+    * Efectúa consultas con el fin de recuperar, de forma sencilla, información de bases de datos, así como realizar
+      cambios en ellas. SQL usa los siguientes “dialectos”:
 
-* “``varchar``”: cadena de palabras compuestas de letras, números y caracteres especiales.
-* “``int``”: principal tipo de datos de valores enteros de SQL Server. Números enteros con o sin signo.
-* “``date``”: una fecha de calendario que contiene el año (de cuatro cifras), el mes y el día.
-* “``time``”: La hora del día en horas minutos segundos (el valor predeterminado es 0).
+        * ``DDL`` (Data Definition Language): además, proporciona comandos para la definición de esquemas de relación,
+          borrado de relaciones, modificaciones de los esquemas de relación, comandos para especificar las restricciones
+          de integridad que deben cumplir los datos almacenados y comandos para la definición de vistas, también incluye
+          comandos para especificar los derechos de acceso a las relaciones y a las vistas.
+            * ``CREATE``: crear una base de datos, tabla, vistas...
+            * ``ALTER``: modificar la estructura, añadir o borrar columnas.
+            * ``DROP``: eliminar objetos de la estructura. (CASCADE: borra el usuario y todos los objetos que tenga
+              creados).
 
-3.1.1. CONSTRAINTS (Restricciones)  
-Se utilizan para especificar reglas para los datos en una tabla como limitar el tipo de datos que pueden incluirse en
-una tabla. Si hay alguna violación entre la restricción y la acción de datos, la acción se cancela, son:  
-``NOT NULL``: asegura que una columna no pueda tener un valor NULL.  
-``UNIQUE``: asegura que todos los valores en una columna sean diferentes.  
-``PRIMARY KEY``: una combinación de una NOT NULL y UNIQUE. Identifica de forma única cada fila en una tabla.  
-``FOREIGN KEY``: evita acciones que destruirían enlaces entre tablas.  
-``CHECK``: asegura que los valores en una columna satisfagan una condición específica.  
-``DEFAULT``: establece un valor predeterminado para una columna si no se especifica ninguno.  
-``CREATE INDEX``: se utiliza para crear y recuperar datos de la base de datos muy rápidamente.
+        * ``DML`` (Data Manipulation Language): permite a los usuarios introducir datos para posteriormente realizar
+          tareas de consultas o modificación de los datos.
+            * ``SELECT``: realizar consultas sobre tuplas / DISTINCT: devuelve solo valores distintos.
+            * ``INSERT``: insertar los valores / UPDATE: modificar valores.
+            * ``DELETE``: eliminar filas de una tabla.
+            * ``GROUP BY``: agrupa las filas de mismos valores en filas de resumen.
+            * ``WHERE``: condición que debe cumplirse para que los datos sean devueltos.
+            * ``LIKE``: se usa junto a un WHERE para buscar un patrón específico en una columna.
+            * ``HAVING``: condición que debe cumplirse para que los datos sean devueltos. Su funcionamiento es similar
+              al de “WHERE” pero aplicado al conjunto de resultados devueltos por la consulta. Debe aplicarse siempre
+              junto a “GROUP BY” y la condición debe estar referida a los campos contenidos en ella.
+                * ``COUNT``(): cuenta el número de filas que coincide con un criterio específico.
+                * ``AVG``() / ``SUM``(): devuelve el valor promedio / suma total de una columna numérica.
 
-3.1.2. Wildcards (Carácter Comodín)  
-``\``* : representa un conjunto de caracteres (se usa para seleccionar “todos los valores de”).  
-``?`` : representa un único carácter. (m?no busca mano, mono,...)  
-``\[\]`` : representa cualquier valor dentro de los Brackets.  
-``\! / ^``: representa cualquier valor que no sea el que va después de la exclamación.  
-``\-`` : representa el rango de valores entre los dos extremos del guión.  
-``\#`` : representa un valor numérico.  
-``%`` : completa la palabra (a% busca a, alba, antonio,...)  
-``\_`` : representa un carácter.
+        * ``DCL`` (Data Control Language): controlar el acceso a usuarios mediante la asignación de permisos o roles
+          para realizar determinadas tareas.
+            * ``GRANT``: otorga permisos.
+            * ``REVOKE``: eliminar permisos.
 
-3.2. JOIN  
-Uno de los operadores más usados en SQL es la cláusula JOIN: sirve para combinar filas de dos o más tablas basándose en
-un campo común entre ellas, devolviendo por tanto datos de diferentes tablas. Los tipos más importantes son:  
-``INNER JOIN``: devuelve todas las filas cuando hay al menos una coincidencia  
-en ambas tablas.  
-``LEFT JOIN``: devuelve todas las filas de la tabla de la izquierda, y las filas  
-coincidentes de la tabla de la derecha.  
-``RIGHT JOIN``: devuelve todas las filas de la tabla de la derecha, y las filas  
-coincidentes de la tabla de la izquierda.  
-``FULL OUTER JOIN``: devuelve todas las filas de las dos tablas, la izquierda y la  
-derecha.  
-``CROSS JOIN``: devuelve el producto cartesiano de los registros de las dos tablas.
+        * ``TCL`` (Transaction Control Language): una transacción es una unidad en la ejecución de un programa, un
+          conjunto de sentencias de acceso a la BD. En la práctica suele consistir en la agrupación de consultas SQL y
+          su ejecución como parte de una transacción. Los pasos para realizar una transacción en MySQL son:
+            * Indicar que vamos a realizar una transacción con la sentencia START TRANSACTION, BEGIN o BEGIN WORK.
+            * Realizar operaciones de manipulación de datos sobre la base datos (insertar, borrar...).
+            * Si las operaciones se han realizado correctamente y queremos que los cambios se apliquen de forma
+              permanente sobre la base de datos usaremos la sentencia COMMIT. Sin embargo, si durante las operaciones
+              ocurre algún error y no queremos aplicar los cambios realizados podemos deshacerlos con la sentencia
+              ROLLBACK.
 
-| Mediante el uso de “WHERE” se puede excluir el campo común en un JOIN pidiendo que la sentencia devuelva solo los valores nulos comunes, resultando: LEFT JOIN \+ WHERE B.Key IS NULL RIGHT JOIN \+ WHERE B.Key IS NULL OUTER JOIN \+ WHERE B.Key IS NULL |
-| :---- |
+    * El proceso de definición de tablas implica indicarlas columnas y el tipo de datos de cada una, algunos de los
+      tipos de datos básicos de SQL son:
+        * “``varchar``”: cadena de palabras compuestas de letras, números y caracteres especiales.
+        * “``int``”: principal tipo de datos de valores enteros de SQL Server. Números enteros con o sin signo.
+        * “``date``”: una fecha de calendario que contiene el año (de cuatro cifras), el mes y el día.
+        * “``time``”: La hora del día en horas minutos segundos (el valor predeterminado es 0).
 
-3.3. INTEGRIDAD EN UN SGBD  
-Una vez definidas las tablas se procederá a definir las relaciones entre ellas y las restricciones de integridad
-derivadas de estas relaciones (“integridad” significa que la clave externa de una tabla de referencia siempre debe
-aludir a una fila válida de la tabla a la que se haga referencia. La integridad referencial garantiza que la relación
-entre dos tablas permanezca sincronizada durante las operaciones de actualización y eliminación), se puede indicar como
-se desea que actúe el gestor ante una violación de la integridad:  
-``Exigir integridad referencial``: el SGBD impedirá que se introduzcan datos que violen la regla de integridad. (
-Ejemplo: no permitirá la introducción de una compra si no existe un DNI de cliente en las tablas de cliente).  
-``Actualizar en salto o en caída``: si se modifica un atributo referenciado en otra tabla, también cambia en todas las
-tablas relacionadas.  
-``Borrado en salto o en caída``: en caso de que se borre una fila de una tabla, elimina también todas la relacionadas
-con ella.
+##### 3.1.1. ``CONSTRAINTS`` (Restricciones)
 
-3.3.2. ANOMALÍAS EN UNA BASE DE DATOS  
-Son resultados generados que parecen incorrectos cuando se observan desde el ámbito de una sola transacción, pero que
-son correctos cuando se observan desde el ámbito de todas las transacciones. A continuación se describen los diversos
-tipos de anomalías de base de datos:  
-``Lecturas erróneas`` (dirtyreads): transacción lee datos que han sido escritos por otra transacción que aún no ha sido
-confirmada (con COMMIT).  
-``Doble lectura`` (non-repeattablereads): transacción lee datos que ya había leído, pero entre lecturas, los datos han
-sido modificados o borrados por una transacción ya confirmada.   
-``Lectura fantasma`` (phantomread): transacción reejecuta una consulta encontrando que el conjunto de filas resultantes
-ha sido ampliado por otra transacción que inserto nuevas filas y que ya ha realizado su COMMIT.
+* Se utilizan para especificar reglas para los datos en una tabla como limitar el tipo de datos que pueden incluirse en
+  una tabla. Si hay alguna violación entre la restricción y la acción de datos, la acción se cancela, son:
+    * ``NOT NULL``: asegura que una columna no pueda tener un valor NULL.
+    * ``UNIQUE``: asegura que todos los valores en una columna sean diferentes.
+    * ``PRIMARY KEY``: una combinación de una NOT NULL y UNIQUE. Identifica de forma única cada fila en una tabla.
+    * ``FOREIGN KEY``: evita acciones que destruirían enlaces entre tablas.
+    * ``CHECK``: asegura que los valores en una columna satisfagan una condición específica.
+    * ``DEFAULT``: establece un valor predeterminado para una columna si no se especifica ninguno.
+    * ``CREATE INDEX``: se utiliza para crear y recuperar datos de la base de datos muy rápidamente.
 
-Para dar una solución a estos problemas, los SGBD proporcionan 4 niveles de aislamiento que controlan el grado de
-bloqueo durante el acceso a los datos. Para la mayor parte de aplicaciones, el acceso a los datos se puede realizar de
-modo que se eviten altos niveles de aislamiento reduciendo así la sobrecarga debida a la necesidad de bloqueos por el
-sistema. Si se usan altos niveles de aislamiento la posibilidad de bloqueo aumenta. Los niveles de aislamiento son:  
-``Serializable``: es el que más se acomoda a lo que significa la definición de ACID, pero no permite una alta
-escalabilidad, queda garantizado es que dos instrucciones “select” en la misma transacción con nivel serializable van a
-devolver el mismo conjunto de datos. Implica bloquear registros que incluso no existen todavía evitando el problema de
-los registros fantasma.  
-``Repeatable Reads``: evita el problema de las lecturas no repetibles, no soluciona el problema de los datos fantasmas (
-registros que aparecen y desaparecen dentro de nuestra transacción).  
-``Read Commited``: proporciona un nivel de concurrencia muy bueno y previene del problema de las lecturas sucias, pero
-no previene lecturas no repetibles y datos fantasma. Las lecturas no repetibles implican que varias instrucciones
-“select” dentro de la misma transacción devuelve datos diferentes.  
-``Read Uncommited``: nivel más bajo de aislamiento, protege de lecturas de datos físicamente dañados, mayor nivel de
-concurrencia (nunca hay un bloqueo), no garantiza la coherencia de los datos.
+##### 3.1.2. ``Wildcards`` (Carácter Comodín)
 
-3.3.3. BLOQUEOS  
-Para garantizar que no haya problemas entre transacciones el scheduler emplea una tabla debloqueo de manera que sea
-seguro ejecutar toda transacción. La consistencia de transacciones se basa en que una transacción solo puede leer y
-escribir un elemento si se solicito un bloqueo y este no se ha liberado, y que si una transacción bloquea un elemento
-debe liberarlo posteriormente. Si un scheduler cumple las condiciones anteriores se dice que es “legal”.   
-Se trabaja con el llamado bloqueo de dos fases (2PL) cuando en la transacción todos los bloqueos preceden a desbloqueos
-pero este sistema tiene el problema de caer en un “deadlock” (una transacción B no puede continuar hasta que otra
-transacción A libere un recurso, pero a su vez, la transacción A también está esperando a que B libere el recurso). Por
-lo general el DBMS detecta aquellas transacciones que caen en un abrazo mortal y lo soluciona haciendo ROLLBACK
-considerando primero aquellas transacciones en las que tenga que “deshacer menos”.
+* ``\``* : representa un conjunto de caracteres (se usa para seleccionar “todos los valores de”).
+* ``?`` : representa un único carácter. (m?no busca mano, mono,...)
+* ``\[\]`` : representa cualquier valor dentro de los Brackets.
+* ``\! / ^``: representa cualquier valor que no sea el que va después de la exclamación.
+* ``\-`` : representa el rango de valores entre los dos extremos del guión.
+* ``\#`` : representa un valor numérico.
+* ``%`` : completa la palabra (a% busca a, alba, antonio,...)
+* ``\_`` : representa un carácter.
 
-3.4. BACKUP DE UNA BD  
-Los BackUp se pueden clasificar en físicos y lógicos. Los físicos se realizan cuando se copian los ficheros que soportan
-la base de datos, estos se dividen en:  
-``BackUP del SO``: es el más sencillo de ejecutar, consume mucho tiempo y hace inaccesible al sistema mientras se lleva
-a cabo, aprovecha el backup del SO para almacenar también todos los ficheros de la base de datos.  
-``BackUP de la BD en frío``: implican parar la BD en modo normal y copiar todos los ficheros sobre los que se asienta.  
-BackUP de la BD en caliente: se realiza mientras la BD está abierta y funcionando en modo “archivelog”, se realiza
-cuando la carga es pequeña. Consiste en copiar todos los ficheros correspondientes a un tablespace, los ficheros redo
-log archivados y los ficheros de control.
+#### 3.2. JOIN
 
-Los ``BackUp lógicos`` solo extraen los datos de las tablas utilizando comandos SQL: solo extraen los datos de las
-tablas utilizando comandos SQL, las utilidades Export/Import permiten hacer copias de determinados objetos de la BD,
-restaurarlos o moverlos de una BD a otra.
+* Uno de los operadores más usados en SQL es la cláusula JOIN: sirve para combinar filas de dos o más tablas basándose
+  en un campo común entre ellas, devolviendo por tanto datos de diferentes tablas. Los tipos más importantes son:
+    * ``INNER JOIN``: devuelve todas las filas cuando hay al menos una coincidencia en ambas tablas.
+    * ``LEFT JOIN``: devuelve todas las filas de la tabla de la izquierda, y las filas coincidentes de la tabla de la
+      derecha.
+    * ``RIGHT JOIN``: devuelve todas las filas de la tabla de la derecha, y las filas coincidentes de la tabla de la
+      izquierda.
+    * ``FULL OUTER JOIN``: devuelve todas las filas de las dos tablas, la izquierda y la derecha.
+    * ``CROSS JOIN``: devuelve el producto cartesiano de los registros de las dos tablas.
 
-3.4.1. ARCHIVELOG  
-El administrador debe decidir si arrancar la base de datos en modo “archivelog” (mecanismo de protección ante fallos de
-disco. Protegerá la base de datos ante posibles fallos físicos de disco y también ante eliminaciones o modificaciones no
-deseadas de los datos).  
-Presenta las siguientes ``ventajas``:
+> Mediante el uso de ``“WHERE”`` se puede excluir el campo común en un ``JOIN`` pidiendo que la sentencia devuelva solo los valores nulos comunes, resultando: ``LEFT JOIN`` \+ ``WHERE`` B.Key ``IS NULL RIGHT JOIN`` \+ ``WHERE`` B.Key ``IS NULL OUTER JOIN`` \+ ``WHERE`` B.Key ``IS NULL``
 
-* Se puede recuperar la BD con una copia antigua de los ficheros de datos y los ficheros de “redo log” (archivo que
-  guarda todas las transacciones que se van realizando).
-* Es posible realizar BackUPs en caliente.
+#### 3.3. INTEGRIDAD EN UN SGBD
 
-``Desventajas``:
+* Una vez definidas las tablas se procederá a definir las relaciones entre ellas y las restricciones de integridad
+  derivadas de estas relaciones (“integridad” significa que la clave externa de una tabla de referencia siempre debe
+  aludir a una fila válida de la tabla a la que se haga referencia.
+* La integridad referencial garantiza que la relación entre dos tablas permanezca sincronizada durante las operaciones
+  de actualización y eliminación), se puede indicar como se desea que actúe el gestor ante una violación de la
+  integridad:
+    * ``Exigir integridad referencial``: el SGBD impedirá que se introduzcan datos que violen la regla de integridad. (
+      Ejemplo: no permitirá la introducción de una compra si no existe un DNI de cliente en las tablas de cliente).
+    * ``Actualizar en salto o en caída``: si se modifica un atributo referenciado en otra tabla, también cambia en todas
+      las tablas relacionadas.
+    * ``Borrado en salto o en caída``: en caso de que se borre una fila de una tabla, elimina también todas la
+      relacionadas con ella.
 
-* Necesitará más espacio en disco.
-* El trabajo del administrador se incrementa al tener que determinar el destino del archivado de los “redo log”.
+##### 3.3.2. ANOMALÍAS EN UNA BASE DE DATOS
 
-3.5. RECUPERACIÓN DE UNA BD  
-El administrador debe estar preparado ante la posibilidad de que se produzca un fallo, recuperar la BD en el menor
-tiempo posible, los procesos de recuperación dependen del tipo de error y de las estructuras afectadas. Existen
-diferentes modos de recuperar un fallo en la BD:  
-``Recuperación de Bloques``: mecanismo de recuperación más simple, cuando un proceso muere justo cuando está cambiando
-un bloque, se utilizan los registros redo log en línea para reconstruir el bloque y escribirlo en disco.  
-``Recuperación de threads``: cuando se descubre que una instancia muere dejando abierto un thread, se restauran los
-bloques de datos modificados que estaban en el caché de la instancia muerta y cerrando el thread que estaba abierto.  
-``Recuperación física``: respuesta a un comando “recover”, convertir los ficheros backup en actuales, restaurar los
-cambios que fueron perdidos cuando un fichero de datos fue puesto offline sin un checkpoint aplicando los ficheros “redo
-log” archivados en línea.
+* Son resultados generados que parecen incorrectos cuando se observan desde el ámbito de una sola transacción, pero que
+  son correctos cuando se observan desde el ámbito de todas las transacciones.
+* A continuación se describen los diversos tipos de anomalías de base de datos:
+    * ``Lecturas erróneas`` (dirtyreads): transacción lee datos que han sido escritos por otra transacción que aún no ha
+      sido confirmada (con COMMIT).
+    * ``Doble lectura`` (non-repeattablereads): transacción lee datos que ya había leído, pero entre lecturas, los datos
+      han sido modificados o borrados por una transacción ya confirmada.
+    * ``Lectura fantasma`` (phantomread): transacción reejecuta una consulta encontrando que el conjunto de filas
+      resultantes ha sido ampliado por otra transacción que inserto nuevas filas y que ya ha realizado su COMMIT.
 
-| RMAN (Recovery Manager): gestor de copia de seguridad y recuperación suministrado para bases de datos Oracle. |
-| :---- |
+* Para dar una solución a estos problemas, los SGBD proporcionan 4 niveles de aislamiento que controlan el grado de
+  bloqueo durante el acceso a los datos.
+* Para la mayor parte de aplicaciones, el acceso a los datos se puede realizar de modo que se eviten altos niveles de
+  aislamiento reduciendo así la sobrecarga debida a la necesidad de bloqueos por el sistema. Si se usan altos niveles de
+  aislamiento la posibilidad de bloqueo aumenta. Los niveles de aislamiento son:
+    * ``Serializable``: es el que más se acomoda a lo que significa la definición de ACID, pero no permite una alta
+      escalabilidad, queda garantizado es que dos instrucciones “select” en la misma transacción con nivel serializable
+      van a devolver el mismo conjunto de datos. Implica bloquear registros que incluso no existen todavía evitando el
+      problema de los registros fantasma.
+    * ``Repeatable Reads``: evita el problema de las lecturas no repetibles, no soluciona el problema de los datos
+      fantasmas (
+      registros que aparecen y desaparecen dentro de nuestra transacción).
+    * ``Read Commited``: proporciona un nivel de concurrencia muy bueno y previene del problema de las lecturas sucias,
+      pero no previene lecturas no repetibles y datos fantasma. Las lecturas no repetibles implican que varias
+      instrucciones “select” dentro de la misma transacción devuelve datos diferentes.
+    * ``Read Uncommited``: nivel más bajo de aislamiento, protege de lecturas de datos físicamente dañados, mayor nivel
+      de concurrencia (nunca hay un bloqueo), no garantiza la coherencia de los datos.
 
-4\. MySQL  
-SGBD Relacional de código abierto comercializado bajo licencia dual: Licencia pública general/Licencia comercial por
-Oracle, usa el puerto 3306\. Es muy rápida en la lectura cuando utiliza el motor no transaccional MyISAM (el mecanismo
-de almacenamiento de datos usado por defecto por el sistema administrador de bases de datos relacionales MySQL), pero
-puede provocar problemas de integridad en entornos de alta concurrencia en la modificación. En aplicaciones web hay baja
-concurrencia en la modificación de datos y en cambio el entorno es intensivo en lectura de datos, lo que hace a MySQL
-ideal para este tipo de aplicaciones.  
-Existen varias interfaces de programación de aplicaciones que permiten, a aplicaciones escritas en diversos lenguajes de
-programación, acceder a las bases de datos MySQL. También existe una interfaz ODBC (Open DataBase Connectivity), llamado
-MyODBC que permite a cualquier lenguaje de programación que soporte ODBC comunicarse con las bases de datos MySQL.  
-Las ``Interfaces Graficas de Usuario`` (GUI) son un tipo de interfaz que permite a los usuarios interactuar con
-dispositivos o programas electrónicos mediante iconos gráficos e indicadores visuales. Se dispone de aplicaciones de
-administración gráfica de propiedad de terceros y gratuitas que se integran con MySQL y permiten a los usuarios trabajar
-con la estructura y los datos de la base de datos de forma visual:  
-``MySQL Workbench``: entorno integrado oficial de MySQL, permite a los usuarios administrar gráficamente las bases de
-datos MySQL y diseñar visualmente las estructuras de las bases de datos. Es considerado como el front-end autorizado de
-MySQL, permite a los usuarios administrar el diseño y modelado de bases de datos, el desarrollo de SQL (reemplazando al
-MySQL Query Browser) y la administración de bases de datos (reemplazando al MySQL Administrator).  
-``Adminer`` (antes conocido como phpMinAdmin): front-end gratuito de MySQL para gestionar el contenido de las bases de
-datos MySQL. El administrador se distribuye bajo la licencia Apache (o GPL v2) en forma de un único archivo PHP y es
-capaz de gestionar múltiples bases de datos, con muchas capas CSS disponibles.  
-``ClusterControl``: sistema de administración de MySQL de extremo a extremo que provee la habilidad de desplegar,
-monitorear, administrar y escalar instancias de MySQL desde una sola interfaz.  
-``Database Workbench``: aplicación de software para el desarrollo y la administración de múltiples bases de datos
-relacionales utilizando SQL, con interoperatividad entre diferentes sistemas de bases de datos, proporciona la misma
-interfaz e incluye también herramientas de bases de datos cruzadas.  
-``DBeaver``: cliente SQL y una herramienta de administración de base de datos.  
-``DBEdit``: editor de base de datos, que puede conectarse a cualquier base de datos que proporcione un controlador
-JDBC (Java Database Connectivity, es la especificación JavaSoft de una API (interfaz de programación de aplicaciones)
-estándar que permite que los programas Java accedan a sistemas de gestión de bases de datos), es un software libre y de
-código abierto y se distribuye bajo la Licencia Pública General GNU.  
-``HeidiSQL``: anteriormente conocido como MySQL-Front, es un cliente libre y de código abierto, actúa como front-end
-para MySQL (y para sus bifurcaciones como MariaDB y Percona Server). Su conjunto de características es suficiente para
-las operaciones más comunes y avanzadas de bases de datos, tablas y registros de datos.  
-``LibreOffice Base``: creación y gestión de bases de datos, la preparación de formularios e informes que proporcionan a
-los usuarios finales un fácil acceso a los datos, también puede utilizarse como interfaz para diversos SGBD.  
-``Navicat``: software multiplataforma de gestión y desarrollo de bases de datos, concretamente es una interfaz gráfica
-de usuario y admite múltiples conexiones de bases de datos locales y remotas.  
-``OpenOffice.org``: es de libre acceso y puede manejar bases de datos MySQL.  
-``phpMyAdmin``: herramienta gratuita y de código abierto escrita en PHP destinada a manejar la administración de MySQL
-con el uso de un navegador web. Puede importar datos de CSV y SQL, y transformar los datos almacenados en cualquier
-formato utilizando un conjunto de funciones predefinidas.  
-``SequelPro``: aplicación MacOS gratuita y de código abierto para trabajar con bases de datos MySQL de forma local o
-remota.  
-``SQLBuddy``: aplicación de código abierto basada en la web y escrita en PHP, destinada a manejar la administración de
-MySQL y SQLite con el uso de un navegador web.  
-``SQLyog``: herramienta GUI para la manipulación de datos, pueden realizarse desde una interfaz similar a una hoja de
-cálculo.  
-``Toad for MySQL``: aplicación de software para la administración de bases de datos relacionales y no relacionales
-utilizando SQL.  
-``Webmin``: herramienta de configuración de sistemas basada en la web para sistemas de tipo Unix. Está construido
-alrededor de módulos, esto hace que sea fácil añadir nuevas funcionalidades.
+##### 3.3.3. BLOQUEOS
 
-``Interfaz de línea de comandos``: MySQL se envía con muchas herramientas de línea de comandos, de las cuales la
-interfaz principal es el cliente mysql. Las utilidades de MySQL son un conjunto de utilidades diseñadas para realizar
-tareas comunes de mantenimiento y administración. Incluidas originalmente como parte del Banco de Trabajo de MySQL, las
-utilidades son una descarga independiente disponible en Oracle.  
-Percona Toolkit es un kit de herramientas multiplataforma para MySQL, puede ser usado para probar que la replicación
-funciona correctamente, arreglar datos corruptos, automatizar tareas repetitivas y acelerar los servidores.  
-El shell de MySQL es una herramienta para el uso interactivo y la administración de la base de datos MySQL. Soporta los
-modos JavaScript, Python o SQL y puede ser utilizado para la administración y el acceso. Los clientes en línea de
-comandos de MySQL son:
+* Para garantizar que no haya problemas entre transacciones el scheduler emplea una tabla de bloqueo de manera que sea
+  seguro ejecutar toda transacción. La consistencia de transacciones se basa en que una transacción solo puede leer y
+  escribir un elemento si se solicito un bloqueo y este no se ha liberado, y que si una transacción bloquea un elemento
+  debe liberarlo posteriormente.
+* Si un scheduler cumple las condiciones anteriores se dice que es “legal”.
+* Se trabaja con el llamado bloqueo de dos fases (2PL) cuando en la transacción todos los bloqueos preceden a
+  desbloqueos, pero este sistema tiene el problema de caer en un ``“deadlock”`` (una transacción B no puede continuar
+  hasta que otra transacción A libere un recurso, pero a su vez, la transacción A también está esperando a que B libere
+  el recurso).
+* Por lo general el DBMS detecta aquellas transacciones que caen en un abrazo mortal y lo soluciona
+  haciendo ``ROLLBACK``
+  considerando primero aquellas transacciones en las que tenga que “deshacer menos”.
 
-* ``mysql``: shell SQL simple con capacidades de edición de línea de entrada.
-* ``mysqladmin``: permite realizar las operaciones más comunes que un administrador de este motor de base de datos
-  necesita realizar con comandos más cortos.
-* ``mysqlcheck``: realiza el mantenimiento de las tablas: comprueba, repara, optimiza o analiza las tablas.
-* ``mysqldump``: puede ser utilizado para generar respaldos de bases de datos y ser usados o incluso para ser
-  transferidos a otro servidor de base datos SQL (No estrictamente tiene que ser un servidor MySQL.
-* ``mysqlimport``: El cliente mysqlimport proporciona una interfaz de línea de comandos para el comando LOAD DATA
-  INFILE (carga tablas de archivos de texto en varios formatos).
-* ``mysqlpump``: realiza copias de seguridad lógicas , produciendo un conjunto de declaraciones SQL que se pueden
-  ejecutar para reproducir las definiciones de objetos de la base de datos original y los datos de la tabla.
-* ``mysqlshow``: se puede utilizar para ver rápidamente qué bases de datos existen, sus tablas o las columnas o índices
-  de una tabla.
-* ``mysqlslap``: programa de diagnóstico diseñado para emular la carga del cliente para un servidor MySQL y para
-  informar el tiempo de cada etapa.
+#### 3.4. BACKUP DE UNA BD
 
-``Interfaces de programación de aplicaciones``: muchos lenguajes de programación con APIs de lenguaje específico
-incluyen bibliotecas para acceder a bases de datos MySQL. Una interfaz ODBC llamada MySQL Connector/ODBC permite que los
-lenguajes de programación adicionales que soportan la interfaz ODBC se comuniquen con una base de datos MySQL. El método
-de consulta basado en ``HTSQL`` (Hyperthreaded Structured Query Language Database, sistema gestor de bases de datos
-libre escrito en Java) también se envía con un adaptador MySQL, permitiendo la interacción directa entre una base de
-datos MySQL y cualquier cliente web a través de URLs estructuradas.  
-En ingeniería de software se considera un ``fork`` (bifurcación) al desarrollo de un proyecto informático tomando como
-base un código fuente que ya existe o a la ramificación de un proyecto madre en varios proyectos que son independientes
-entre sí y que cuentan con objetivos o desarrolladores diferentes. Actualmente existen dos fork de MySQL:  
-``MariaDB``: fork desarrollado por la comunidad del sistema de gestión de bases de datos relacionales MySQL, notable por
-estar liderado por los desarrolladores originales de MySQL, que lo bifurcaron debido a las preocupaciones sobre su
-adquisición por Oracle. MariaDB pretende mantener una alta compatibilidad con MySQL, asegurando una capacidad de
-sustitución "drop-in" con equivalencia binaria de la biblioteca y una coincidencia exacta con las API's y comandos de
-MySQL. Incluye el motor de almacenamiento XtraDB para reemplazar a InnoDB.  
-``Percona Server for MySQL``: fork que mantiene compatibilidad con las versiones oficiales de MySQL, se centra en el
-rendimiento y el aumento de la visibilidad de las operaciones del servidor. Percona incluye características de
-escalabilidad, disponibilidad, seguridad y respaldo que solo están disponibles en la edición comercial Enterprise de
-MySQL.  
-``Drizzle y WebScaleSQL`` (actualmente abandonados).
+* Los BackUp se pueden clasificar en físicos y lógicos. Los físicos se realizan cuando se copian los ficheros que
+  soportan la base de datos, estos se dividen en:
+    * ``BackUP del SO``: es el más sencillo de ejecutar, consume mucho tiempo y hace inaccesible al sistema mientras se
+      lleva a cabo, aprovecha el backup del SO para almacenar también todos los ficheros de la base de datos.
+    * ``BackUP de la BD en frío``: implican parar la BD en modo normal y copiar todos los ficheros sobre los que se
+      asienta.  
+      BackUP de la BD en caliente: se realiza mientras la BD está abierta y funcionando en modo “archivelog”, se realiza
+      cuando la carga es pequeña. Consiste en copiar todos los ficheros correspondientes a un tablespace, los ficheros
+      redo log archivados y los ficheros de control.
+    * Los ``BackUp lógicos`` solo extraen los datos de las tablas utilizando comandos SQL: solo extraen los datos de las
+      tablas utilizando comandos SQL, las utilidades Export/Import permiten hacer copias de determinados objetos de la
+      BD, restaurarlos o moverlos de una BD a otra.
 
-5\. PostgreSQL  
-DBMS relacional orientado a objetos y de código abierto, es un descendiente de Berkeley y compatible con una gran parte
-del estándar SQL, usa por defecto el puerto 5432\. Ofrece las siguientes características:  
-``Consultas complejas``: hay ocasiones en las que tipos específicos de datos, como datos de diferentes tablas, deben
-obtenerse de la base de datos mediante una consulta más larga o compleja.  
-``Claves foráneas``: una de las alternativas que PostgreSQL ofrece para asegurar la integridad de datos es el uso de
-restricciones (constraints), que se establecen en tablas y campos asegurando que los datos sean válidos y que las
-relaciones entre las tablas se mantengan.  
-``Vistas e Integridad transaccional``: Soporta cualquier tipo de transacciones como establece el estándar ACID.  
-``Triggers``: cualquier evento que establece un curso de acción en un movimiento. En PostgreSQL, si desea tomar medidas
-sobre eventos específicos de la base de datos, como INSERT, UPDATE, DELETE o TRUNCATE, la funcionalidad de activación
-puede ser útil ya que invocará la función requerida en eventos definidos.  
-El disparador se asociará con la tabla, vista o tabla externa especificada y ejecutará la función especificada cuando se
-realicen ciertas operaciones en esa tabla. Dependiendo del requerimiento podemos crear un disparador ANTES, DESPUÉS o EN
-LUGAR de los eventos / operación.  
-``Alta concurrencia``: mediante MVCC (MultiVersion Concurrency Control), permite que mientras un proceso escribe en una
-tabla, otros accedan a la misma sin necesidad de bloqueos y de manera consistente.  
-``Amplia variedad de tipos nativos``: números de precisión arbitraria, texto de largo ilimitado, figuras geométricas (
-con una variedad de funciones asociadas), direcciones IP (IPv4 e IPv6), bloques de direcciones estilo CIDR, direcciones
-MAC, arrays,...
+##### 3.4.1. ARCHIVELOG
 
-5.1. Aplicaciones cliente de PostgreSQL  
-Son interfaces gráficas o de comandos para gestión, implementación, respaldo,... de PostgreSQL. La característica común
-de estas aplicaciones es que se pueden ejecutar en cualquier host, independientemente de dónde resida el servidor de la
-base de datos, algunas de ellas son:
+* El administrador debe decidir si arrancar la base de datos en modo “archivelog” (mecanismo de protección ante fallos
+  de disco. Protegerá la base de datos ante posibles fallos físicos de disco y también ante eliminaciones o
+  modificaciones no deseadas de los datos).
+* ``Ventajas``:
+    * Se puede recuperar la BD con una copia antigua de los ficheros de datos y los ficheros de “redo log” (archivo que
+      guarda todas las transacciones que se van realizando).
+    * Es posible realizar BackUPs en caliente.
+* ``Desventajas``:
+    * Necesitará más espacio en disco.
+    * El trabajo del administrador se incrementa al tener que determinar el destino del archivado de los “redo log”.
 
-* ``clusterdb``: agrupa una base de datos PostgreSQL.
-* ``createdb``: crea una nueva base de datos PostgreSQL.
-* ``createlang``: instala un lenguaje de procedimiento PostgreSQL.
-* ``createuser``: define una nuevacuenta de usuario de PostgreSQL.
-* ``dropdb``: eliminar una base de datos PostgreSQL.
-* ``droplang``: elimina un lenguaje de procedimiento PostgreSQL.
-* ``dropuser``: eliminar una cuenta de usuario de PostgreSQL.
-* ``ecpg``: preprocesador SQL con C incorporado.
-* ``pgadmin``: plataforma de desarrollo y administración de código abierto para PostgreSQL.
-* ``pg\_basebackup``: realiza una copia de seguridad básica de un clúster de PostgreSQL.
-* ``pg\_config``: recupera información sobre la versión instalada de PostgreSQL.
-* ``pg\_dump``: extrae una base de datos PostgreSQL en un archivo de secuencia de comandos u otro archivo de
-  almacenamiento, (pg\_dumpall: extrae un clúster de base de datos PostgreSQL en un archivo de secuencia de comandos).
-* ``pg\_receivexlog``: transmite registros de transacciones desde un clúster de PostgreSQL.
-* ``pg\_restore``: restaure una base de datos PostgreSQL a partir de un archivo de almacenamiento creado por pg\_dump (
-  utilizando la opción “-d:nombrebasededatos”).
-* ``psql``: Terminal interactivo de PostgreSQL, front-end basado en terminales, le permite escribir consultas de forma
-  interactiva, enviarlas a PostgreSQL y ver los resultados de la consulta. Alternativamente, la entrada puede ser de un
-  archivo. Además, proporciona una serie de metacomandos y varias funciones similares a shell para facilitar la
-  escritura de scripts y automatizar una amplia variedad de tareas. Por ejemplo:
-    * \\l (\\list): lista todas las bases de datos disponibles, luego sale. Se ignoran otras opciones sin conexión.
-      Similar al metacomando \\list
-    * \\?: muestra información de ayuda sobre los meta-comandos, opciones y variables.
-    * \\h (\\help): muestra la ayuda de la sintaxis del comando SQL especificado.
-    * \\H (\\html): activa o desactiva el formato de salida de consulta HTML.
-    * \\c (\\connect): establece una nueva conexión con el servidor PostgreSQL.
-    * \\i: lee un archivo, lo toma como input y ejecuta su contenido.
-    * \\x: activa o desactiva el formato de tabla expandido en el resultado de cada instrucción SQL.
-    * \\q (\\quit): cierra psql
-    * \\o (\\out): guarda los resultados de futuras consultas en un archivo.
-    * \\d “pattern”: describe la relación cuyo nombre coincida con el patron asignado.
-    * \\d t/i/s/u/n/: muestra una lista de tablas/índices/secuencias/roles/esquemas.
-    * \\dv: muestra una lista de vistas (\\dm: muestra una lista de vistas materializadas).
-    * \\df: muestra una lista de las funciones con el tipo de datos de resultado y los tipos de datos de los argumentos.
-* ``reindexdb``: reindexar una base de datos PostgreSQL.
-* ``vacuumdb``: recolecta basura y analiza una base de datos PostgreSQL.
+#### 3.5. RECUPERACIÓN DE UNA BD
 
-6\. SQLite  
-SGBD relacional compatible con ACID, contenida en una pequeña biblioteca escrita en C, es un proyecto de dominio
-público. El motor de SQLite no es un proceso independiente con el que el programa principal se comunica. En lugar de
-eso, la biblioteca SQLite se enlaza con el programa pasando a ser parte integral del mismo. El programa utiliza la
-funcionalidad de SQLite a través de llamadas simples a subrutinas y funciones. Esto reduce la latencia en el acceso a la
-base de datos, debido a que las llamadas a funciones son más eficientes que la comunicación entre procesos. El conjunto
-de la base de datos (definiciones, tablas, índices, y los propios datos), son guardados como un solo fichero estándar en
-la máquina host. Este diseño simple se logra bloqueando todo el fichero de base de datos al principio de cada
-transacción.  
-La biblioteca implementa la mayor parte del estándar SQL-92, incluyendo transacciones de base de datos atómicas,
-consistencia de base de datos, aislamiento, y durabilidad (ACID), triggers y la mayor parte de las consultas complejas.
+* El administrador debe estar preparado ante la posibilidad de que se produzca un fallo, recuperar la BD en el menor
+  tiempo posible, los procesos de recuperación dependen del tipo de error y de las estructuras afectadas.
+* Existen diferentes modos de recuperar un fallo en la BD:
+    * ``Recuperación de Bloques``: mecanismo de recuperación más simple, cuando un proceso muere justo cuando está
+      cambiando un bloque, se utilizan los registros redo log en línea para reconstruir el bloque y escribirlo en disco.
+    * ``Recuperación de threads``: cuando se descubre que una instancia muere dejando abierto un thread, se restauran
+      los bloques de datos modificados que estaban en el caché de la instancia muerta y cerrando el thread que estaba
+      abierto.
+    * ``Recuperación física``: respuesta a un comando “recover”, convertir los ficheros backup en actuales, restaurar
+      los cambios que fueron perdidos cuando un fichero de datos fue puesto offline sin un checkpoint aplicando los
+      ficheros “redo log” archivados en línea.
 
-Existe un programa independiente de nombre “sqlite3” que puede ser utilizado para consultar y gestionar los ficheros de
-base de datos SQLite. La mayoría de las veces, sqlite3 solo lee líneas de entrada y las pasa a la biblioteca SQLite para
-su ejecución. Pero las líneas de entrada que comienzan con un punto (".") Son interceptadas e interpretadas por el
-propio programa sqlite3. Estos "comandos de puntos" se utilizan normalmente para cambiar el formato de salida de las
-consultas o para ejecutar determinadas declaraciones de consulta preempaquetadas:
+> RMAN (Recovery Manager): gestor de copia de seguridad y recuperación suministrado para bases de datos Oracle.
 
-* ``.backup``: realiza una copia de seguridad.
-* ``.clone``: clona los datos de una base de datos en una nueva base de datos.
-* ``.databases``: lista los nombres y archivos adjuntos de las bases de datos existentes.
-* ``.dump``: vuelca la base de datos en un fichero de datos externo.
-* ``.exit``: sale del cliente y muestra un código de retorno.
-* ``.explain``: obtiene una descripción de alto nivel de una implementación de una consulta SQL.
-* ``.headers``: muestra la cabecera de la consulta SQL.
-* ``.import``: importa información de un archivo a una tabla.
-* ``.indices``: muestra los índices de una tabla.
-* ``.load``: carga una extensión de una librería.
-* ``.log``: activa o desactiva el inicio de sesión.
-* ``.once``: redirige la salida del siguiente comando a un archivo.
-* ``.open``: cierra la base de datos actual y abre la base de datos indicada.
-* ``.print``: imprime un string.
-* ``.quit``: sale del cliente.
-* ``.read``: toma un archivo como input.
-* ``.restore``: recupera contenido desde un archivo.
-* ``.save``: guarda la base de datos en el archivo indicado.
-* ``.schema``: muestra las sentencias CREATE que coincidan con el patrón indicado (PATTERN).
-* ``.separator``: cambiar los separadores de filas y columnas.
-* ``.show``: muestra valores de las opciones indicadas.
-* ``.tables``: lista el nombre de las tablas especificadas.
-* ``.trace``: muestra cada declaración SQL a medida que se ejecuta.
+### 4\. MySQL
 
-7\. SQL Server  
-SGBD relacional desarrollado por Microsoft, soporta transacciones (conjunto de órdenes que se ejecutan formando una
-unidad de trabajo, es decir, en forma indivisible o atómica), procedimientos almacenados (procesos almacenados
-físicamente en el propio servidor, por lo cual al ser ejecutado, en respuesta a una petición de usuario, es ejecutado
-directamente en el motor de bases de datos), incluye entorno gráfico, permite trabajar en modo cliente-servidor (la
-información y datos se alojan en el servidor y los terminales o clientes de la red solo acceden a la información).
+* ``SGBD`` Relacional de código abierto comercializado bajo licencia dual: Licencia pública general/Licencia comercial
+  por Oracle, usa el ``puerto 3306``\.
+* Es muy rápida en la lectura cuando utiliza el motor no transaccional MyISAM (el mecanismo de almacenamiento de datos
+  usado por defecto por el sistema administrador de bases de datos relacionales MySQL), pero puede provocar problemas de
+  integridad en entornos de alta concurrencia en la modificación.
+* En aplicaciones web hay baja concurrencia en la modificación de datos y en cambio el entorno es intensivo en lectura
+  de datos, lo que hace a MySQL ideal para este tipo de aplicaciones.
+* Existen varias interfaces de programación de aplicaciones que permiten, a aplicaciones escritas en diversos lenguajes
+  de programación, acceder a las bases de datos MySQL.
+* También existe una interfaz ODBC (Open DataBase Connectivity), llamado MyODBC que permite a cualquier lenguaje de
+  programación que soporte ODBC comunicarse con las bases de datos MySQL.
+* Las ``Interfaces Graficas de Usuario`` (GUI) son un tipo de interfaz que permite a los usuarios interactuar con
+  dispositivos o programas electrónicos mediante iconos gráficos e indicadores visuales.
+* Se dispone de aplicaciones de administración gráfica de propiedad de terceros y gratuitas que se integran con MySQL y
+  permiten a los usuarios trabajar con la estructura y los datos de la base de datos de forma visual:
+    * ``MySQL Workbench``: entorno integrado oficial de MySQL, permite a los usuarios administrar gráficamente las bases
+      de datos MySQL y diseñar visualmente las estructuras de las bases de datos. Es considerado como el front-end
+      autorizado de MySQL, permite a los usuarios administrar el diseño y modelado de bases de datos, el desarrollo de
+      SQL (reemplazando al MySQL Query Browser) y la administración de bases de datos (reemplazando al MySQL
+      Administrator).
+    * ``Adminer`` (antes conocido como phpMinAdmin): front-end gratuito de MySQL para gestionar el contenido de las
+      bases de datos MySQL. El administrador se distribuye bajo la licencia Apache (o GPL v2) en forma de un único
+      archivo PHP y es capaz de gestionar múltiples bases de datos, con muchas capas CSS disponibles.
+    * ``ClusterControl``: sistema de administración de MySQL de extremo a extremo que provee la habilidad de desplegar,
+      monitorear, administrar y escalar instancias de MySQL desde una sola interfaz.
+    * ``Database Workbench``: aplicación de software para el desarrollo y la administración de múltiples bases de datos
+      relacionales utilizando SQL, con interoperatividad entre diferentes sistemas de bases de datos, proporciona la
+      misma interfaz e incluye también herramientas de bases de datos cruzadas.
+    * ``DBeaver``: cliente SQL y una herramienta de administración de base de datos. * ``DBEdit``: editor de base de
+      datos, que puede conectarse a cualquier base de datos que proporcione un controlador JDBC (Java Database
+      Connectivity, es la especificación JavaSoft de una API (interfaz de programación de aplicaciones)
+      estándar que permite que los programas Java accedan a sistemas de gestión de bases de datos), es un software libre
+      y de código abierto y se distribuye bajo la Licencia Pública General GNU.
+    * ``HeidiSQL``: anteriormente conocido como MySQL-Front, es un cliente libre y de código abierto, actúa como
+      front-end para MySQL (y para sus bifurcaciones como MariaDB y Percona Server). Su conjunto de características es
+      suficiente para las operaciones más comunes y avanzadas de bases de datos, tablas y registros de datos.
+    * ``LibreOffice Base``: creación y gestión de bases de datos, la preparación de formularios e informes que
+      proporcionan a los usuarios finales un fácil acceso a los datos, también puede utilizarse como interfaz para
+      diversos SGBD.
+    * ``Navicat``: software multiplataforma de gestión y desarrollo de bases de datos, concretamente es una interfaz
+      gráfica de usuario y admite múltiples conexiones de bases de datos locales y remotas.
+    * ``OpenOffice.org``: es de libre acceso y puede manejar bases de datos MySQL.
+    * ``phpMyAdmin``:
+      herramienta gratuita y de código abierto escrita en PHP destinada a manejar la administración de MySQL con el uso
+      de un navegador web. Puede importar datos de CSV y SQL, y transformar los datos almacenados en cualquier formato
+      utilizando un conjunto de funciones predefinidas.
+    * ``SequelPro``: aplicación MacOS gratuita y de código abierto para trabajar con bases de datos MySQL de forma local
+      o remota.
+    * ``SQLBuddy``: aplicación de código abierto basada en la web y escrita en PHP, destinada a manejar la
+      administración de MySQL y SQLite con el uso de un navegador web.
+    * ``SQLyog``: herramienta GUI para la manipulación de datos, pueden realizarse desde una interfaz similar a una hoja
+      de cálculo.
+    * ``Toad for MySQL``: aplicación de software para la administración de bases de datos relacionales y no relacionales
+      utilizando SQL.
+    * ``Webmin``: herramienta de configuración de sistemas basada en la web para sistemas de tipo Unix. Está construido
+      alrededor de módulos, esto hace que sea fácil añadir nuevas funcionalidades.
 
-El lenguaje de desarrollo utilizado (por línea de comandos o mediante la interfaz gráfica de Management Studio) es
-Transact-SQL (TSQL), una implementación del estándar ANSI del lenguaje SQL (usa las mismas sentencias y comandos:
-CREATE, ALTER, DROP,...), utilizado para manipular y recuperar datos (DML), crear tablas y definir relaciones entre
-ellas (DDL). Incluye características que permiten definir la lógica necesaria para el tratamiento de la información:
+* ``Interfaz de línea de comandos``: MySQL se envía con muchas herramientas de línea de comandos, de las cuales la
+  interfaz principal es el cliente mysql. Las utilidades de MySQL son un conjunto de utilidades diseñadas para realizar
+  tareas comunes de mantenimiento y administración.
+* Incluidas originalmente como parte del Banco de Trabajo de MySQL, las utilidades son una descarga independiente
+  disponible en Oracle.
+* ``Percona Toolkit`` es un kit de herramientas multiplataforma para MySQL, puede ser usado para probar que la
+  replicación funciona correctamente, arreglar datos corruptos, automatizar tareas repetitivas y acelerar los
+  servidores.
+* El ``shell`` de MySQL es una herramienta para el uso interactivo y la administración de la base de datos MySQL.
+  Soporta los modos JavaScript, Python o SQL y puede ser utilizado para la administración y el acceso.
+* Los clientes en línea de comandos de MySQL son:
+    * ``mysql``: shell SQL simple con capacidades de edición de línea de entrada.
+    * ``mysqladmin``: permite realizar las operaciones más comunes que un administrador de este motor de base de datos
+      necesita realizar con comandos más cortos.
+    * ``mysqlcheck``: realiza el mantenimiento de las tablas: comprueba, repara, optimiza o analiza las tablas.
+    * ``mysqldump``: puede ser utilizado para generar respaldos de bases de datos y ser usados o incluso para ser
+      transferidos a otro servidor de base datos SQL (No estrictamente tiene que ser un servidor MySQL.
+    * ``mysqlimport``: El cliente mysqlimport proporciona una interfaz de línea de comandos para el comando LOAD DATA
+      INFILE (carga tablas de archivos de texto en varios formatos).
+    * ``mysqlpump``: realiza copias de seguridad lógicas , produciendo un conjunto de declaraciones SQL que se pueden
+      ejecutar para reproducir las definiciones de objetos de la base de datos original y los datos de la tabla.
+    * ``mysqlshow``: se puede utilizar para ver rápidamente qué bases de datos existen, sus tablas o las columnas o
+      índices de una tabla.
+    * ``mysqlslap``: programa de diagnóstico diseñado para emular la carga del cliente para un servidor MySQL y para
+      informar el tiempo de cada etapa.
 
-* Tipos de datos.
-* Definición de variables.
-* Estructuras de control de flujo.
-* Gestión de excepciones.
-* Funciones predefinidas.
+* ``Interfaces de programación de aplicaciones``:
+    * Muchos lenguajes de programación con APIs de lenguaje específico incluyen bibliotecas para acceder a bases de
+      datos MySQL.
+    * Una interfaz ODBC llamada MySQL Connector/ODBC permite que los lenguajes de programación adicionales que soportan
+      la interfaz ODBC se comuniquen con una base de datos MySQL.
+    * El método de consulta basado en ``HTSQL`` (Hyperthreaded Structured Query Language Database, sistema gestor de
+      bases de datos libre escrito en Java) también se envía con un adaptador MySQL, permitiendo la interacción directa
+      entre una base de datos MySQL y cualquier cliente web a través de URLs estructuradas.
+    * En ingeniería de software se considera un ``fork`` (bifurcación) al desarrollo de un proyecto informático tomando
+      como base un código fuente que ya existe o a la ramificación de un proyecto madre en varios proyectos que son
+      independientes entre sí y que cuentan con objetivos o desarrolladores diferentes.
+    * Actualmente existen dos fork de MySQL:
+        * ``MariaDB``: fork desarrollado por la comunidad del sistema de gestión de bases de datos relacionales MySQL,
+          notable por estar liderado por los desarrolladores originales de MySQL, que lo bifurcaron debido a las
+          preocupaciones sobre su adquisición por Oracle. MariaDB pretende mantener una alta compatibilidad con MySQL,
+          asegurando una capacidad de sustitución "drop-in" con equivalencia binaria de la biblioteca y una coincidencia
+          exacta con las API's y comandos de MySQL. Incluye el motor de almacenamiento XtraDB para reemplazar a InnoDB.
+        * ``Percona Server for MySQL``: fork que mantiene compatibilidad con las versiones oficiales de MySQL, se centra
+          en el rendimiento y el aumento de la visibilidad de las operaciones del servidor. Percona incluye
+          características de escalabilidad, disponibilidad, seguridad y respaldo que solo están disponibles en la
+          edición comercial Enterprise de MySQL.
+        * ``Drizzle y WebScaleSQL`` (actualmente abandonados).
+
+### 5\. PostgreSQL
+
+* DBMS relacional orientado a objetos y de código abierto, es un descendiente de Berkeley y compatible con una gran
+  parte del estándar SQL, usa por defecto el ``puerto 5432``\. Ofrece las siguientes características:
+    * ``Consultas complejas``: hay ocasiones en las que tipos específicos de datos, como datos de diferentes tablas,
+      deben obtenerse de la base de datos mediante una consulta más larga o compleja.
+    * ``Claves foráneas``: una de las alternativas que PostgreSQL ofrece para asegurar la integridad de datos es el uso
+      de restricciones (constraints), que se establecen en tablas y campos asegurando que los datos sean válidos y que
+      las relaciones entre las tablas se mantengan.
+    * ``Vistas e Integridad transaccional``: Soporta cualquier tipo de transacciones como establece el estándar ACID.
+    * ``Triggers``: cualquier evento que establece un curso de acción en un movimiento. En PostgreSQL, si desea tomar
+      medidas sobre eventos específicos de la base de datos, como ``INSERT``, ``UPDATE``, ``DELETE`` o ``TRUNCATE``, la
+      funcionalidad de activación puede ser útil ya que invocará la función requerida en eventos definidos.  
+      El disparador se asociará con la tabla, vista o tabla externa especificada y ejecutará la función especificada
+      cuando se realicen ciertas operaciones en esa tabla. Dependiendo del requerimiento podemos crear un disparador
+      ANTES, DESPUÉS o EN LUGAR de los eventos / operación.
+    * ``Alta concurrencia``: mediante MVCC (MultiVersion Concurrency Control), permite que mientras un proceso escribe
+      en una tabla, otros accedan a la misma sin necesidad de bloqueos y de manera consistente.
+    * ``Amplia variedad de tipos nativos``: números de precisión arbitraria, texto de largo ilimitado, figuras
+      geométricas (
+      con una variedad de funciones asociadas), direcciones IP (``IPv4 e IPv6``), bloques de direcciones estilo CIDR,
+      direcciones MAC, arrays,...
+
+#### 5.1. Aplicaciones cliente de PostgreSQL
+
+* Son interfaces gráficas o de comandos para gestión, implementación, respaldo,... de PostgreSQL.
+* La característica común de estas aplicaciones es que se pueden ejecutar en cualquier host, independientemente de dónde
+  resida el servidor de la base de datos, algunas de ellas son:
+    * ``clusterdb``: agrupa una base de datos PostgreSQL.
+    * ``createdb``: crea una nueva base de datos PostgreSQL.
+    * ``createlang``: instala un lenguaje de procedimiento PostgreSQL.
+    * ``createuser``: define una nuevacuenta de usuario de PostgreSQL.
+    * ``dropdb``: eliminar una base de datos PostgreSQL.
+    * ``droplang``: elimina un lenguaje de procedimiento PostgreSQL.
+    * ``dropuser``: eliminar una cuenta de usuario de PostgreSQL.
+    * ``ecpg``: preprocesador SQL con C incorporado.
+    * ``pgadmin``: plataforma de desarrollo y administración de código abierto para PostgreSQL.
+    * ``pg\_basebackup``: realiza una copia de seguridad básica de un clúster de PostgreSQL.
+    * ``pg\_config``: recupera información sobre la versión instalada de PostgreSQL.
+    * ``pg\_dump``: extrae una base de datos PostgreSQL en un archivo de secuencia de comandos u otro archivo de
+      almacenamiento, (pg\_dumpall: extrae un clúster de base de datos PostgreSQL en un archivo de secuencia de
+      comandos).
+    * ``pg\_receivexlog``: transmite registros de transacciones desde un clúster de PostgreSQL.
+    * ``pg\_restore``: restaure una base de datos PostgreSQL a partir de un archivo de almacenamiento creado por
+      pg\_dump (
+      utilizando la opción “-d:nombrebasededatos”).
+    * ``psql``: Terminal interactivo de PostgreSQL, front-end basado en terminales, le permite escribir consultas de
+      forma interactiva, enviarlas a PostgreSQL y ver los resultados de la consulta. Alternativamente, la entrada puede
+      ser de un archivo. Además, proporciona una serie de metacomandos y varias funciones similares a shell para
+      facilitar la escritura de scripts y automatizar una amplia variedad de tareas. Por ejemplo:
+        * ``\\l`` (\\list): lista todas las bases de datos disponibles, luego sale. Se ignoran otras opciones sin
+          conexión. Similar al metacomando \\list
+        * ``\\?``: muestra información de ayuda sobre los meta-comandos, opciones y variables.
+        * ``\\h`` (\\help): muestra la ayuda de la sintaxis del comando SQL especificado.
+        * ``\\H`` (\\html): activa o desactiva el formato de salida de consulta HTML.
+        * ``\\c`` (\\connect): establece una nueva conexión con el servidor PostgreSQL.
+        * ``\\i``: lee un archivo, lo toma como input y ejecuta su contenido.
+        * ``\\x``: activa o desactiva el formato de tabla expandido en el resultado de cada instrucción SQL.
+        * ``\\q`` (\\quit): cierra psql
+        * ``\\o`` (\\out): guarda los resultados de futuras consultas en un archivo.
+        * ``\\d`` “pattern”: describe la relación cuyo nombre coincida con el patron asignado.
+        * ``\\d`` t/i/s/u/n/: muestra una lista de tablas/índices/secuencias/roles/esquemas.
+        * ``\\d````v``: muestra una lista de vistas (\\dm: muestra una lista de vistas materializadas).
+        * ``\\d````f``: muestra una lista de las funciones con el tipo de datos de resultado y los tipos de datos de los
+          argumentos.
+    * ``reindexdb``: reindexar una base de datos PostgreSQL.
+    * ``vacuumdb``: recolecta basura y analiza una base de datos PostgreSQL.
+
+6\. SQLite
+
+* SGBD relacional compatible con ACID, contenida en una pequeña biblioteca escrita en C, es un proyecto de dominio
+  público.
+* El motor de SQLite no es un proceso independiente con el que el programa principal se comunica.
+* En lugar de eso, la biblioteca SQLite se enlaza con el programa pasando a ser parte integral del mismo.
+* El programa utiliza la funcionalidad de SQLite a través de llamadas simples a subrutinas y funciones.
+* Esto reduce la latencia en el acceso a la base de datos, debido a que las llamadas a funciones son más eficientes que
+  la comunicación entre procesos.
+* El conjunto de la base de datos (definiciones, tablas, índices, y los propios datos), son guardados como un solo
+  fichero estándar en la máquina host.
+* Este diseño simple se logra bloqueando todo el fichero de base de datos al principio de cada transacción.
+* La biblioteca implementa la mayor parte del estándar SQL-92, incluyendo transacciones de base de datos atómicas,
+  consistencia de base de datos, aislamiento, y durabilidad (ACID), triggers y la mayor parte de las consultas
+  complejas.
+
+##
+
+* Existe un programa independiente de nombre ``“sqlite3”`` que puede ser utilizado para consultar y gestionar los
+  ficheros de base de datos SQLite.
+* La mayoría de las veces, sqlite3 solo lee líneas de entrada y las pasa a la biblioteca SQLite para su ejecución. Pero
+  las líneas de entrada que comienzan con un punto (".") Son interceptadas e interpretadas por el propio programa
+  sqlite3.
+* Estos "comandos de puntos" se utilizan normalmente para cambiar el formato de salida de las consultas o para ejecutar
+  determinadas declaraciones de consulta preempaquetadas:
+
+    * ``.backup``: realiza una copia de seguridad.
+    * ``.clone``: clona los datos de una base de datos en una nueva base de datos.
+    * ``.databases``: lista los nombres y archivos adjuntos de las bases de datos existentes.
+    * ``.dump``: vuelca la base de datos en un fichero de datos externo.
+    * ``.exit``: sale del cliente y muestra un código de retorno.
+    * ``.explain``: obtiene una descripción de alto nivel de una implementación de una consulta SQL.
+    * ``.headers``: muestra la cabecera de la consulta SQL.
+    * ``.import``: importa información de un archivo a una tabla.
+    * ``.indices``: muestra los índices de una tabla.
+    * ``.load``: carga una extensión de una librería.
+    * ``.log``: activa o desactiva el inicio de sesión.
+    * ``.once``: redirige la salida del siguiente comando a un archivo.
+    * ``.open``: cierra la base de datos actual y abre la base de datos indicada.
+    * ``.print``: imprime un string.
+    * ``.quit``: sale del cliente.
+    * ``.read``: toma un archivo como input.
+    * ``.restore``: recupera contenido desde un archivo.
+    * ``.save``: guarda la base de datos en el archivo indicado.
+    * ``.schema``: muestra las sentencias CREATE que coincidan con el patrón indicado (PATTERN).
+    * ``.separator``: cambiar los separadores de filas y columnas.
+    * ``.show``: muestra valores de las opciones indicadas.
+    * ``.tables``: lista el nombre de las tablas especificadas.
+    * ``.trace``: muestra cada declaración SQL a medida que se ejecuta.
+
+### 7\. SQL Server
+
+* SGBD relacional desarrollado por Microsoft, soporta transacciones (conjunto de órdenes que se ejecutan formando una
+  unidad de trabajo, es decir, en forma indivisible o atómica), procedimientos almacenados (procesos almacenados
+  físicamente en el propio servidor, por lo cual al ser ejecutado, en respuesta a una petición de usuario, es ejecutado
+  directamente en el motor de bases de datos), incluye entorno gráfico, permite trabajar en modo cliente-servidor (la
+  información y datos se alojan en el servidor y los terminales o clientes de la red solo acceden a la información).
+
+* El lenguaje de desarrollo utilizado (por línea de comandos o mediante la interfaz gráfica de Management Studio) es
+  ``Transact-SQL (TSQL)``, una implementación del estándar ANSI del lenguaje SQL (usa las mismas sentencias y comandos:
+  ``CREATE``, ``ALTER``, ``DROP``,...), utilizado para manipular y recuperar datos (DML), crear tablas y definir
+  relaciones entre ellas (DDL). Incluye características que permiten definir la lógica necesaria para el tratamiento de
+  la información:
+
+    * Tipos de datos.
+    * Definición de variables.
+    * Estructuras de control de flujo.
+    * Gestión de excepciones.
+    * Funciones predefinidas.
+
+## Acrónimos.
+
+* ``AEAD`` : Agencia Estatal de la Administración Digital (antes SGAD)
+* ``AEAT``: Agencia Estatal de Administración Tributaria
+* ``AEMET``: Agencia Estatal de METeorología
+* ``CATT`` - Centro de Atención Telefónica y Telemática del INSS
+* ``CECIR``: Comisión Ejecutiva de la Comisión Interministerial de Retribuciones
+* ``CESTIC``: Centro de Sistemas y Tecnologías de la Información y las Comunicaciones
+* ``CIEMAT``: Centro de Investigaciones Energéticas, Medioambientales y Tecnológicas.
+* ``CPD``: Centro de Procesamiento de Datos
+* ``CSIC``: Consejo Superior de Investigaciones Científicas
+* ``DGOSS`` - Dirección General de Ordenación de la Seguridad Social
+* ``DGP``: Dirección General de Policía
+* ``DGT``: Dirección General de Tráfico
+* ``DIT``: Departamento de Informática Tributaria
+* ``FP``: Función Pública
+* ``GISS``: Gerencia de Informática de la Seguridad Social
+* ``GSI``: Gestión de Sistemas e Informática
+* ``IGSS`` - Intervención General de la Seguridad Social
+* ``INSS``: Instituto Nacional de Seguridad Social
+* ``PROS@``: Programa que usa internamente la Administración
+* ``RPT``: Relación de Puestos de Trabajo
+* ``SEPE``: Servicio Público de Empleo Estatal
+* ``SESS`` - Secretaría de Estado de la Seguridad Social
+* ``SGAD``: Secretaría General de Administración Digital, ahora AEAD
+* ``SIGP``: Sistema Integrado de Gestión de Personal
+* ``TAI``: Técnico Auxiliar de Informática
+* ``TGSS`` - Tesorería General de la Seguridad Social
+* ``TT``: Teletrabajo
+* ``UPI``: Unidad Provincial de Informática
