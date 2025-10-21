@@ -2,25 +2,25 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>MarkDown Opos</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>MarkDown Opos</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/pc.png">
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-  <!-- highlight.js -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- GitHub Markdown CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css">
 
-  <!-- GitHub Markdown CSS -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css">
-
-  <style>
+    <style>
     body {
       background-color: #171a21;
       color: #e0e0e0;
@@ -67,52 +67,84 @@
       height: 40px;
       align-items: center;
     }
-  </style>
+    code {
+      color: #04F404 !important;
+    }
+    pre>code{
+     color: #FFFFFF !important;
+    }
+
+    h1 {
+      color: #FFFF00;
+    }
+    h2 {
+      color: #9ACD32;
+    }
+    h3 {
+      color: #F0E68C;
+    }
+    h4 {
+      color: #FFA07A;
+    }
+    h5 {
+      color: #FFC0CB;
+    }
+    h6 {
+      color: #DEB887;
+    }
+    blockquote>p {
+      color: #DEB887;
+    }
+    blockquote>p>code {
+      color: #F08080 !important;
+    }
+
+    </style>
 </head>
 
 <body class="p-4">
 
-  <div class="container">
+<div class="container">
     <div class="nav">
-      <h1 class="mb-4">TAI 2025</h1>
-      <button class="btn" onclick="cargarMarkdown('Temario.md')">Temario</button>
+        <h1 class="mb-4">TAI 2025</h1>
+        <button class="btn" onclick="cargarMarkdown('Temario.md')">Temario</button>
     </div>
 
 
     <div class="row g-3 navegador">
-      <div class="col-md-3">
-        <label class="form-label">B-1</label>
-        <select id="select1" class="form-select">
-          <option value="ninguno" selected>Organización del Estado y Administración electrónica</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label class="form-label">B-2</label>
-        <select id="select2" class="form-select">
-          <option value="ninguno" selected>Tecnología básica</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label class="form-label">B-3</label>
-        <select id="select3" class="form-select">
-          <option value="ninguno" selected>Desarrollo de sistemas</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label class="form-label">B-4</label>
-        <select id="select4" class="form-select">
-          <option value="ninguno" selected>Sistemas y comunicaciones</option>
-        </select>
-      </div>
+        <div class="col-md-3">
+            <label class="form-label">B-1</label>
+            <select id="select1" class="form-select">
+                <option value="ninguno" selected>Organización del Estado y Administración electrónica</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">B-2</label>
+            <select id="select2" class="form-select">
+                <option value="ninguno" selected>Tecnología básica</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">B-3</label>
+            <select id="select3" class="form-select">
+                <option value="ninguno" selected>Desarrollo de sistemas</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">B-4</label>
+            <select id="select4" class="form-select">
+                <option value="ninguno" selected>Sistemas y comunicaciones</option>
+            </select>
+        </div>
     </div>
 
     <div id="markdown-container" class="markdown-body mt-4">
-      <p>Aquí se mostrará el contenido del archivo seleccionado...</p>
+        <p>Aquí se mostrará el contenido del archivo seleccionado...</p>
     </div>
-  </div>
+</div>
 
 
-   <script>
+<script>
   function cargarMarkdown(ruta) {
     fetch(ruta)
       .then(r => r.text())
@@ -181,7 +213,14 @@
     });
 
 
-  </script>
+
+
+
+
+
+
+
+</script>
 
 </body>
 

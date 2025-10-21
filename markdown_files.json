@@ -115,10 +115,6 @@
       "ruta": "B2\\INFORMÁTICA BÁSICA.md"
     },
     {
-      "nombre": "Kevin+ampliaciones.docx.md",
-      "ruta": "B2\\Kevin+ampliaciones.docx.md"
-    },
-    {
       "nombre": "Kevin_B2.md",
       "ruta": "B2\\Kevin_B2.md"
     },
@@ -217,6 +213,10 @@
     {
       "nombre": "IEEE_802.x.md",
       "ruta": "B4\\IEEE_802.x.md"
+    },
+    {
+      "nombre": "Kevin_B4.md",
+      "ruta": "B4\\Kevin_B4.md"
     },
     {
       "nombre": "Medios de comunicación.md",
